@@ -1,0 +1,9 @@
+
+#!/bin/bash
+#usage: walbg /path/to/image theme
+#try wal --theme
+WAL_OPTS="-s -t -q -e"
+
+wal -i $1 $WAL_OPTS
+BG=$(cat .cache/wal/colors | head -n1)
+wal --theme $2 -b $BG

@@ -1,8 +1,0 @@
-Host cloud
-    Hostname 35.224.5.26
-    IdentityFile ~/.ssh/google
-    IdentitiesOnly yes 
-Host git.skovati.com
-    Port 2200
-    PreferredAuthentications publickey
-    IdentityFile ~/.ssh/gitlab 

@@ -1,0 +1,10 @@
+.titlebar-spacer[type="pre-tabs"] {border-inline-end: 0px solid white !important;width: 0px !important;}
+
+#TabsToolbar .tabbrowser-tab[selected] .tab-line {
+    display: none !important;
+}
+
+#main-window :-moz-any(#back-button, #forward-button) {
+  display: none !important;
+}
+

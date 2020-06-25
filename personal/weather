@@ -1,4 +1,3 @@
 #!/bin/bash
 
-wttr
-radar
+wttr > /tmp/wttr.in && less /tmp/wttr.in & radar

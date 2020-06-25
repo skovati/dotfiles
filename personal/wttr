@@ -1,3 +1,3 @@
 #!/bin/bash
 
-curl wttr.in/"Madison, Wisconsin"\?%tpFQn1m
+curl -s wttr.in/"Madison, Wisconsin"\?%tpFQn1m

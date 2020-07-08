@@ -6,7 +6,7 @@ Usage...
 =======================================
 which VPN would you like to connect to?
 -d Disconnect
--w WireGuard(aws)
+-w WireGuard
 -n Nordvpn
 -o OpenVPN(Nord)
 -s OpenVPN(seedbox)
@@ -37,12 +37,12 @@ do
       nordvpn d > /dev/null 2>&1
       sudo killall openconnect > /dev/null 2>&1
       sudo wg-quick down wg0 > /dev/null 2>&1
-      sudo wg-quick up wg1 > /dev/null 2>&1
+      sudo systemctl restart wg-quick@wg1.service > /dev/null 2>&1
     ;;
     w)
-      echo "You have chosen WireGuard(aws)"
+      echo "You have chosen WireGuard"
       connect
-      sudo wg-quick down wg1 > /dev/null 2>&1 
+      sudo systemctl stop wg-quick@wg1.service > /dev/null 2>&1 
       sudo wg-quick up wg0 > /dev/null 2>&1
     ;;
     n) 

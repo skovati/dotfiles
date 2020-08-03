@@ -1,0 +1,120 @@
+#
+# wm independent hotkeys
+#
+
+# terminal emulator
+super + Return
+	st
+
+# program launcher
+super + d
+	dmenu_run
+
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd
+
+#
+# bspwm hotkeys
+#
+
+# quit/restart bspwm
+super + shift + r
+	bspc wm -r
+
+super + shift + q
+    bspc quit
+
+# close and kill
+super + q
+	bspc node -c
+
+# alternate between the tiled and monocle layout
+super + f
+	bspc desktop -l next
+
+# swap the current node and the biggest node
+super + space
+	bspc node -s biggest
+
+#
+# state/flags
+#
+
+#
+# focus/swap
+#
+
+# focus the node in the given direction
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# focus or send to the given desktop
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
+#
+# preselect
+#
+
+super + w
+    firefox
+
+super + n
+    st -e newsboat
+
+#
+# move/resize
+#
+super + shift + space
+    bspc node -t {tiled,floating}
+
+# expand a window by moving one of its side outward
+super + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contract a window by moving one of its side inward
+super + alt + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# move a floating window
+super + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+# custom media keybinds
+XF86MonBrightnessUp
+    brightnessctl -d intel_backlight s +5%
+XF86MonBrightnessDown
+    brightnessctl -d intel_backlight s 5%-
+XF86AudioRaiseVolume
+    pactl set-sink-volume @DEFAULT_SINK@ +5% 
+XF86AudioLowerVolume
+    pactl set-sink-volume @DEFAULT_SINK@ -5%
+XF86AudioMute
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
+#lock
+super + ctrl + shift + l
+    i3lock -i ~/documents/pictures/pape7.png
+#toggle polybar
+super + shift + b
+    {polybar-msg cmd toggle; bspc config top_padding +25; bspc config top_monocle_padding -25,\
+    polybar-msg cmd toggle; bspc config top_padding 55; bspc config top_monocle_padding -55}
+super + shift + g
+    {bspc config window_gap 0; \
+    bspc config top_padding 0; \
+    bspc config bottom_padding 0; \
+    bspc config left_padding 0; \
+    bspc config right_padding 0; \
+    bspc config top_monocle_padding 0; \
+    bspc config bottom_monocle_padding 0; \
+    bspc config left_monocle_padding 0; \
+    bspc config right_monocle_padding 0, \
+    bspc config window_gap 15; \
+    bspc config top_padding 25; \
+    bspc config bottom_padding 25; \
+    bspc config left_padding 25; \
+    bspc config right_padding 25; \
+    bspc config top_monocle_padding -25; \
+    bspc config bottom_monocle_padding -25; \
+    bspc config left_monocle_padding -25; \
+    bspc config right_monocle_padding -25}

@@ -1,0 +1,7 @@
+nitrogen --restore
+wal -R
+xset s off
+picom --config /home/skovati/.picom.conf &
+xsetroot -cursor_name left_ptr &
+xss-lock -- i3lock -i ~/documents/pictures/pape7.png
+bash /home/skovati/.config/polybar/launch.sh &

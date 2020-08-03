@@ -1,8 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =6
-let g:netrw_dirhist_6='/home/skovati/code/scripts'
-let g:netrw_dirhist_5='/home/skovati/code'
-let g:netrw_dirhist_4='/home/skovati'
-let g:netrw_dirhist_3='/home/skovati/.config/spicetify/Themes/xresources'
-let g:netrw_dirhist_2='/home/skovati/.ncmpcpp'
-let g:netrw_dirhist_1='/home/skovati/.config/polybar'

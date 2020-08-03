@@ -37,6 +37,7 @@ do
       nordvpn d > /dev/null 2>&1
       sudo killall openconnect > /dev/null 2>&1
       sudo wg-quick down wg0 > /dev/null 2>&1
+      sudo systemctl stop nordvpnd
       sudo systemctl restart wg-quick@wg1.service > /dev/null 2>&1
     ;;
     w)
@@ -48,13 +49,14 @@ do
     n) 
       echo "You have chosen Nordvpn."
       connect
+      sudo systemctl start nordvpnd
       nordvpn c
     ;;
     o) 
       echo "You have chosen OpenVPN(Nord)."
       connect
       cd /home/skovati/code/openvpn
-      sudo openvpn --config us3415.nordvpn.com.udp1194.ovpn --daemon
+      sudo openvpn --config us*.nordvpn.com.*.ovpn --daemon
     ;;
     s)  
       echo "You have chosen OpenVPN(seedbox)."

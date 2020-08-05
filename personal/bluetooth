@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [[ $(bluetoothctl info) != "Missing device address argument" ]]
+then
+    echo ""
+else
+    echo ""
+fi

@@ -1,33 +1,32 @@
 #!/bin/bash
+USER=$(whoami)
+REPO=$(pwd)
 
-REPO="/home/skovati/code/git/dotfiles"
+mkdir -p /home/$USER/code/git
+mkdir /home/$USER/documents
 
-mkdir -p /home/skovati/code/git
-mkdir /home/skovati/documents
+cd /home/$USER/code/git
 
-cd /home/skovati/code/git
-git clone https://github.com/skovati/dotfiles
+sudo pacman -S firefox bspwm sxhkd base-devel picom nitrogen redshift vim zsh --noconfirm
 
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
 
-sudo pacman -S firefox bspwm sxhkd base-devel picom redshift vim zsh --noconfirm
+sudo chsh -s $(which zsh) $USER
 
-sudo chsh -s $(which zsh) skovati
+yay -S polybar python-pywal tamzen-font siji-git oh-my-zsh-git zsh-autosuggestions nerd-fonts-roboto-mono --noconfirm
 
-yay -S polybar tamzen-font siji-git oh-my-zsh-git zsh-autosuggestions nerd-fonts-roboto-mono --noconfirm
+ln -s $REPO/vim/.vimrc /home/$USER/.vimrc
+ln -s $REPO/zsh/* /home/$USER/*
+ln -s $REPO/polybar/* /home/$USER/.config/polybar/*
+ln -s $REPO/sxhkd/sxhkdrc /home/$USER/.config/sxhkd/sxhkdrc
+ln -s $REPO/bspwm/* /home/$USER/.config/bspwm/*
+ln -s $REPO/gpg/gpg-agent.conf /home/$USER/.gnupg/gpg-agent.conf
+ln -s $REPO/picom/picom.conf /home/$USER/.picom.conf
+ln -s $REPO/redshift/redshift.conf /home/$USER/.config/redshift/redshift.conf
 
-ln -s $REPO/vim/.vimrc /home/skovati/.vimrc
-ln -s $REPO/zsh/* /home/skovati/*
-ln -s $REPO/polybar/* /home/skovati/.config/polybar/*
-ln -s $REPO/sxhkd/sxhkdrc /home/skovati/.config/sxhkd/sxhkdrc
-ln -s $REPO/bspwm/* /home/skovati/.config/bspwm/*
-ln -s $REPO/gpg/gpg-agent.conf /home/skovati/.gnupg/gpg-agent.conf
-ln -s $REPO/picom/picom.conf /home/skovati/.picom.conf
-ln -s $REPO/redshift/redshift.conf /home/skovati/.config/redshift/redshift.conf
-
-cd /home/skovati/code/git
+cd /home/$USER/code/git
 git clone https://github.com/skovati/scripts
 
 

@@ -1,0 +1,292 @@
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:50:...%
+label-foreground = ${colors.FRGD}
+
+; [bar/mybar]
+; scroll-up = i3wm-wsnext
+; scroll-down = i3wm-wsprev
+
+; [module/i3]
+; type = internal/i3
+;
+[module/bspwm]
+type = internal/bspwm
+
+; Only show workspaces defined on the same output as the bar
+;
+; Useful if you want to show monitor specific workspaces
+; on different bars
+;
+; Default: false
+
+; This will split the workspace name on ':'
+; Default: false
+
+; Sort the workspaces by index instead of the default
+; sorting that groups the workspaces by output
+; Default: false
+index-sort = true
+
+; Create click handler used to focus workspace
+; Default: true
+# enable-click = false
+
+; Create scroll handlers used to cycle workspaces
+; Default: true
+
+; Wrap around when reaching the first/last workspace
+; Default: true
+#label-focused-foreground = ${colors.BKGD}
+#label-focused-underline = ${colors.color2}
+label-focused-foreground = ${colors.BKGD}
+label-focused-background = ${colors.FRGD}
+; reverse-scroll = false
+label-focused-padding = 2
+label-unfocused-padding = 1
+label-focused = %index%
+label-unfocused = %index%
+label-occupied = %index% 
+label-empty-padding = 1
+label-empty = 
+label-empty-foreground = ${colors.BKGD}
+label-occupied-padding = 2
+
+[module/battery]
+type = internal/battery
+
+; This is useful in case the battery never reports 100% charge
+full-at = 100
+
+; Use the following command to list batteries and adapters:
+; $ ls -1 /sys/class/power_supply/
+battery = BAT0
+adapter = ADP1
+
+#format-discharging-underline = ${colors.color8}
+#format-charging-underline = ${colors.color8}
+label-charging = %percentage%%
+label-discharging = %percentage%%
+label-full = "full"
+format-charging = <animation-charging> <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+format-full = <ramp-capacity> <label-full>
+; If an inotify event haven't been reported in this many
+; seconds, manually poll for new values.
+;
+; Needed as a fallback for systems that don't report events
+; on sysfs/procfs.
+;
+; Disable polling by setting the interval to 0.
+;
+; Default: 5
+poll-interval = 5
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-5 = 
+ramp-capacity-6 = 
+ramp-capacity-7 = 
+ramp-capacity-8 = 
+ramp-capacity-9 = 
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-5 = 
+animation-charging-6 = 
+animation-charging-7 = 
+animation-charging-8 = 
+animation-charging-framerate = 750
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix =
+format-suffix = 
+#format-underline = ${colors.color7}
+format-foreground = ${colors.FRGD}
+label = "cpu: %percentage%%"
+
+#[module/freq]
+#type = custom/script
+#exec = mhz
+#interval = 9 
+#format-##underline = ${colors.DKGN}
+
+#[module/memory]
+#type = internal/memory
+#interval = 2
+#format-prefix = 
+#format-suffix = 
+#format-underline = ${colors.color1}
+#format-foreground = ${colors.FRGD}
+#label = "%mb_used% "
+
+[module/mem]
+type = custom/script
+exec = free -m | grep Mem: | cut -f 2 -d ":" | awk '{$1=$1};1' | cut -f 2 -d " "
+interval = 1
+label = "mem: %output% mb"
+#format-underline = ${colors.color1}
+#format-foreground = ${colors.FRGD}
+[module/vol]
+type = custom/script
+exec = /home/skovati/code/git/scripts/personal/vol.sh
+interval = 1
+label = %output%
+
+[module/headphones]
+type = custom/script
+exec = /home/skovati/code/git/scripts/personal/bluetooth
+interval = 1
+label = %output%
+
+[module/date]
+type = internal/date
+interval = 1
+
+date =
+date-alt = "%m/%d/%y"
+
+time = "%I:%M:%S"
+time-alt = 
+
+format-prefix = 
+format-prefix-background = ${colors.BKGD}
+format-prefix-foreground = ${colors.FRGD}
+#format-underline = ${colors.color4}
+format-foreground = ${colors.FRGD}
+
+label = "%date%%time%"
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+; If not, uses default sink
+sink = alsa_output.pci-0000_08_00.4.analog-stereo
+
+click-right = exec pavucontrol &
+
+; Use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
+; Default: true
+use-ui-max = true
+#format-volume-underline = ${colors.color2}
+
+label-volume = "vol: %percentage%%"
+label-muted = "vol: mute"
+; Interval for volume increase/decrease (in percent points)
+; Default: 5
+interval = 5
+
+[module/temperature]
+type = internal/temperature
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 1
+
+; Thermal zone to use
+; To list all the zone types, run 
+; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
+; Default: 0
+thermal-zone = 0
+label = "temp: %temperature-c%"
+
+; Full path of temperature sysfs path
+; Use `sensors` to find preferred temperature source, then run
+; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
+; to find path to desired file
+; Default reverts to thermal zone setting
+hwmon-path = /sys/devices/virtual/thermal/thermal_zone0/hwmon0/temp1_input
+#format-underline = ${colors.color3}
+
+[module/spotify]
+type = custom/script
+interval = 1
+#format-prefix = "U+1F3B5 "
+format = <label>
+exec = python /home/skovati/code/scripts/spotify.sh -f '{artist}: {song}' -t 40
+#format-underline = ${colors.color5}
+
+[module/vpn]
+type = custom/script
+exec = nordvpn status | grep Status | cut -f 2 -d " " | cut -c 1
+interval = 1
+label = "VPN: %output% "
+#format-underline = ${colors.color8}
+
+[module/ip]
+type = custom/script
+exec = curl -s ifconfig.io
+interval = 1
+label = "ip: %output%"
+#format-underline = ${colors.color8}
+
+[module/powermenu]
+type = custom/menu
+
+expand-right = false
+
+format-spacing = 1
+
+label-open = "#" 
+#label-open-foreground = ${colors.FRGD}
+#label-close-underline = ${colors.color9}
+#label-open-underline = ${colors.color9}
+label-close = "#"
+label-close-foreground = ${colors.FRGD}
+label-separator = |
+label-separator-foreground = ${colors.FRGD}
+
+menu-0-0 = reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = power off
+menu-0-1-exec = menu-open-2
+
+menu-1-0 = reboot
+menu-1-0-exec = reboot
+menu-1-1 = cancel
+menu-1-1-exec = menu-open-0
+
+menu-2-0 = power off
+menu-2-0-exec = shutdown now
+menu-2-1 = cancel
+menu-2-1-exec = menu-open-0
+
+[module/mpd]
+type = internal/mpd
+
+; Host where mpd is running (either ip or domain name)
+; Can also be the full path to a unix socket where mpd is running.
+host = 127.0.0.1
+port = 6600
+
+; Seconds to sleep between progressbar/song timer sync
+; Default: 1
+interval = 1
+format-online = <label-song>
+label-song = %artist% - %title%
+bar-progress-width = 45
+bar-progress-indicator = |
+bar-progress-fill = -
+bar-progress-empty = _
+#format-underline = ${colors.color5}
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+; vim:ft=dosini

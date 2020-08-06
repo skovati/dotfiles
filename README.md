@@ -10,4 +10,4 @@ cd dotfiles
 ./arch_install.sh
 ```
 
-![Screenshot](scrot.png)
+![Screenshot](scrot.jpg)

@@ -2,8 +2,8 @@
 REPO=$(pwd)
 
 cd $HOME/code/git
-
-sudo pacman -S firefox bspwm sxhkd base-devel picom nitrogen redshift gvim zsh i3lock htop nfs-utils pamixer pavucontrol pulseaudio pulseaudio-alsa scrot xorg-server xorg-init xorg-xset xorg-xsetroot xss-lock --noconfirm
+sudo pacman -S base-devel
+sudo pacman -S --noconfirm --needed - < $REPO/etc/pacman.deps
 
 git clone https://aur.archlinux.org/yay.git
 cd yay
@@ -11,7 +11,7 @@ makepkg -si
 
 sudo chsh -s $(which zsh) $USER
 
-yay -S polybar python-pywal tamzen-font siji-git nerd-fonts-roboto-mono --noconfirm
+yay -S --noconfirm - < $REPO/etc/aur.deps
 
 ln -s $REPO/vim/.vimrc $HOME/.vimrc
 ln -s $REPO/zsh/.zshrc $HOME/.zshrc
@@ -38,3 +38,7 @@ git clone https://github.com/sunaku/tamzen-font .fonts/tamzen-font
 xset +fp ~/.fonts/tamzen-font/bdf
 xset fp rehash
 
+mkdir -p $HOME/documents/pictures
+cd $HOME/documents/pictures
+wget https://papes.skovati.com/nature/water.png
+nitrogren --set-zoom-fill $HOME/documents/pictures/water.png

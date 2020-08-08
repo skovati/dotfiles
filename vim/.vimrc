@@ -21,22 +21,21 @@ set nobackup
 set clipboard=unnamedplus
 set ttymouse=sgr
 set ttyfast
-set incsearch " search as characters are entered
-set ignorecase  " case insensitive search
-set smartcase   " case sensitive when uppercase
+set incsearch       " search as characters are entered
+set ignorecase      " case insensitive search
+set smartcase       " case sensitive when uppercase
 set laststatus=2    " Always display the status line
-set showmode!   " hide current mode
-set showmatch   " highlight matching brackets
+set showmode!       " hide current mode
+set showmatch       " highlight matching brackets
 set autoindent
 set smartindent
 set shortmess+=F
 
 " colors
-colorscheme wal
+autocmd vimenter * colorscheme wal
 hi Normal ctermbg=none
 hi EndOfBuffer ctermfg=none ctermbg=none
 set background=dark
-let base16colorspace=256
 set t_Co=256
 
 " keybinds
@@ -71,10 +70,9 @@ let g:currentmode={
     \}
 
 set statusline=
-set statusline+=%4*\ %4*%{g:currentmode[mode()]}
+set statusline+=%1*\ %1*%{g:currentmode[mode()]}
 set statusline+=%6*\ %f
-set statusline+=\ %6*\ %{&modified?'[+]':''}
-set statusline+=\ %=%6*
+set statusline+=\ %=%6*\ %Y
 set statusline+=\ %5*\ %v:%l\/%L
 set statusline+=\ "
 
@@ -83,6 +81,6 @@ call plug#begin()
 Plug 'preservim/nerdtree'
 Plug 'tpope/vim-commentary' "gcc Vgc
 Plug 'Yggdroot/indentLine' " display indents :IndentLineToggle
-Plug 'chriskempson/base16-vim'
 Plug 'tpope/vim-surround'
+Plug 'dylanaraps/wal.vim'
 call plug#end()

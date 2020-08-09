@@ -1,4 +1,10 @@
 #!/bin/bash
+REPO=$(pwd)
+mkdir -p $HOME/.config/polybar
+mkdir $HOME/.config/bspwm
+mkdir $HOME/.config/sxhkd
+mkdir $HOME/.gnupg
+mkdir $HOME/.config/redshift
 ln -s $REPO/vim/.vimrc $HOME/.vimrc
 ln -s $REPO/zsh/.zshrc $HOME/.zshrc
 ln -s $REPO/zsh/.zprofile $HOME/.zprofile

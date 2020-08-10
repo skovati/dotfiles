@@ -1,4 +1,4 @@
-nitrogen --restore
+feh --bg-scale /home/skovati/documents/pictures/water.png
 wal -R
 xset s off -dpms
 picom --config /home/skovati/.picom.conf &

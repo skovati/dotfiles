@@ -28,20 +28,16 @@ lxappearance
 m4
 make
 man-db
-nerd-fonts-roboto-mono
 networkmanager
 nfs-utils
 nitrogen
-nordvpn-bin
 openresolv
 openssh
 pamixer
-paper-icon-theme
 patch
 pavucontrol
 picom
 pkgconf
-polybar
 pulseaudio
 pulseaudio-alsa
 pulseaudio-bluetooth
@@ -49,8 +45,6 @@ python-pywal
 redshift
 reflector
 scrot
-signal-desktop
-siji-git
 sudo
 sxhkd
 sxiv
@@ -64,7 +58,6 @@ xorg-xinit
 xorg-xset
 xorg-xsetroot
 xss-lock
-yay
 zathura
 zathura-pdf-mupdf
 zsh

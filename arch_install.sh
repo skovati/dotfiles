@@ -2,7 +2,6 @@
 REPO=$(pwd)
 
 cd $HOME/code/git
-sudo pacman -S base-devel
 sudo pacman -S --noconfirm --needed - < $REPO/etc/pacman.deps
 
 git clone https://aur.archlinux.org/yay.git
@@ -12,6 +11,12 @@ makepkg -si
 sudo chsh -s $(which zsh) $USER
 
 yay -S --noconfirm - < $REPO/etc/aur.deps
+
+mkdir -p $HOME/.config/polybar
+mkdir $HOME/.config/bspwm
+mkdir $HOME/.config/sxhkd
+mkdir $HOME/.gnupg
+mkdir $HOME/.config/redshift
 
 ln -s $REPO/vim/.vimrc $HOME/.vimrc
 ln -s $REPO/zsh/.zshrc $HOME/.zshrc
@@ -41,4 +46,4 @@ xset fp rehash
 mkdir -p $HOME/documents/pictures
 cd $HOME/documents/pictures
 wget https://papes.skovati.com/nature/water.png
-nitrogren --set-zoom-fill $HOME/documents/pictures/water.png
+feh --bg-scale $HOME/documents/pictures

@@ -83,9 +83,9 @@ super + {Left,Down,Up,Right}
 
 # custom media keybinds
 XF86MonBrightnessUp
-    brightnessctl -d intel_backlight s +5%
+    brightnessctl -d intel_backlight s +2%
 XF86MonBrightnessDown
-    brightnessctl -d intel_backlight s 5%-
+    brightnessctl -d intel_backlight s 2%-
 XF86AudioRaiseVolume
     pactl set-sink-volume @DEFAULT_SINK@ +5% 
 XF86AudioLowerVolume

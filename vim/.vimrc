@@ -12,7 +12,7 @@ syntax on
 set mouse=a 
 set tabstop=4
 set shiftwidth=4
-set softtabstop=4   " backspace will remove tabs instead of space
+set softtabstop=4  " backspace will remove tabs instead of space
 set expandtab
 set number
 set backspace=indent,eol,start
@@ -30,11 +30,20 @@ set showmatch       " highlight matching brackets
 set autoindent
 set smartindent
 set shortmess+=F
+set foldmethod=syntax
+set foldnestmax=10
+set nofoldenable
+set spelllang=en
+
+"language specific formatting
+autocmd FileType java setlocal shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType python setlocal shiftwidth=4 softtabstop=4 expandtab
 
 " colors
 autocmd vimenter * colorscheme wal
 hi Normal ctermbg=none
 hi EndOfBuffer ctermfg=none ctermbg=none
+hi TabLineFill ctermfg=black ctermbg=black
 set background=dark
 set t_Co=256
 

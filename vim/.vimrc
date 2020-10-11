@@ -33,7 +33,7 @@ set shortmess+=F
 set foldmethod=syntax
 set foldnestmax=10
 set nofoldenable
-set spelllang=en
+set spelllang=en_us
 
 "language specific formatting
 autocmd FileType java setlocal shiftwidth=2 softtabstop=2 expandtab

@@ -94,7 +94,7 @@ XF86AudioMute
     pactl set-sink-mute @DEFAULT_SINK@ toggle
 #lock
 super + ctrl + shift + l
-    i3lock -i ~/documents/pictures/water.png
+    xsecurelock
 #toggle polybar
 super + shift + b
     {polybar-msg cmd toggle; bspc config top_padding +25; bspc config top_monocle_padding -25,\

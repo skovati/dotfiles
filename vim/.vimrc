@@ -10,6 +10,7 @@ filetype on
 set wildmenu
 syntax on
 set mouse=a 
+set noerrorbells
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4  " backspace will remove tabs instead of space
@@ -34,9 +35,17 @@ set foldmethod=syntax
 set foldnestmax=10
 set nofoldenable
 set spelllang=en_us
+set path+=**        " used for fuzzy file finding
+
+" config for netrw browser
+let g:netrw_banner=0        " disable annoying banner
+let g:netrw_browse_split=4  " open in prior window
+let g:netrw_altv=1          " open splits to the right
+let g:netrw_liststyle=3     " tree view
 
 "language specific formatting
 autocmd FileType java setlocal shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType systemverilog setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType python setlocal shiftwidth=4 softtabstop=4 expandtab
 
 " colors

@@ -13,6 +13,6 @@ export LS_COLORS
 
 alias ls="ls --color -F"
 
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 PROMPT='%F{green}%~%f '
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

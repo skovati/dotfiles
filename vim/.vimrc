@@ -1,11 +1,15 @@
+"""""""""""""""""""""""""""""""""""""""
 " auto download plug
+"""""""""""""""""""""""""""""""""""""""
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+"""""""""""""""""""""""""""""""""""""""
 " set config
+"""""""""""""""""""""""""""""""""""""""
 filetype on
 set wildmenu
 syntax on
@@ -15,7 +19,7 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4  " backspace will remove tabs instead of space
 set expandtab
-set number
+set relativenumber
 set backspace=indent,eol,start
 set noswapfile 
 set nobackup
@@ -37,18 +41,24 @@ set nofoldenable
 set spelllang=en_us
 set path+=**        " used for fuzzy file finding
 
+"""""""""""""""""""""""""""""""""""""""
 " config for netrw browser
+"""""""""""""""""""""""""""""""""""""""
 let g:netrw_banner=0        " disable annoying banner
 let g:netrw_browse_split=4  " open in prior window
 let g:netrw_altv=1          " open splits to the right
 let g:netrw_liststyle=3     " tree view
 
+"""""""""""""""""""""""""""""""""""""""
 "language specific formatting
+"""""""""""""""""""""""""""""""""""""""
 autocmd FileType java setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType systemverilog setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType python setlocal shiftwidth=4 softtabstop=4 expandtab
 
+"""""""""""""""""""""""""""""""""""""""
 " colors
+"""""""""""""""""""""""""""""""""""""""
 autocmd vimenter * colorscheme wal
 hi Normal ctermbg=none
 hi EndOfBuffer ctermfg=none ctermbg=none
@@ -56,7 +66,9 @@ hi TabLineFill ctermfg=black ctermbg=black
 set background=dark
 set t_Co=256
 
+"""""""""""""""""""""""""""""""""""""""
 " keybinds
+"""""""""""""""""""""""""""""""""""""""
 vmap <C-C> "+yi
 vmap <C-V> c<ESC>"+p 
 inoremap wq <Esc>
@@ -68,7 +80,9 @@ cmap WQ wq
 cmap wQ wq
 cmap Q q
 
+"""""""""""""""""""""""""""""""""""""""
 " statusline
+"""""""""""""""""""""""""""""""""""""""
 hi User1 ctermfg=black ctermbg=green
 hi User2 ctermfg=black ctermbg=blue
 hi User3 ctermfg=black ctermbg=red
@@ -94,7 +108,9 @@ set statusline+=\ %=%6*\ %Y
 set statusline+=\ %5*\ %v:%l\/%L
 set statusline+=\ "
 
+"""""""""""""""""""""""""""""""""""""""
 " plugin calls
+"""""""""""""""""""""""""""""""""""""""
 call plug#begin()
 Plug 'preservim/nerdtree'
 Plug 'tpope/vim-commentary' "gcc Vgc

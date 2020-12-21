@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# us servers in chicago
+servers=("us4" "us18" "us22" "us23" "us129" "us130" "us131" "us132" "us133")
+# choose randomly for different ips
+rand=$[$RANDOM % ${#servers[@]}]
+server="mullvad-${servers[rand]}"
+
+# command line args
+case $1 in
+    up)
+      echo "Connecting to $server over WireGuard..."
+      sudo wg-quick up $server > /dev/null 2>&1
+      echo "Success, new ip: $(curl -s ifconfig.io)"
+    ;;
+    down)
+      # grep to find current mullvad wg connection
+      curr_server=$(sudo wg | grep mullvad | awk '{print $2}')
+      echo "Disconnecting from $curr_server..."
+      sudo wg-quick down $curr_server > /dev/null 2>&1
+      echo "Success, new ip: $(curl -s ifconfig.io)"
+    ;;
+    *)
+      echo "Usage: wire {up, down}"
+esac
+
+

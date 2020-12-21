@@ -137,13 +137,13 @@ label = "mem: %output% mb"
 #format-foreground = ${colors.FRGD}
 [module/vol]
 type = custom/script
-exec = /home/skovati/code/git/scripts/personal/vol.sh
+exec = /home/skovati/code/git/scripts/vol.sh
 interval = 1
 label = %output%
 
 [module/headphones]
 type = custom/script
-exec = /home/skovati/code/git/scripts/personal/bluetooth
+exec = /home/skovati/code/git/scripts/bluetooth
 interval = 1
 label = %output%
 

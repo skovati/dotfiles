@@ -69,11 +69,8 @@ set t_Co=256
 """""""""""""""""""""""""""""""""""""""
 " keybinds
 """""""""""""""""""""""""""""""""""""""
-vmap <C-C> "+yi
-vmap <C-V> c<ESC>"+p 
 inoremap wq <Esc>
 nnoremap <C-w> :w
-map <C-n> :NERDTreeToggle<CR>
 cmap W w
 cmap Wq wq
 cmap WQ wq

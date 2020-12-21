@@ -35,7 +35,6 @@ cd $HOME/code/git
 git clone https://github.com/skovati/scripts
 
 mkdir $HOME/.zsh
-git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.zsh/zsh-autosuggestions
 
 mkdir $HOME/.fonts
 git clone https://github.com/sunaku/tamzen-font .fonts/tamzen-font

@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+cd $(du --one-file-system /home/skovati/ | awk '{print $2}' | fzf)

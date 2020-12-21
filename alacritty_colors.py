@@ -1,0 +1,38 @@
+import yaml
+import os
+
+# get home dir
+HOME = os.getenv("HOME")
+
+# open cached wal colors yml
+with open(HOME + "/.cache/wal/colors.yml") as wal:
+    data = yaml.safe_load(wal)
+
+# yml with desired format
+default = yaml.safe_load("{'colors': {'primary': {'background': '', 'foreground': ''}, 'normal': {'black': '', 'red': '', 'green': '', 'yellow': '', 'blue': '', 'magenta': '', 'cyan': '', 'white': ''}, 'bright': {'black': '', 'red': '', 'green': '', 'yellow': '', 'blue': '', 'magenta': '', 'cyan': '', 'white': ''}}}")
+
+# set normal colors
+default["colors"]["primary"]["background"] = data["special"]["background"]
+default["colors"]["primary"]["foreground"] = data["special"]["foreground"]
+default["colors"]["normal"]["black"] = data["colors"]["color0"]
+default["colors"]["normal"]["red"] = data["colors"]["color1"]
+default["colors"]["normal"]["green"] = data["colors"]["color2"]
+default["colors"]["normal"]["yellow"] = data["colors"]["color3"]
+default["colors"]["normal"]["blue"] = data["colors"]["color4"]
+default["colors"]["normal"]["magenta"] = data["colors"]["color5"]
+default["colors"]["normal"]["cyan"] = data["colors"]["color6"]
+default["colors"]["normal"]["white"] = data["colors"]["color7"]
+
+# set bright colors
+default["colors"]["bright"]["black"] = data["colors"]["color8"]
+default["colors"]["bright"]["red"] = data["colors"]["color9"]
+default["colors"]["bright"]["green"] = data["colors"]["color10"]
+default["colors"]["bright"]["yellow"] = data["colors"]["color11"]
+default["colors"]["bright"]["blue"] = data["colors"]["color12"]
+default["colors"]["bright"]["magenta"] = data["colors"]["color13"]
+default["colors"]["bright"]["cyan"] = data["colors"]["color14"]
+default["colors"]["bright"]["white"] = data["colors"]["color15"]
+
+# save to colors.yml 
+with open(HOME + "/.config/alacritty/colors.yml", "w") as f:
+    yaml.dump(default, f)

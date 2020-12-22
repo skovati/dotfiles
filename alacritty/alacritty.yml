@@ -1,0 +1,26 @@
+import:
+  - /home/skovati/.config/alacritty/colors.yml
+window:
+  dimensions:
+    columns: 45
+    lines: 16
+  padding:
+    x: 16
+    y: 16
+  dynamic_padding: true
+font:
+  normal:
+    family: TamzenForPowerline
+    style: Regular
+  bold:
+    family: TamzenForPowerline
+    style: Bold
+  size: 8.9
+cursor:
+  style: Underline
+  unfocused_hollow: false
+mouse:
+  url:
+    launcher:
+      program: xdg-open
+      args: []

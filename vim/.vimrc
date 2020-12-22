@@ -19,7 +19,7 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4  " backspace will remove tabs instead of space
 set expandtab
-set relativenumber
+set number relativenumber
 set backspace=indent,eol,start
 set noswapfile 
 set nobackup

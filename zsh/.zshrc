@@ -22,7 +22,19 @@ alias ls="ls --color -F"
 source /home/skovati/.zsh_alias
 alias syu="sudo pacman -Syu"
 
-PROMPT='%F{green}%~%f '
+# show git branch if in repo
+function git_branch() {
+    branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
+    if [[ $branch == "" ]]; then
+        :
+    else
+        echo '('$branch')'
+    fi
+}
+
+# set prompt
+setopt prompt_subst
+PROMPT='%F{green}%~%f$(git_branch) '
 
 # source addons
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh

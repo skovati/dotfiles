@@ -1,46 +1,64 @@
-#!/bin/bash
+#!/usr/bin/env bash
 REPO=$(pwd)
 
 cd $HOME/code/git
+
+# install important packages
 sudo pacman -S --noconfirm --needed - < $REPO/etc/pacman.deps
 
+# install yay
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
 
+# set zsh as shell
 sudo chsh -s $(which zsh) $USER
 
+# install aur packages
 yay -S --noconfirm - < $REPO/etc/aur.deps
 
+# mkdirs
 mkdir -p $HOME/.config/polybar
 mkdir $HOME/.config/bspwm
 mkdir $HOME/.config/sxhkd
 mkdir $HOME/.gnupg
 
-ln -s $REPO/vim/.vimrc $HOME/.vimrc
+# zsh
 ln -s $REPO/zsh/.zshrc $HOME/.zshrc
 ln -s $REPO/zsh/.zprofile $HOME/.zprofile
 ln -s $REPO/zsh/.zsh_alias $HOME/.zsh_alias
+
+# polybar
 ln -s $REPO/polybar/config $HOME/.config/polybar/config
 ln -s $REPO/polybar/colors $HOME/.config/polybar/colors
 ln -s $REPO/polybar/modules $HOME/.config/polybar/modules
 ln -s $REPO/polybar/launch.sh $HOME/.config/polybar/launch.sh
+
+# bspwm
 ln -s $REPO/sxhkd/sxhkdrc $HOME/.config/sxhkd/sxhkdrc
 ln -s $REPO/bspwm/auto $HOME/.config/bspwm/auto
 ln -s $REPO/bspwm/bspwmrc $HOME/.config/bspwm/bspwmrc
+ln -s $REPO/bspwm/swallow $HOME/.config/bspwm/swallow
+ln -s $REPO/bspwm/terminals $HOME/.config/bspwm/terminals
+
+# misc
+ln -s $REPO/vim/.vimrc $HOME/.vimrc
 ln -s $REPO/alacritty/alacritty.yml $HOME/.config/alacritty/alacritty.yml
 ln -s $REPO/alacritty/colors.yml $HOME/.config/alacritty/colors.yml
 ln -s $REPO/lf/lfrc $HOME/.config/lf/lfrc
 ln -s $REPO/gpg/gpg-agent.conf $HOME/.gnupg/gpg-agent.conf
 
+# clone scripts
 cd $HOME/code/git
 git clone https://github.com/skovati/scripts
 
+# set fonts
 mkdir $HOME/.fonts
 git clone https://github.com/sunaku/tamzen-font .fonts/tamzen-font
 xset +fp ~/.fonts/tamzen-font/bdf
 xset fp rehash
 
+# set pape
 mkdir -p $HOME/documents/pictures
 cd $HOME/documents/pictures
 wget https://papes.skovati.com/nature/water.png

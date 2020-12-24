@@ -12,6 +12,7 @@ picom --vsync --backend glx -GCb --config /dev/null
 pgrep redshift || redshift -t 5500:3800 -l 43:-89 -m randr &
 xsetroot -cursor_name left_ptr &
 xss-lock -l -- xsecurelock
+pgrep bspswallow || bspswallow &
 bash /home/skovati/.config/polybar/launch.sh &
 
 #######################################

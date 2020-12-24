@@ -1,8 +1,0 @@
-feh --bg-scale /home/skovati/documents/pictures/books.jpg
-wal -R
-xset s off -dpms
-picom --vsync --backend glx -GCb --config /dev/null
-pgrep redshift || redshift -t 5500:3800 -l 43:-89 -m randr &
-xsetroot -cursor_name left_ptr &
-xss-lock -l -- xsecurelock
-bash /home/skovati/.config/polybar/launch.sh &

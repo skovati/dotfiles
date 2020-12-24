@@ -10,6 +10,7 @@ set ignorecase true
 # custom funcs
 #######################################
 
+# opens files in corresponding application
 cmd open ${{
     case $(file --mime-type "$f" -bL) in
         text/*|application/json) $EDITOR "$f";;
@@ -18,6 +19,7 @@ cmd open ${{
     esac
 }}
 
+# extracts archive with appropriate program
 cmd extract ${{
     set -f
     case $f in
@@ -32,6 +34,7 @@ cmd extract ${{
     esac
 }}
 
+# prompts and deletes selected file(s)
 cmd delete ${{
     set -f
     echo "$fx"
@@ -40,6 +43,7 @@ cmd delete ${{
     [ $ans = "y" ] && rm -rf $fx
 }}
 
+# use fzf to select object
 cmd fzf_find ${{
   res="$(find . -path ./middle-earth -prune -o -print | fzf --header='Jump to location')"
   if [ -f "$res" ]; then
@@ -50,7 +54,7 @@ cmd fzf_find ${{
   lf -remote "send $id $cmd \"$res\""
 }}
 
-# compress current file or selected files with tar and gunzip
+# create uncompressed tar archive of selected files
 cmd tar ${{
     set -f
     echo "Name of tar: "
@@ -58,7 +62,7 @@ cmd tar ${{
     tar cf $name.tar $fx
 }}
 
-# compress current file or selected files with tar and gunzip
+# create compressed targz archive of selected files
 cmd targz ${{
     set -f
     echo "Name of targz: "
@@ -66,7 +70,7 @@ cmd targz ${{
     tar czf $name.tar.gz $fx
 }}
 
-# compress current file or selected files with zip
+# create zip of selected files
 cmd zip ${{
     set -f
     echo "Name of zip: "
@@ -77,11 +81,14 @@ cmd zip ${{
 #######################################
 # keybinds
 #######################################
-map <enter> open
+
+# remove some default binds
 map e
 map d
 map y
 
+# custom binds
+map <enter> open
 map F fzf_find
 map dd cut
 map yy copy

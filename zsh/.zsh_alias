@@ -1,1 +1,2 @@
 alias fd=". fd"
+alias neo="clear && neofetch"

@@ -7,7 +7,7 @@
 ```
 git clone https://github.com/skovati/dotfiles
 cd dotfiles
-./arch_install.sh
+./arch_install
 ```
 
 ![Screenshot](scrot.png)

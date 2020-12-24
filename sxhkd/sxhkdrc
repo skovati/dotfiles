@@ -14,6 +14,9 @@ super + d
 super + w
     firefox
 
+super + e
+    alacritty -e lf
+
 #lock
 super + ctrl + shift + l
     xsecurelock
@@ -27,7 +30,7 @@ super + shift + r
 	bspc wm -r
 
 # quit bspwm
-super + shift + q
+super + shift + Escape
     bspc quit
 
 # close and kill

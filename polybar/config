@@ -19,7 +19,7 @@ foreground = ${colors.FRGD}
 line-size = 0
 line-color = #f00
 
-border-size = 2
+border-size = 3
 border-color = ${colors.FRGD}
 #border-color = #00000000
 dim-value = 1.0

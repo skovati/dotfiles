@@ -53,20 +53,25 @@ cmd fzf_find ${{
 # compress current file or selected files with tar and gunzip
 cmd tar ${{
     set -f
-    echo $fx
-    tar cf $1.tar $fx
+    echo "Name of tar: "
+    read name
+    tar cf $name.tar $fx
 }}
 
 # compress current file or selected files with tar and gunzip
 cmd targz ${{
     set -f
-    tar czf $1.tar.gz $fx
+    echo "Name of targz: "
+    read name
+    tar czf $name.tar.gz $fx
 }}
 
 # compress current file or selected files with zip
 cmd zip ${{
     set -f
-    zip -r $1.zip "$fx"
+    echo "Name of zip: "
+    read name
+    zip -r $name.zip $fx
 }}
 
 #######################################

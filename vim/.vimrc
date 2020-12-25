@@ -54,6 +54,7 @@ let g:netrw_liststyle=3     " tree view
 """""""""""""""""""""""""""""""""""""""
 autocmd FileType java setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType systemverilog setlocal shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType html setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType python setlocal shiftwidth=4 softtabstop=4 expandtab
 
 """""""""""""""""""""""""""""""""""""""

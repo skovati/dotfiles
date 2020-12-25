@@ -1,2 +1,5 @@
 alias fd=". fd"
 alias neo="clear && neofetch"
+alias cp="cp -v"
+alias mv="mv -iv"
+alias rm="rm -vI"

@@ -14,12 +14,17 @@ super + d
 super + w
     firefox
 
+# file manager
 super + e
     alacritty -e lf
 
 #lock
 super + ctrl + shift + l
     xsecurelock
+
+# random scripts
+super + {s, y}
+    {ddg, yt}
 
 #######################################
 # bspwm hotkeys                       #

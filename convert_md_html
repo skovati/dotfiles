@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+cp -v /home/skovati/code/git/skovati.com/blog/template.html ./index.html
+pandoc $1 -f markdown -t html >> ./index.html
+echo "</article>" >> ./index.html

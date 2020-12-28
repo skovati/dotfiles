@@ -13,6 +13,7 @@ endif
 filetype on
 set wildmenu
 syntax on
+set encoding=utf-8
 set mouse=a 
 set noerrorbells
 set tabstop=4
@@ -56,6 +57,7 @@ autocmd FileType java setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType systemverilog setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType html setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType python setlocal shiftwidth=4 softtabstop=4 expandtab
+autocmd FileType markdown setlocal spell
 
 """""""""""""""""""""""""""""""""""""""
 " colors

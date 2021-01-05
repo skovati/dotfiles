@@ -1,7 +1,7 @@
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:50:...%
-label-foreground = ${colors.FRGD}
+label-foreground = ${colors.color15}
 
 ; [bar/mybar]
 ; scroll-up = i3wm-wsnext
@@ -40,7 +40,7 @@ index-sort = true
 #label-focused-foreground = ${colors.BKGD}
 #label-focused-underline = ${colors.color2}
 label-focused-foreground = ${colors.BKGD}
-label-focused-background = ${colors.FRGD}
+label-focused-background = ${colors.color15}
 ; reverse-scroll = false
 label-focused-padding = 2
 label-unfocused-padding = 1
@@ -159,9 +159,9 @@ time-alt =
 
 format-prefix = 
 format-prefix-background = ${colors.BKGD}
-format-prefix-foreground = ${colors.FRGD}
+format-prefix-foreground = ${colors.color15}
 #format-underline = ${colors.color4}
-format-foreground = ${colors.FRGD}
+format-foreground = ${colors.color15}
 
 label = "%date%%time%"
 

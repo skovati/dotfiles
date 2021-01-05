@@ -8,6 +8,16 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 """""""""""""""""""""""""""""""""""""""
+" plugin calls
+"""""""""""""""""""""""""""""""""""""""
+call plug#begin()
+Plug 'tpope/vim-commentary' "gcc Vgc
+Plug 'Yggdroot/indentLine' " display indents :IndentLineToggle
+Plug 'tpope/vim-surround'
+Plug 'skovati/skovati.vim'
+call plug#end()
+
+"""""""""""""""""""""""""""""""""""""""
 " set config
 """""""""""""""""""""""""""""""""""""""
 filetype on
@@ -15,7 +25,7 @@ set wildmenu
 syntax on
 set encoding=utf-8
 set mouse=a 
-set noerrorbells
+set noerrorbells   " why is this a default
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4  " backspace will remove tabs instead of space
@@ -41,6 +51,9 @@ set foldnestmax=10
 set nofoldenable
 set spelllang=en_us
 set path+=**        " used for fuzzy file finding
+set undodir=~/.vim/undodir
+set undofile
+set hlsearch        " highlight / matches
 
 """""""""""""""""""""""""""""""""""""""
 " config for netrw browser
@@ -62,10 +75,11 @@ autocmd FileType markdown setlocal spell
 """""""""""""""""""""""""""""""""""""""
 " colors
 """""""""""""""""""""""""""""""""""""""
-autocmd vimenter * colorscheme wal
+colorscheme skovati
+
 hi Normal ctermbg=none
 hi EndOfBuffer ctermfg=none ctermbg=none
-hi TabLineFill ctermfg=black ctermbg=black
+hi TabLineFill ctermfg=black ctermbg=none
 set background=dark
 set t_Co=256
 
@@ -80,16 +94,24 @@ cmap WQ wq
 cmap wQ wq
 cmap Q q
 
+" show syntax highlighting group
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+" disable arrow keys to git gud
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+inoremap <Up> <Nop>
+inoremap <Down> <Nop>
+inoremap <Left> <Nop>
+inoremap <Right> <Nop>
+
 """""""""""""""""""""""""""""""""""""""
 " statusline
 """""""""""""""""""""""""""""""""""""""
-hi User1 ctermfg=black ctermbg=green
-hi User2 ctermfg=black ctermbg=blue
-hi User3 ctermfg=black ctermbg=red
-hi User4 ctermfg=black ctermbg=magenta
-hi User5 ctermfg=black ctermbg=yellow
-hi User6 ctermfg=none ctermbg=black
-
 let g:currentmode={
     \ 'n'  : 'normal ',
     \ 'v'  : 'visual ',
@@ -103,18 +125,8 @@ let g:currentmode={
 
 set statusline=
 set statusline+=%1*\ %1*%{g:currentmode[mode()]}
-set statusline+=%6*\ %f
-set statusline+=\ %=%6*\ %Y
-set statusline+=\ %5*\ %v:%l\/%L
+set statusline+=%2*\ %f\ "
+set statusline+=%6*\ %=
+set statusline+=%3*\ %Y\ "
+set statusline+=\%5*\ %v:%l\/%L
 set statusline+=\ "
-
-"""""""""""""""""""""""""""""""""""""""
-" plugin calls
-"""""""""""""""""""""""""""""""""""""""
-call plug#begin()
-Plug 'preservim/nerdtree'
-Plug 'tpope/vim-commentary' "gcc Vgc
-Plug 'Yggdroot/indentLine' " display indents :IndentLineToggle
-Plug 'tpope/vim-surround'
-Plug 'dylanaraps/wal.vim'
-call plug#end()

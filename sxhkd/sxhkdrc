@@ -15,7 +15,7 @@ super + w
     firefox
 
 # file manager
-super + e
+super + ejjjj
     alacritty -e lf
 
 #lock
@@ -23,8 +23,8 @@ super + ctrl + shift + l
     xsecurelock
 
 # random scripts
-super + {s, y}
-    {ddg, yt}
+super + {s, y, Print}
+    {ddg, yt, shot}
 
 #######################################
 # bspwm hotkeys                       #

@@ -1,7 +1,8 @@
 #!/bin/bash
 
-if [[ $(pamixer --get-mute) == "true" ]]; then
+percent=$(amixer | grep -m1 -P -wo "\d{1,3}%")
+if [ $percent == "0%" ]; then
    echo " muted"
 else
-   echo " $(pamixer --get-volume)%"
+   echo " $percent"
 fi

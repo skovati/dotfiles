@@ -5,7 +5,7 @@
 #######################################
 
 sxhkd &
-feh --bg-scale /home/skovati/documents/pictures/books.jpg
+feh --bg-scale /home/skovati/docs/pics/books.jpg
 wal -R
 xset s off -dpms
 picom --vsync --backend glx -GCb --config /dev/null
@@ -56,7 +56,7 @@ bspc config presel_feedback_color "$color8"
 bspc config focus_follows_pointer false
 bspc config click_to_focus button1 
 
-bspc monitor eDP1 -d 1 2 3 4 5 6 7
+bspc monitor eDP-1 -d 1 2 3 4 5 6 7
 bspc monitor DP-1 -d 8
 
 #######################################

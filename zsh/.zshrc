@@ -23,7 +23,7 @@ alias ls="ls --color -F"
 source /home/skovati/.zsh_alias
 
 # source private env vars
-source /home/skovati/.zsh_secret
+# source /home/skovati/.zsh_secret
 
 # open command in vim
 bindkey '\ev' edit-command-line

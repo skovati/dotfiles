@@ -3,7 +3,7 @@ include-file = ~/.config/polybar/modules
 
 [bar/bar]
 ;Change this to match monitor, find via xrandr -q
-monitor = eDP1
+monitor = eDP-1
 ;These will have to be adjusted to set position and size of main bar
 width = 920
 height = 30

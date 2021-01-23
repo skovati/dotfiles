@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+import -window root -quality 90 /home/skovati/docs/pics/scrots/temp.png

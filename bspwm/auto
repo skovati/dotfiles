@@ -1,0 +1,7 @@
+nitrogen --restore
+wal -R
+xset s off
+picom --config /home/skovati/.picom.conf &
+xsetroot -cursor_name left_ptr &
+xsetroot -xcf /usr/share/icons/Adwaita/cursors/left_ptr 28
+bash /home/skovati/.config/polybar/launch.sh

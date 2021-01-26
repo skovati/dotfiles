@@ -1,5 +1,6 @@
 export PATH=/home/skovati/code/git/scripts:/home/skovati/.local/bin:/home/skovati/code/go/bin:$PATH
 export EDITOR=/usr/bin/vim
+export GPG_TTY=$(tty)
 # export BROWSER=/usr/bin/firefox
 
 export XDG_CONFIG_HOME="$HOME/.config"

@@ -1,4 +1,4 @@
-nitrogen --restore
+feh --bg-scale /home/skovati/docs/pics/flowers.jpg
 wal -R
 xset s off
 picom --config /home/skovati/.picom.conf &

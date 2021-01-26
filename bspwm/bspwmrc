@@ -1,6 +1,14 @@
 #! /bin/sh
 
 sxhkd &
+feh --bg-scale /home/skovati/docs/pics/flowers.jpg
+wal -R
+picom --vsync --backend glx -GCb --config /dev/null
+pgrep redshift || redshift -t 5500:4200 -l 43:-89 -m randr &
+xsetroot -cursor_name left_ptr &
+xset r rate 300 30
+pgrep bspswallow || bspswallow &
+bash /home/skovati/.config/polybar/launch.sh &
 
 bspc monitor -d 1 2 3 4 5 6 7 8
 
@@ -33,5 +41,3 @@ bspc config focus_follows_pointer true
 bspc config click_to_focus button1 
 
 bspc monitor DP-1 -d 1 2 3 4 5 6 7
-
-sh /home/skovati/.config/bspwm/auto &

@@ -4,11 +4,11 @@ env:
   TERM: xterm-256color
 window:
   dimensions:
-    columns: 45
-    lines: 16
+    columns: 80
+    lines: 40
   padding:
-    x: 16
-    y: 16
+    x: 25
+    y: 25
   dynamic_padding: true
 font:
   normal:
@@ -17,7 +17,7 @@ font:
   bold:
     family: TamzenForPowerline
     style: Bold
-  size: 8.9
+  size: 12
 cursor:
   style: Underline
   unfocused_hollow: false

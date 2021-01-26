@@ -4,7 +4,7 @@ REPO=$(pwd)
 cd $HOME/code/git
 
 # install important packages
-sudo pacman -S --noconfirm --needed - < $REPO/etc/pacman.deps
+sudo pacman -S --noconfirm --needed - < $REPO/etc/pac.deps
 
 # install yay
 git clone https://aur.archlinux.org/yay.git
@@ -21,6 +21,8 @@ yay -S --noconfirm - < $REPO/etc/aur.deps
 mkdir -p $HOME/.config/polybar
 mkdir $HOME/.config/bspwm
 mkdir $HOME/.config/sxhkd
+mkdir $HOME/.config/alacritty
+mkdir $HOME/.config/lf
 mkdir $HOME/.gnupg
 
 # zsh
@@ -30,8 +32,6 @@ ln -s $REPO/zsh/.zsh_alias $HOME/.zsh_alias
 
 # polybar
 ln -s $REPO/polybar/config $HOME/.config/polybar/config
-ln -s $REPO/polybar/colors $HOME/.config/polybar/colors
-ln -s $REPO/polybar/modules $HOME/.config/polybar/modules
 ln -s $REPO/polybar/launch.sh $HOME/.config/polybar/launch.sh
 
 # bspwm

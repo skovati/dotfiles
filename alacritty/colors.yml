@@ -9,7 +9,7 @@ colors:
     white: '#f8f8f8'
     yellow: '#f7ca88'
   normal:
-    black: '#181818'
+    black: '#0f1212'
     blue: '#7cafc2'
     cyan: '#86c1b9'
     green: '#a1b56c'
@@ -18,5 +18,5 @@ colors:
     white: '#d8d8d8'
     yellow: '#f7ca88'
   primary:
-    background: '#181818'
+    background: '#0f1212'
     foreground: '#d8d8d8'

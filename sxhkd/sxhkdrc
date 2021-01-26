@@ -15,7 +15,7 @@ super + w
     firefox
 
 # file manager
-super + ejjjj
+super + e
     alacritty -e lf
 
 #lock

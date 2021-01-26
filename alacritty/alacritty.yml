@@ -17,7 +17,7 @@ font:
   bold:
     family: TamzenForPowerline
     style: Bold
-  size: 8.9
+  size: 8
 cursor:
   style: Underline
   unfocused_hollow: false

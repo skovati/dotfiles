@@ -66,7 +66,6 @@ let g:netrw_liststyle=3     " tree view
 """""""""""""""""""""""""""""""""""""""
 "language specific formatting
 """""""""""""""""""""""""""""""""""""""
-autocmd FileType java setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType systemverilog setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType html setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType python setlocal shiftwidth=4 softtabstop=4 expandtab
@@ -77,9 +76,6 @@ autocmd FileType markdown setlocal spell
 """""""""""""""""""""""""""""""""""""""
 colorscheme skovati
 
-hi Normal ctermbg=none
-hi EndOfBuffer ctermfg=none ctermbg=none
-hi TabLineFill ctermfg=black ctermbg=none
 set background=dark
 set t_Co=256
 
@@ -87,7 +83,6 @@ set t_Co=256
 " keybinds
 """""""""""""""""""""""""""""""""""""""
 inoremap wq <Esc>
-nnoremap <C-w> :w
 cmap W w
 cmap Wq wq
 cmap WQ wq
@@ -108,6 +103,14 @@ inoremap <Up> <Nop>
 inoremap <Down> <Nop>
 inoremap <Left> <Nop>
 inoremap <Right> <Nop>
+
+" autoclose stuff
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
 
 """""""""""""""""""""""""""""""""""""""
 " statusline

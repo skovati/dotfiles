@@ -8,6 +8,7 @@ pgrep redshift || redshift -t 5500:4200 -l 43:-89 -m randr &
 xsetroot -cursor_name left_ptr &
 xset r rate 300 30
 pgrep bspswallow || bspswallow &
+xss-lock -l -- xsecurelock
 bash /home/skovati/.config/polybar/launch.sh &
 
 bspc monitor -d 1 2 3 4 5 6 7 8

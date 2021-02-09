@@ -4,7 +4,7 @@ REPO=$(pwd)
 cd $HOME/code/git
 
 # install important packages
-sudo pacman -S --noconfirm --needed - < $REPO/etc/pacman.deps
+doas pacman -S --noconfirm --needed - < $REPO/etc/pacman.deps
 
 # install yay
 git clone https://aur.archlinux.org/yay.git
@@ -12,7 +12,7 @@ cd yay
 makepkg -si
 
 # set zsh as shell
-sudo chsh -s $(which zsh) $USER
+doas chsh -s $(which zsh) $USER
 
 # install aur packages
 yay -S --noconfirm - < $REPO/etc/aur.deps

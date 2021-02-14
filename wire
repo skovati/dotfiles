@@ -15,20 +15,20 @@ usage() {
 case $1 in
     status)
         echo "Currently connected to:"
-        sudo wg | grep interface | awk '{print $2}'
+        doas wg | grep interface | awk '{print $2}'
         ;;
     up)
         case $2 in 
             lab)
                 echo "Connecting to lab at $(dig +short skovati.duckdns.org)..."
-                sudo wg-quick up lab
+                doas wg-quick up lab
                 ;;
             us)
                 # choose randomly for different ips
                 rand=$[$RANDOM % ${#us_servers[@]}]
                 server="mullvad-${us_servers[rand]}"
                 echo "Connecting to $server over WireGuard..."
-                sudo wg-quick up $server > /dev/null 2>&1
+                doas wg-quick up $server > /dev/null 2>&1
                 echo "Success, new ip: $(curl -s ifconfig.io)"
                 ;;
             *)
@@ -40,13 +40,13 @@ case $1 in
         case $2 in 
             lab)
                 echo "Disconnecting from lab..."
-                sudo wg-quick down lab
+                doas wg-quick down lab
                 ;;
             us)
                 # grep to find current mullvad wg connection
-                curr_server=$(sudo wg | grep mullvad | awk '{print $2}')
+                curr_server=$(doas wg | grep mullvad | awk '{print $2}')
                 echo "Disconnecting from $curr_server..."
-                sudo wg-quick down $curr_server > /dev/null 2>&1
+                doas wg-quick down $curr_server > /dev/null 2>&1
                 echo "Success, new ip: $(curl -s ifconfig.io)"
                 ;;
             *)

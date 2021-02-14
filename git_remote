@@ -5,3 +5,4 @@ REPO=$(pwd | awk -F/ '{print $NF}')
 git remote add all git@gitlab.com:skovati/$REPO.git
 git remote set-url --add --push all git@gitlab.com:skovati/$REPO.git
 git remote set-url --add --push all git@github.com:skovati/$REPO.git
+git remote set-url --add --push all https://git.skovati.dev/skovati/$REPO

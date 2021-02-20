@@ -53,6 +53,7 @@ ln -s $REPO/lf/lfrc $HOME/.config/lf/lfrc
 ln -s $REPO/paru/paru.conf $HOME/.config/paru/paru.conf
 ln -s $REPO/gpg/gpg-agent.conf $HOME/.gnupg/gpg-agent.conf
 ln -s $REPO/gpg/gpg.conf $HOME/.gnupg/gpg.conf
+ln -s $REPO/tmux/.tmux.conf $HOME/.tmux.conf
 
 # clone scripts
 cd $HOME/code/git

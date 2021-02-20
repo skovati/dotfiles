@@ -123,8 +123,10 @@ let g:currentmode={
 
 set statusline=
 set statusline+=%1*\ %1*%{g:currentmode[mode()]}
+set statusline+=%6*\ "
 set statusline+=%2*\ %f\ "
 set statusline+=%6*\ %=
 set statusline+=%3*\ %Y\ "
+set statusline+=%6*\ "
 set statusline+=\%5*\ %v:%l\/%L
 set statusline+=\ "

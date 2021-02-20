@@ -105,11 +105,6 @@ inoremap <Left> <Nop>
 inoremap <Right> <Nop>
 
 " autoclose stuff
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 
 """""""""""""""""""""""""""""""""""""""

@@ -3,70 +3,90 @@ REPO=$(pwd)
 
 cd $HOME/code/git
 
-# install important packages
-sudo pacman -S --noconfirm --needed - < $REPO/etc/pac.deps
+install_packages
+set_zsh
+mkdirs
+symlink
+install_tamzen
+clone_scripts
+# set_pape
 
-# install paru
-git clone https://aur.archlinux.org/paru-bin.git
-cd paru-bin
-makepkg -si
+install_paru() {
+    git clone https://aur.archlinux.org/paru-bin.git
+    cd paru-bin
+    makepkg -si
+}
 
-# set zsh as shell
-sudo chsh -s $(which zsh) $USER
+set_zsh() {
+    sudo chsh -s $(which zsh) $USER
+}
 
-# install aur packages
-paru -S --noconfirm - < $REPO/etc/aur.deps
+install_packages() {
+    # install important packages
+    sudo pacman -S --noconfirm --needed - < $REPO/etc/pac.deps
+    install_paru
+    # install aur packages
+    paru -S --noconfirm - < $REPO/etc/aur.deps
+}
 
-# mkdirs
-mkdir -p $HOME/.config/polybar
-mkdir $HOME/.config/bspwm
-mkdir $HOME/.config/sxhkd
-mkdir $HOME/.config/alacritty
-mkdir $HOME/.config/lf
-mkdir $HOME/.config/paru
-mkdir $HOME/.gnupg
+mkdirs() {
+    mkdir -p $HOME/.config/polybar
+    mkdir $HOME/.config/bspwm
+    mkdir $HOME/.config/sxhkd
+    mkdir $HOME/.config/alacritty
+    mkdir $HOME/.config/lf
+    mkdir $HOME/.config/paru
+    mkdir $HOME/.gnupgA
+    mkdir $HOME/moria
+}
 
-# zsh
-ln -s $REPO/zsh/.zshrc $HOME/.zshrc
-ln -s $REPO/zsh/.zlogin $HOME/.zlogin
-ln -s $REPO/zsh/.zsh_alias $HOME/.zsh_alias
-ln -s $REPO/zsh/.zshenv $HOME/.zshenv
+symlink() {
+    # zsh
+    ln -s $REPO/zsh/* $HOME/
+    
+    # polybar
+    ln -s $REPO/polybar/* $HOME/.config/polybar/
+    
+    # bspwm
+    ln -s $REPO/sxhkd/sxhkdrc $HOME/.config/sxhkd/sxhkdrc
+    ln -s $REPO/bspwm/* $HOME/.config/bspwm/
+   
+    # term
+    ln -s $REPO/alacritty/* $HOME/.config/alacritty/
+    ln -s $REPO/vim/.vimrc $HOME/.vimrc
+    ln -s $REPO/lf/lfrc $HOME/.config/lf/lfrc
+    ln -s $REPO/tmux/.tmux.conf $HOME/.tmux.conf
 
-# polybar
-ln -s $REPO/polybar/config $HOME/.config/polybar/config
-ln -s $REPO/polybar/colors $HOME/.config/polybar/colors
-ln -s $REPO/polybar/modules $HOME/.config/polybar/modules
-ln -s $REPO/polybar/launch.sh $HOME/.config/polybar/launch.sh
+    # gpg
+    ln -s $REPO/gpg/gpg-agent.conf $HOME/.gnupg/gpg-agent.conf
+    ln -s $REPO/gpg/gpg.conf $HOME/.gnupg/gpg.conf
 
-# bspwm
-ln -s $REPO/sxhkd/sxhkdrc $HOME/.config/sxhkd/sxhkdrc
-ln -s $REPO/bspwm/auto $HOME/.config/bspwm/auto
-ln -s $REPO/bspwm/bspwmrc $HOME/.config/bspwm/bspwmrc
-ln -s $REPO/bspwm/swallow $HOME/.config/bspwm/swallow
-ln -s $REPO/bspwm/terminals $HOME/.config/bspwm/terminals
+    # misc
+    ln -s $REPO/paru/paru.conf $HOME/.config/paru/paru.conf
+    ln -s $REPO/etc/user-dirs.dirs $HOME/.config/
+    sudo ln -s $REPO/etc/40-libinput.conf /etc/X11/xorg.conf.d/
+    sudo ln -s $REPO/etc/local.conf /etc/fonts/
+    sudo cat $REPO/etc/fstab >> /etc/fstab
+}
 
-# misc
-ln -s $REPO/vim/.vimrc $HOME/.vimrc
-ln -s $REPO/alacritty/alacritty.yml $HOME/.config/alacritty/alacritty.yml
-ln -s $REPO/alacritty/colors.yml $HOME/.config/alacritty/colors.yml
-ln -s $REPO/lf/lfrc $HOME/.config/lf/lfrc
-ln -s $REPO/paru/paru.conf $HOME/.config/paru/paru.conf
-ln -s $REPO/gpg/gpg-agent.conf $HOME/.gnupg/gpg-agent.conf
-ln -s $REPO/gpg/gpg.conf $HOME/.gnupg/gpg.conf
-ln -s $REPO/tmux/.tmux.conf $HOME/.tmux.conf
+clone_scripts() {
+    # clone scripts
+    cd $HOME/code/git
+    git clone https://github.com/skovati/scripts
+}
 
-# clone scripts
-cd $HOME/code/git
-git clone https://github.com/skovati/scripts
+install_tamzen() {
+    # set fonts
+    mkdir $HOME/.fonts
+    git clone https://github.com/sunaku/tamzen-font .fonts/tamzen-font
+    xset +fp ~/.fonts/tamzen-font/bdf
+    xset fp rehash
+}
 
-# set fonts
-mkdir $HOME/.fonts
-git clone https://github.com/sunaku/tamzen-font .fonts/tamzen-font
-xset +fp ~/.fonts/tamzen-font/bdf
-xset fp rehash
-
-# set pape
-mkdir -p $HOME/docs/pics
-cd $HOME/docs/pics
-wget https://papes.skovati.com/nature/water.png
-feh --bg-scale $HOME/docs/pics
+set_pape() {
+    # set pape
+    mkdir -p $HOME/docs/pics
+    cd $HOME/docs/pics
+    wget https://papes.skovati.com/nature/water.png
+    feh --bg-scale $HOME/docs/pics
+}

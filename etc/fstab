@@ -1,4 +1,1 @@
 10.6.0.1:/middle-earth/moria   /home/skovati/middle-earth/moria    nfs vers=4,rw,_netdev,noauto,x-systemd.automount,x-systemd.requires=wg-quick@wg1.service
-10.6.0.1:/middle-earth/mntdoom   /home/skovati/middle-earth/mntdoom    nfs vers=4,rw,_netdev,noauto,x-systemd.automount,x-systemd.requires=wg-quick@wg1.service
-10.6.0.1:/middle-earth/rivendell   /home/skovati/middle-earth/rivendell    nfs vers=4,rw,_netdev,noauto,x-systemd.automount,x-systemd.requires=wg-quick@wg1.service
-10.6.0.1:/home/skovati/watch   /home/skovati/downloads/watch    nfs vers=4,rw,_netdev,noauto,x-systemd.automount,x-systemd.requires=wg-quick@wg1.service

@@ -76,6 +76,7 @@ autocmd FileType markdown setlocal spell
 """""""""""""""""""""""""""""""""""""""
 colorscheme skovati
 
+set cursorline
 set background=dark
 set t_Co=256
 

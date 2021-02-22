@@ -1,22 +1,16 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # search videos on youtube and play them in mpv, without an API key
-# edited to use fzf and caca
+# edited to use dmenu
 # credit to github.com/sayan01
 
-query=$1
-YEL='\033[1;33m'
-NC='\033[0m' # No Color
-
-# prompt if no command line args passed
-if [ -z "$query" ]; then 
-    printf "${YEL}Enter yt search query...${NC}\n"
-    read -p "query: " query
-fi 
+if [ -z "$1" ]; then 
+    query=$(echo -n "" | dmenu -p "Youtube Search: ")
+else
+	query="$*"
+fi
 
 # exit if query is null
-if [ -z "$query" ]; then 
-    exit;
-fi 
+if [ -z "$query" ]; then exit; fi 
 
 # sanitize the query
 query=$(sed \
@@ -35,10 +29,13 @@ videoids=$(
 	awk -F\" '{ print $6 " " $NF}'
 )
 
-videoid=$(
-	echo -e "$videoids" | \
-	fzf --header="Video to watch: " | \
-	cut -d' ' -f1
-)
-if [ -z "$videoid" ]; then exit; fi	
-DISPLAY= mpv --ytdl-format="=bestvideo[height<=?480]+bestaudio/best" --really-quiet -vo caca "https://www.youtube.com/watch?v=$videoid"
+# prompt the results to user infinitely until they exit (escape)
+while true; do
+	videoid=$(
+		echo -e "$videoids" | \
+		dmenu -p "Video to watch: " | \
+		cut -d' ' -f1
+	)
+	if [ -z "$videoid" ]; then exit; fi	
+	mpv "https://youtu.be/$videoid"
+done

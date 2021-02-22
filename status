@@ -15,8 +15,8 @@ ${GRE}WWWWWWWWWWK:............cKNXNWWWWWWWWWWW${NC}  ${YEL}kernel:${NC} $(uname 
 ${GRE}WWWWWWWWWWWKc''.........lNWWWWWWWWWWWWWW${NC}  ${YEL}ip:${NC} $(curl -s ifconfig.io)
 ${GRE}WWWWWWWWWWWWOdOl........lXWWWWWWWWWWWWWW${NC}  ${YEL}mem:${NC} $(free -m | grep Mem: | cut -f 2 -d ":" | awk '{$1=$1};1' | cut -d " " -f 2) mb
 ${GRE}WWWWWWWWWWWWXKNd........'xWWWWWWWWWWWWWW${NC}  ${YEL}cpu:${NC} $(top -bn1 | grep %Cpu | tr -s " " | cut -d " " -f2)%
-${GRE}WWWWWWWWWWWWWWWO,.....'coOWWWWWWWWWWWWWW${NC}  ${YEL}temp:${NC} $(awk '{print $1/1000}' /sys/devices/virtual/thermal/thermal_zone0/hwmon0/temp1_input)C
-${GRE}WWWWWWWWWWWWWWWNl.....dNWNNWWWWWWWWWWWWW${NC}  ${YEL}vol:${NC} $(pamixer --get-volume)%
+${GRE}WWWWWWWWWWWWWWWO,.....'coOWWWWWWWWWWWWWW${NC}  ${YEL}temp:${NC} $(awk '{print $1/1000}' /sys/devices/virtual/thermal/thermal_zone0/hwmon1/temp1_input)C
+${GRE}WWWWWWWWWWWWWWWNl.....dNWNNWWWWWWWWWWWWW${NC}  ${YEL}vol:${NC} $(vol.sh)%
 ${GRE}WWWWWWWWWWWWWWWNl....,OWWWWWWWWWWWWWWWWW${NC}  ${YEL}bat:${NC} $(cat /sys/class/power_supply/BAT0/capacity)%
 ${GRE}WWWWWWWWWWWWWWWXc....;KWWWWWWWWWWWWWWWWW${NC}  ${YEL}time:${NC} $(date "+%I:${NC}%M:${NC}%S %P")
 ${GRE}WWWWWWWWWWWWWWWK:...,dWWWWWWWWWWWWWWWWWW${NC}  ${YEL}uptime:${NC} $(uptime -p | cut -f 1-2 -d ',')

@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-find $HOME/code $HOME/documents $HOME/downloads -type f | fzf --preview "bat --theme="base16" --color always {1}" | xargs -ro "$EDITOR"
+find $HOME/code $HOME/docs $HOME/downs -type f | fzf --preview "bat --theme="base16" --color always {1}" | xargs -ro "$EDITOR"

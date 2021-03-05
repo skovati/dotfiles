@@ -39,6 +39,7 @@ linux-firmware
 m4
 make
 man-db
+mpv
 networkmanager
 nfs-utils
 noto-fonts
@@ -78,6 +79,8 @@ xorg-xset
 xorg-xsetroot
 xsecurelock
 xss-lock
+youtube-dl
+yubikey-manager
 zathura
 zathura-pdf-mupdf
 zsh

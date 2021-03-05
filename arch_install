@@ -90,3 +90,14 @@ set_pape() {
     wget https://papes.skovati.com/nature/water.png
     feh --bg-scale $HOME/docs/pics
 }
+
+other() {
+    xdg-settings set default-web-browser firefox.desktop
+    xdg-mime default org.pwmt.zathura.desktop application/epub
+    xdg-mime default org.pwmt.zathura.desktop application/pdf
+    xdg-mime default mpv.desktop video/mp4
+    xdg-mime default mpv.desktop video/mkv
+    xdg-mime default sxiv.dekstop image/jpeg
+    xdg-mime default sxiv.dekstop image/jpg
+    xdg-mime default sxiv.dekstop image/png
+}

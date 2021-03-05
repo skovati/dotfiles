@@ -9,6 +9,7 @@ mkdirs
 symlink
 install_tamzen
 clone_scripts
+other
 # set_pape
 
 install_paru() {
@@ -36,7 +37,7 @@ mkdirs() {
     mkdir $HOME/.config/alacritty
     mkdir $HOME/.config/lf
     mkdir $HOME/.config/paru
-    mkdir $HOME/.gnupgA
+    mkdir $HOME/.gnupg
     mkdir $HOME/moria
 }
 

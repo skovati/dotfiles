@@ -72,6 +72,7 @@ super + i; {h,j,k,l}
 # insert focused into recepticle
 super + shift + i
     bspc node $(bspc query -N -n focused) -n $(bspc query -N -n .leaf.!window)
+
 # swap the current node and the biggest node
 super + space
 	bspc node -s biggest

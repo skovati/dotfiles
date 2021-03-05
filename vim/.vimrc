@@ -69,7 +69,17 @@ let g:netrw_liststyle=3     " tree view
 autocmd FileType systemverilog setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType html setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType python setlocal shiftwidth=4 softtabstop=4 expandtab
-autocmd FileType markdown setlocal spell
+autocmd FileType markdown call SetProseOpts()
+autocmd FileType text call SetProseOpts()
+
+function SetProseOpts() 
+    setlocal spell
+    setlocal linebreak
+    noremap <silent> k gk
+    noremap <silent> j gj
+    noremap <silent> 0 g0
+    noremap <silent> $ g$
+endfunction
 
 """""""""""""""""""""""""""""""""""""""
 " colors

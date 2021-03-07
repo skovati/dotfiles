@@ -12,9 +12,9 @@
 | browser                               | [firefox](https://www.mozilla.org/en-US/firefox)                                  |
 | editor                                | [vim](https://www.vim.org/)                                                       |
 | font                                  | [tamzen](https://github.com/sunaku/tamzen-font)                                   |
-| Shell                                 | [zsh](https://www.zsh.org/)                                                       |
-| Terminal Emulator                     | [alacritty](https://github.com/alacritty/alacritty)                               |
-| Document Viewer                       | [zathura](https://pwmt.org/projects/zathura/)                                     |
+| shell                                 | [zsh](https://www.zsh.org/)                                                       |
+| term                                  | [alacritty](https://github.com/alacritty/alacritty)                               |
+| doc viewer                            | [zathura](https://pwmt.org/projects/zathura/)                                     |
 | file manager                          | [lf](https://github.com/gokcehan/lf)                                              |
 | colorscheme                           | [tomorrow night](https://github.com/chriskempson/base16-tomorrow-scheme)          |
 
@@ -26,6 +26,7 @@ git clone https://github.com/skovati/dotfiles
 cd dotfiles
 ./arch_install
 ```
-
+#### screenshot
 ![scrot](https://i.imgur.com/BNZldNc.png)
+#### Vim IDE-like programming setup
 ![vim](https://i.imgur.com/KH7oKrA.jpg)

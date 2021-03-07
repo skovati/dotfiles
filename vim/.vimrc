@@ -11,10 +11,14 @@ endif
 " plugin calls
 """""""""""""""""""""""""""""""""""""""
 call plug#begin()
-Plug 'tpope/vim-commentary' "gcc Vgc
-Plug 'Yggdroot/indentLine' " display indents :IndentLineToggle
-Plug 'tpope/vim-surround'
-Plug 'skovati/skovati.vim'
+    Plug 'tpope/vim-commentary'         " gcc Vgc
+    Plug 'Yggdroot/indentLine'          " display indents :IndentLineToggle
+    Plug 'tpope/vim-surround'
+    Plug 'skovati/skovati.vim'
+    Plug 'preservim/nerdtree'
+    Plug 'preservim/tagbar'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'junegunn/goyo.vim'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""
@@ -59,9 +63,11 @@ set hlsearch        " highlight / matches
 " config for netrw browser
 """""""""""""""""""""""""""""""""""""""
 let g:netrw_banner=0        " disable annoying banner
-let g:netrw_browse_split=4  " open in prior window
+let g:netrw_browse_split=3  " open in prior window
 let g:netrw_altv=1          " open splits to the right
 let g:netrw_liststyle=3     " tree view
+let g:netrw_winsize = 20    " limit split size
+let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+' " hide hidden files, toggle with gh
 
 """""""""""""""""""""""""""""""""""""""
 "language specific formatting
@@ -93,12 +99,26 @@ set t_Co=256
 """""""""""""""""""""""""""""""""""""""
 " keybinds
 """""""""""""""""""""""""""""""""""""""
+let mapleader=" "
 inoremap wq <Esc>
 cmap W w
 cmap Wq wq
 cmap WQ wq
 cmap wQ wq
 cmap Q q
+
+" NERDTree
+nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap <leader>f :NERDTreeFind<CR>
+" auto close vim if just nerdtree is left
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let g:NERDTreeStatusline = '%#NonText#'     " hide statusline in nerdtree
+let NERDTreeMinimalUI = 1                   " hide ? help
+let NERDTreeDirArrows = 1                   " pretty arrows
+
+" tagbar
+nmap <leader>t :TagbarToggle<CR>
+let g:tagbar_compact = 1
 
 " show syntax highlighting group
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -118,26 +138,38 @@ inoremap <Right> <Nop>
 " autoclose stuff
 inoremap {<CR> {<CR>}<ESC>O
 
+" Split Navigation shortcuts
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+" Goyo
+noremap <leader>g :Goyo<CR>
+
 """""""""""""""""""""""""""""""""""""""
 " statusline
 """""""""""""""""""""""""""""""""""""""
+" this array is called with mode() to get a formatted mode title
 let g:currentmode={
-    \ 'n'  : 'normal ',
-    \ 'v'  : 'visual ',
-    \ 'V'  : 'v line ',
-    \ '' : 'v block ',
-    \ 'i'  : 'insert ',
-    \ 'R'  : 'r ',
-    \ 'Rv' : 'v replace ',
-    \ 'c'  : 'command ',
-    \}
-
-set statusline=
-set statusline+=%1*\ %1*%{g:currentmode[mode()]}
-set statusline+=%6*\ "
-set statusline+=%2*\ %f\ "
-set statusline+=%6*\ %=
-set statusline+=%3*\ %Y\ "
-set statusline+=%6*\ "
-set statusline+=\%5*\ %v:%l\/%L
-set statusline+=\ "
+     \ 'n'  : 'normal ',
+     \ 'v'  : 'visual ',
+     \ 'V'  : 'v line ',
+     \ '' : 'v block ',
+     \ 'i'  : 'insert ',
+     \ 'R'  : 'r ',
+     \ 'Rv' : 'v replace ',
+     \ 'c'  : 'command ',
+     \}
+ 
+set statusline=                                         " clear statusline
+set statusline+=%2*\ %{g:currentmode[mode()]}           " get formatted mode from array above
+set statusline+=%3*\ %t\ "                              " print local current file path
+set statusline+=%8*\ %M                                 " print + if current file has changes made
+set statusline+=%8*\ %R                                 " print RO if current file is read only
+set statusline+=%8*\ %=                                 " spacing between left and right
+set statusline+=%1*\ %y\ "                              " show filetype
+set statusline+=\%4*\ %l\/%L                            " show current line number vs total number
+set statusline+=\:"                                     " colon between line and column
+set statusline+=\%4*\%v                                 " column number
+set statusline+=\ %8*"                                  " final space for formattin

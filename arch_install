@@ -3,11 +3,29 @@ REPO=$(pwd)
 
 cd $HOME/code/git
 
+echo "----------------------------------------"
+echo "installing important packages..."
+echo "----------------------------------------"
 install_packages
+echo "----------------------------------------"
+echo "changing shell to zsh..."
+echo "----------------------------------------"
 set_zsh
+echo "----------------------------------------"
+echo "making several directories..."
+echo "----------------------------------------"
 mkdirs
+echo "----------------------------------------"
+echo "making several symlinks..."
+echo "----------------------------------------"
 symlink
+echo "----------------------------------------"
+echo "installing tamzen font..."
+echo "----------------------------------------"
 install_tamzen
+echo "----------------------------------------"
+echo "cloning scripts repo"
+echo "----------------------------------------"
 clone_scripts
 # set_pape
 

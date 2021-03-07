@@ -14,7 +14,7 @@
 | font                                  | [tamzen](https://github.com/sunaku/tamzen-font)                                   |
 | Shell                                 | [zsh](https://www.zsh.org/)                                                       |
 | Terminal Emulator                     | [alacritty](https://github.com/alacritty/alacritty)                               |
-| Document Viewer                       | [aathura](https://pwmt.org/projects/zathura/)                                     |
+| Document Viewer                       | [zathura](https://pwmt.org/projects/zathura/)                                     |
 | file manager                          | [lf](https://github.com/gokcehan/lf)                                              |
 | colorscheme                           | [tomorrow night](https://github.com/chriskempson/base16-tomorrow-scheme)          |
 

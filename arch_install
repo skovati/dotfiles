@@ -54,7 +54,7 @@ mkdirs() {
     mkdir $HOME/.config/alacritty
     mkdir $HOME/.config/lf
     mkdir $HOME/.config/paru
-    mkdir $HOME/.gnupgA
+    mkdir $HOME/.gnupg
     mkdir $HOME/moria
 }
 

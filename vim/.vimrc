@@ -35,7 +35,9 @@ set backspace=indent,eol,start
 set noswapfile 
 set nobackup
 set clipboard=unnamedplus
-set ttymouse=sgr
+" if !has(nvim) {
+"     set ttymouse=sgr
+" }
 set ttyfast
 set incsearch       " search as characters are entered
 set ignorecase      " case insensitive search
@@ -99,6 +101,14 @@ cmap WQ wq
 cmap wQ wq
 cmap Q q
 
+<<<<<<< HEAD
+=======
+
+" tagbar
+nmap <leader>t :TagbarToggle<CR>
+let g:tagbar_compact = 1
+
+>>>>>>> bb5cd56 (add nvim support)
 " show syntax highlighting group
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
@@ -121,6 +131,23 @@ inoremap ( ()<left>
 inoremap [ []<left>
 inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
+
+"""""""""""""""""""""""""""""""""""""""
+" neovim specific
+"""""""""""""""""""""""""""""""""""""""
+" let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0
+set guicursor=
+
+"""""""""""""""""""""""""""""""""""""""
+" nerdtree specific
+"""""""""""""""""""""""""""""""""""""""
+nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap <leader>f :NERDTreeFind<CR>
+" auto close vim if just nerdtree is left
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let g:NERDTreeStatusline = '%#NonText#'     " hide statusline in nerdtree
+let NERDTreeMinimalUI = 1                   " hide ? help
+let NERDTreeDirArrows = 1                   " pretty arrows
 
 """""""""""""""""""""""""""""""""""""""
 " statusline

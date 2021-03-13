@@ -8,12 +8,12 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 """""""""""""""""""""""""""""""""""""""
-" plugin calls
+" plug calls
 """""""""""""""""""""""""""""""""""""""
 call plug#begin()
     Plug 'tpope/vim-commentary'         " gcc Vgc
     Plug 'Yggdroot/indentLine'          " display indents :IndentLineToggle
-    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-surround'           " cs\"' 
     Plug 'skovati/skovati.vim'
     Plug 'preservim/nerdtree'
     Plug 'preservim/tagbar'
@@ -27,21 +27,18 @@ call plug#end()
 filetype on
 set wildmenu
 syntax on
-set encoding=utf-8
-set mouse=a 
-set noerrorbells   " why is this a default
-set tabstop=4
+set encoding=utf-8  " defaualt on neovim
+set mouse=a         " enable mouse
+set noerrorbells    " why is this a default
+set tabstop=4       
 set shiftwidth=4
-set softtabstop=4  " backspace will remove tabs instead of space
-set expandtab
+set softtabstop=4   " backspace will remove tabs instead of space
+set expandtab       " expands tabs to spaces
 set number relativenumber
 set backspace=indent,eol,start
-set noswapfile 
+set noswapfile
 set nobackup
 set clipboard=unnamedplus
-" if !has(nvim) {
-"     set ttymouse=sgr
-" }
 set ttyfast
 set incsearch       " search as characters are entered
 set ignorecase      " case insensitive search
@@ -92,7 +89,7 @@ endfunction
 """""""""""""""""""""""""""""""""""""""
 " colors
 """""""""""""""""""""""""""""""""""""""
-colorscheme skovati
+colorscheme skovati " https://github.com/skovati/skovati.vim
 
 set cursorline
 set background=dark
@@ -101,14 +98,13 @@ set t_Co=256
 """""""""""""""""""""""""""""""""""""""
 " keybinds
 """""""""""""""""""""""""""""""""""""""
-let mapleader=" "
-inoremap wq <Esc>
+let mapleader=" "   " make leader key space
+inoremap wq <C-[>l
 cmap W w
 cmap Wq wq
 cmap WQ wq
 cmap wQ wq
 cmap Q q
-
 
 " tagbar
 nmap <leader>t :TagbarToggle<CR>
@@ -144,23 +140,29 @@ noremap <leader>g :Goyo<CR>
 """""""""""""""""""""""""""""""""""""""
 " neovim specific
 """""""""""""""""""""""""""""""""""""""
-" let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0
-set guicursor=
+
+if has("nvim") 
+    set guicursor=
+"   set ttymouse=sgr
+"   let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0
+endif
 
 """""""""""""""""""""""""""""""""""""""
 " nerdtree specific
 """""""""""""""""""""""""""""""""""""""
 nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>f :NERDTreeFind<CR>
+
 " auto close vim if just nerdtree is left
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 let g:NERDTreeStatusline = '%#NonText#'     " hide statusline in nerdtree
 let NERDTreeMinimalUI = 1                   " hide ? help
-let NERDTreeDirArrows = 1                   " pretty arrows
 
 """""""""""""""""""""""""""""""""""""""
 " statusline
 """""""""""""""""""""""""""""""""""""""
+
 " this array is called with mode() to get a formatted mode title
 let g:currentmode={
      \ 'n'  : 'normal ',

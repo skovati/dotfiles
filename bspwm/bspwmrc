@@ -6,7 +6,7 @@
 
 sxhkd &
 feh --bg-scale /home/skovati/docs/pics/red.png
-wal -R
+# wal -R
 xset s off -dpms
 picom --vsync --backend glx -GCb --config /dev/null
 pgrep redshift || redshift -t 5500:3800 -l 43:-89 -m randr &

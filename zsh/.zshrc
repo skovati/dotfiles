@@ -46,3 +46,6 @@ PROMPT=' %F{green}%~%f$(git_branch) '
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# addons config
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#707070'

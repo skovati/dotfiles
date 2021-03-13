@@ -5,7 +5,7 @@
 #######################################
 
 sxhkd &
-feh --bg-scale /home/skovati/docs/pics/books.jpg
+feh --bg-scale /home/skovati/docs/pics/red.png
 wal -R
 xset s off -dpms
 picom --vsync --backend glx -GCb --config /dev/null

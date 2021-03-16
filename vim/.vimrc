@@ -11,10 +11,15 @@ endif
 " plugin calls
 """""""""""""""""""""""""""""""""""""""
 call plug#begin()
-Plug 'tpope/vim-commentary' "gcc Vgc
-Plug 'Yggdroot/indentLine' " display indents :IndentLineToggle
-Plug 'tpope/vim-surround'
-Plug 'skovati/skovati.vim'
+    Plug 'tpope/vim-commentary'         " gcc Vgc
+    Plug 'Yggdroot/indentLine'          " display indents :IndentLineToggle
+    Plug 'tpope/vim-surround'           " ysiw'
+    Plug 'skovati/skovati.vim'          " colorscheme
+    Plug 'preservim/nerdtree'           " file tree
+    Plug 'preservim/tagbar'             " temp ctags display
+    Plug 'neoclide/coc.nvim', {'branch': 'release'} "auto complete + linting
+    Plug 'junegunn/goyo.vim'            " distraction free writing
+    Plug 'junegunn/fzf.vim'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""
@@ -35,9 +40,6 @@ set backspace=indent,eol,start
 set noswapfile 
 set nobackup
 set clipboard=unnamedplus
-" if !has(nvim) {
-"     set ttymouse=sgr
-" }
 set ttyfast
 set incsearch       " search as characters are entered
 set ignorecase      " case insensitive search
@@ -61,9 +63,11 @@ set hlsearch        " highlight / matches
 " config for netrw browser
 """""""""""""""""""""""""""""""""""""""
 let g:netrw_banner=0        " disable annoying banner
-let g:netrw_browse_split=4  " open in prior window
+let g:netrw_browse_split=3  " open in prior window
 let g:netrw_altv=1          " open splits to the right
 let g:netrw_liststyle=3     " tree view
+let g:netrw_winsize = 20    " limit split size
+let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+' " hide hidden files, toggle with gh
 
 """""""""""""""""""""""""""""""""""""""
 "language specific formatting
@@ -88,12 +92,14 @@ endfunction
 """""""""""""""""""""""""""""""""""""""
 colorscheme skovati
 
+set cursorline
 set background=dark
 set t_Co=256
 
 """""""""""""""""""""""""""""""""""""""
 " keybinds
 """""""""""""""""""""""""""""""""""""""
+let mapleader=" "
 inoremap wq <Esc>
 cmap W w
 cmap Wq wq
@@ -101,14 +107,10 @@ cmap WQ wq
 cmap wQ wq
 cmap Q q
 
-<<<<<<< HEAD
-=======
-
 " tagbar
 nmap <leader>t :TagbarToggle<CR>
 let g:tagbar_compact = 1
 
->>>>>>> bb5cd56 (add nvim support)
 " show syntax highlighting group
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
@@ -125,48 +127,69 @@ inoremap <Left> <Nop>
 inoremap <Right> <Nop>
 
 " autoclose stuff
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
+
+" Split Navigation shortcuts
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+" Goyo
+noremap <leader>g :Goyo<CR>
+
+" NerdTree
+nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap <leader>. :NERDTreeFind<CR>
+
+" fzf
+nnoremap <leader>f :Files<CR>
 
 """""""""""""""""""""""""""""""""""""""
 " neovim specific
 """""""""""""""""""""""""""""""""""""""
-" let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0
 set guicursor=
+" if !has(nvim) {
+"     set ttymouse=sgr
+" }
 
 """""""""""""""""""""""""""""""""""""""
-" nerdtree specific
+" plugin specific
 """""""""""""""""""""""""""""""""""""""
-nnoremap <leader>n :NERDTreeToggle<CR>
-nnoremap <leader>f :NERDTreeFind<CR>
+" nerdtree
 " auto close vim if just nerdtree is left
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeStatusline = '%#NonText#'     " hide statusline in nerdtree
 let NERDTreeMinimalUI = 1                   " hide ? help
 let NERDTreeDirArrows = 1                   " pretty arrows
 
+" fzf
+let g:fzf_layout = { 'down': '~40%' }
+
 """""""""""""""""""""""""""""""""""""""
 " statusline
 """""""""""""""""""""""""""""""""""""""
+" this array is called with mode() to get a formatted mode title
 let g:currentmode={
-    \ 'n'  : 'normal ',
-    \ 'v'  : 'visual ',
-    \ 'V'  : 'v line ',
-    \ '' : 'v block ',
-    \ 'i'  : 'insert ',
-    \ 'R'  : 'r ',
-    \ 'Rv' : 'v replace ',
-    \ 'c'  : 'command ',
-    \}
-
-set statusline=
-set statusline+=%1*\ %1*%{g:currentmode[mode()]}
-set statusline+=%2*\ %f\ "
-set statusline+=%6*\ %=
-set statusline+=%3*\ %Y\ "
-set statusline+=\%5*\ %v:%l\/%L
-set statusline+=\ "
+     \ 'n'  : 'normal ',
+     \ 'v'  : 'visual ',
+     \ 'V'  : 'v line ',
+     \ '' : 'v block ',
+     \ 'i'  : 'insert ',
+     \ 'R'  : 'r ',
+     \ 'Rv' : 'v replace ',
+     \ 'c'  : 'command ',
+     \ 't'  : 'fzf ',
+     \}
+ 
+set statusline=                                         " clear statusline
+set statusline+=%2*\ %{g:currentmode[mode()]}           " get formatted mode from array above
+set statusline+=%3*\ %t\ "                              " print local current file path
+set statusline+=%8*\ %M                                 " print + if current file has changes made
+set statusline+=%8*\ %R                                 " print RO if current file is read only
+set statusline+=%8*\ %=                                 " spacing between left and right
+set statusline+=%1*\ %y\ "                              " show filetype
+set statusline+=\%4*\ %l\/%L                            " show current line number vs total number
+set statusline+=\:"                                     " colon between line and column
+set statusline+=\%4*\%v                                 " column number
+set statusline+=\ %8*"                                  " final space for formattin

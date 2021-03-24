@@ -6,8 +6,8 @@
 #define COLOR9 #9F4141
 #define COLOR2 #6C8A6A
 #define COLOR10 #6C8A6A
-#define COLOR3  #FFF5AD
-#define COLOR11 #FFF5AD
+#define COLOR3  #EBC355
+#define COLOR11 #EBC355
 #define COLOR4  #748AAA
 #define COLOR12 #748AAA
 #define COLOR5  #9C7F9F

@@ -1,16 +1,31 @@
+# important exports
 export PATH=/home/skovati/code/git/scripts:/home/skovati/.local/bin:/home/skovati/code/go/bin:$PATH
-export EDITOR=/usr/bin/vim
-export GPG_TTY=$(tty)
+export EDITOR="nvim"
+export READER="zathura"
+export IMAGE="sxiv"
+export TERMINAL="alacritty"
+
+# unused bc of xdg-set command
 # export BROWSER=/usr/bin/firefox
 
+# export xdg dirs
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
-
 export XDG_DESKTOP_DIR="$HOME/"
 export XDG_DOCUMENTS_DIR="$HOME/docs/"
 export XDG_DOWNLOAD_DIR="$HOME/downs/"
 export XDG_PICTURES_DIR="$HOME/docs/pics/"
 
+# misc
 export GOPATH="/home/skovati/code/go"
+# fixes matlab lol
 export _JAVA_AWT_WM_NONREPARENTING=1
+# fixes gpg-ncurses
+export GPG_TTY=$(tty)
+
+# set default bat theme
+export BAT_THEME="base16"
+
+# fzf
+export FZF_DEFAULT_OPTS="--border=sharp --color=16 --preview 'bat --theme="base16" --color always {1}'"

@@ -40,7 +40,7 @@ function git_branch() {
 
 # set prompt
 setopt prompt_subst
-PROMPT=' %F{green}%~%f$(git_branch) '
+PROMPT=' %F{green}%~%f%F{yellow}$(git_branch) '
 
 # source addons
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh

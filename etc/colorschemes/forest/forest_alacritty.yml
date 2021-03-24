@@ -7,7 +7,7 @@ colors:
     magenta: '#9C7F9F'
     red: '#9F4141'
     white: '#EDEDE9'
-    yellow: '#FFF5AD'
+    yellow: '#EBC355'
   normal:
     black: '#141414'
     blue: '#748AAA'
@@ -16,7 +16,7 @@ colors:
     magenta: '#9C7F9F'
     red: '#9F4141'
     white: '#EDEDE9'
-    yellow: '#FFF5AD'
+    yellow: '#EBC355'
   primary:
     background: '#141414'
     foreground: '#EDEDE9'

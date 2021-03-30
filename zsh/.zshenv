@@ -29,3 +29,6 @@ export BAT_THEME="base16"
 
 # fzf
 export FZF_DEFAULT_OPTS="--border=sharp --color=16 --preview 'bat --theme="base16" --color always {1}'"
+
+# set manpager to nvim
+export MANPAGER="nvim -c 'set ft=man' -"

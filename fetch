@@ -20,12 +20,7 @@ MEM=$(free -m | grep Mem: | tr -s " " | cut -d' ' -f3)" mb"
 CPU=$(top -bn1 | grep %Cpu | tr -s " " | cut -d' ' -f2)"%"
 UPTIME=$(uptime | cut -d' ' -f 5 | cut -d',' -f1)
 
-INFO=(  
-        $OS     $DISTRO
-        $KERNEL $PKGS 
-        $IP     $MEM
-        $CPU    $UPTIME
-    )
+INFO=("$OS" "$DISTRO" "$KERNEL" "$PKGS" "$IP" "$MEM" "$CPU" "$UPTIME")
 
 MAX=0
 MAX_LEN=0

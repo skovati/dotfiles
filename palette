@@ -87,6 +87,28 @@ def format_xresources(palette):
         "#define COLOR7  " + palette[7] + "\n" + \
         "#define COLOR15 " + palette[7]
 
+def format_shell(palette):
+    return "" + \
+        "#!/usr/bin/env bash \n" + \
+        "background='#181818' \n" + \
+        "foreground='#d8d8d8' \n" + \
+        "color0='" + palette[0] + "' \n" + \
+        "color1='" + palette[1] + "' \n" + \
+        "color2='" + palette[2] + "' \n" + \
+        "color3='" + palette[3] + "' \n" + \
+        "color4='" + palette[4] + "' \n" + \
+        "color5='" + palette[5] + "' \n" + \
+        "color6='" + palette[6] + "' \n" + \
+        "color7='" + palette[7] + "' \n" + \
+        "color8='" + palette[8] + "' \n" + \
+        "color9='" + palette[1] + "' \n" + \
+        "color10='" + palette[2] + "' \n" + \
+        "color11='" + palette[3] + "' \n" + \
+        "color12='" + palette[4] + "' \n" + \
+        "color13='" + palette[5] + "' \n" + \
+        "color14='" + palette[6] + "' \n" + \
+        "color15='" + palette[7] + "'"
+
 def get_dir():
     return os.path.dirname(get_file())
 
@@ -116,9 +138,17 @@ def main():
     # convert to Xresources colors
     xresources = format_xresources(palette)
 
-    # save to file+xresources
+    # save to file+.xresources
     with open(get_dir() + "/" + get_colorscheme() + ".xresources", "w") as f:
         f.write(xresources)
+        f.close()
+
+    # convert to shell
+    shell = format_shell(palette)
+
+    # save to colorscheme+.sh
+    with open(get_dir() + "/" + get_colorscheme() + ".sh", "w") as f:
+        f.write(shell)
         f.close()
 
 if __name__ == "__main__":

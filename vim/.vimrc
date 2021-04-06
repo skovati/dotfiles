@@ -22,10 +22,7 @@ call plug#begin()
     Plug 'junegunn/fzf.vim'             " fzf plays nice with vim
     Plug 'mbbill/undotree'              " undo tree visualization
     Plug 'vimwiki/vimwiki'              " note-taking, wiki
-    Plug 'morhetz/gruvbox'              " colorscheme
-    Plug 'itchyny/lightline.vim'        " statusline
-    Plug 'shinchu/lightline-gruvbox.vim'" gruvbox for lightline
-    Plug 'chriskempson/base16-vim'
+    Plug 'chriskempson/base16-vim'      " colorscheme
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""
@@ -118,18 +115,15 @@ endfunction
 """""""""""""""""""""""""""""""""""""""
 " colors
 """""""""""""""""""""""""""""""""""""""
-let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
-      \ }
 
-colorscheme gruvbox " https://github.com/skovati/skovati.vim
+colorscheme skovati " https://github.com/skovati/skovati.vim
 
 set cursorline
 set background=dark
-" set t_Co=256
+set t_Co=256
 
 if (has("termguicolors"))
-  set termguicolors
+  " set termguicolors
 endif
 
 """""""""""""""""""""""""""""""""""""""
@@ -139,7 +133,6 @@ endif
 let mapleader=" " 
 " map wq to esc
 inoremap wq <Esc>l
-  
 
 " fix sticky shift
 cmap W w

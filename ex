@@ -1,4 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/sh
+# uses the correct program to inflate an archive
+
 case $1 in
     *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $1;;
     *.tar.gz|*.tgz) tar xzvf $1;;

@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# prints out current terminal colorscheme 
+
 pcs() {
     for i in {0..7};
     do

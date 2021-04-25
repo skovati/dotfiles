@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/sh
+# deprecated dwm status bar
 
 dwm_ip () {
     printf "ip:"

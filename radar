@@ -1,3 +1,4 @@
 #!/bin/bash
+# no longer works due to weather.gov changes
 
 curl -s https://radar.weather.gov/lite/N0R/MKX_loop.gif > /tmp/radar.gif && sxiv /tmp/radar.gif -ab -z 120 && rm /tmp/radar.gif

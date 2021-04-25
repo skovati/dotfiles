@@ -1,7 +1,7 @@
+#!/usr/bin/env bash
+# usage: walbg /path/to/image theme
+# try wal --theme
 
-#!/bin/bash
-#usage: walbg /path/to/image theme
-#try wal --theme
 WAL_OPTS="-s -t -q -e"
 
 wal -i $1 $WAL_OPTS

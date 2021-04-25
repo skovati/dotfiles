@@ -1,3 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
+# takes a screenshot using imagemagick
 
-import -window root -quality 90 /home/skovati/docs/pics/scrots/temp.png
+import -quality 90 /home/skovati/docs/pics/screenshot.png

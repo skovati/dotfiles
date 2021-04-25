@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/sh
+# converts markdown to html, used for blog
 
 cp -v /home/skovati/code/git/skovati.com/blog/template.html ./index.html
 pandoc $1 -f markdown -t html >> ./index.html

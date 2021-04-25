@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/sh
+# adds desired git remotes to current repo
 
 REPO=$(pwd | awk -F/ '{print $NF}')
 

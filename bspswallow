@@ -1,4 +1,5 @@
 #!/bin/sh
+# stolen from github, used to make the terminal swallow
 
 # Get class of a wid
 get_class() {

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 percent=$(amixer | grep -m1 -P -wo "\d{1,3}%")
 muted=$(amixer | grep "off" | wc -l)

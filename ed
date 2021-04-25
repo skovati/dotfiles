@@ -1,2 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
+# small script to easily open important code/config/docs in editor
+
 find $HOME/code $HOME/docs $HOME/downs -type f | fzf | xargs -ro "$EDITOR"

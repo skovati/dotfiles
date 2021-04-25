@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# converts custom colorschemes to alacritty, Xresources, and shell escape codes
+
 import yaml
 import os
 import sys

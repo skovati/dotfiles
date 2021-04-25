@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/sh
+# enables or disables the DP-1 screen
 
 if [ $# -eq 0 ] 
 then 

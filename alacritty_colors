@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+# small script used to convert wal colors into alacritty format
+# superseded by "palette"
+
 import yaml
 import os
 

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# script to facilitate connecting to mullvad vpn servers
 
 # us servers in chicago
 us_servers=("us4" "us18" "us22" "us23" "us128" "us129" "us130" "us131" "us132" "us133")

@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/sh
+# uses dmenu to prompt for ddg search, then opens firefox with that query
 
 query=$(echo -n "" | dmenu -p "DuckDuckGo Search: ")
 if [ -n "$query" ]; then

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+arduino-cli compile -b arduino:avr:nano:cpu=atmega328old $1
+arduino-cli upload -v -b arduino:avr:nano:cpu=atmega328old -p /dev/ttyUSB0 $1

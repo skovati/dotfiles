@@ -23,13 +23,14 @@ call plug#begin()
     Plug 'mbbill/undotree'              " undo tree visualization
     Plug 'vimwiki/vimwiki'              " note-taking, wiki
     Plug 'chriskempson/base16-vim'      " colorscheme
+    Plug 'morhetz/gruvbox'              " gruvbox
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""
 " set config
 """""""""""""""""""""""""""""""""""""""
 " things that should be default
-filetype on
+filetype plugin on
 syntax on
 set encoding=utf-8          " defaualt on neovim
 set noerrorbells            " why is this a default
@@ -102,6 +103,8 @@ autocmd FileType python setlocal shiftwidth=4 softtabstop=4 expandtab
 autocmd FileType markdown call SetProseOpts()
 autocmd FileType text call SetProseOpts()
 autocmd FileType help wincmd L " open help in vsplit
+
+set omnifunc=syntaxcomplete#Complete
 
 function SetProseOpts() 
     setlocal spell
@@ -216,7 +219,11 @@ let g:fzf_layout = { 'down': '~30%' }       " open fzf below
 let g:vimwiki_list = [{'path': '~/code/git/vimwiki/', 'path_html': '~/code/git/vimwiki/html/'}]
 
 " coc
-let g:coc_global_extensions = ['coc-python', 'coc-java', 'coc-go']
+let g:coc_global_extensions = ['coc-python', 'coc-java']
+
+" vim-go
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
 
 """""""""""""""""""""""""""""""""""""""
 " statusline

@@ -1,5 +1,5 @@
 # important exports
-export PATH=/home/skovati/code/git/scripts:/home/skovati/.local/bin:/home/skovati/code/go/bin:$PATH
+export PATH=/home/skovati/code/git/scripts:/home/skovati/.local/bin:/home/skovati/code/go/bin:$GOPATH/bin:$PATH
 export EDITOR="nvim"
 export READER="zathura"
 export IMAGE="sxiv"
@@ -31,4 +31,5 @@ export BAT_THEME="base16"
 export FZF_DEFAULT_OPTS="--border=sharp --color=16 --preview 'bat --theme="base16" --color always {1}'"
 
 # set manpager to nvim
-export MANPAGER="nvim -c 'set ft=man' -"
+# export MANPAGER="nvim -c 'set ft=man' -"
+export MANPAGER="sh -c 'col -bx | bat --color=always -l man -p'"

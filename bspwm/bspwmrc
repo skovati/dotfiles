@@ -28,8 +28,8 @@ bspc config right_padding 20
 
 bspc config top_monocle_padding -55
 bspc config bottom_monocle_padding -20
-bspc config left_monocle_padding -25
-bspc config right_monocle_padding -25
+bspc config left_monocle_padding -20
+bspc config right_monocle_padding -20
 
 bspc config split_ratio          0.50
 bspc config borderless_monocle   true

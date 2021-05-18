@@ -11,7 +11,6 @@ RUN apk add --no-cache neovim nodejs npm go python3 make git grep
 RUN addgroup -S skovati                                         && \
     adduser -S skovati -G skovati -s /bin/zsh -h /home/skovati  && \
     echo "skovati ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers       && \
-    echo "dev" > /etc/hostname                                  && \
     chown -R skovati:skovati /home/skovati
 
 # now act as skovati

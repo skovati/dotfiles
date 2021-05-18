@@ -6,12 +6,12 @@ ZSH_DIR=/usr/share/zsh/plugins
 REPO=/home/skovati/dev/git/dotfiles
 
 # mkdirs
-sudo mkdir -p $ZSH_DIR
+sudo mkdir $ZSH_DIR
 mkdir -p /home/skovati/.config/nvim
 
 # install zsh plugins
-sudo git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_DIR
-sudo git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZSH_DIR
+sudo git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_DIR/zsh-autosuggestions
+sudo git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZSH_DIR/zsh-syntax-highlighting
 
 # symlinks for tty dev
 ln -s $REPO/vim/.vimrc          $HOME/.vimrc

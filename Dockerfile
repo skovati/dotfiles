@@ -25,4 +25,4 @@ RUN mkdir -p /home/skovati/dev/git                              && \
     ./docker_install.sh
 
 # and start up a tmux'ed zsh
-ENTRYPOINT "zsh -c tmux"
+ENTRYPOINT "/bin/zsh"

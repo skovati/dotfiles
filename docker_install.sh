@@ -6,8 +6,8 @@ ZSH_DIR=/usr/share/zsh/plugins
 REPO=/home/skovati/dev/git/dotfiles
 
 # mkdirs
-sudo mkdir $ZSH_DIR
-mkdir /home/skovati/.config/nvim
+sudo mkdir -p $ZSH_DIR
+mkdir -p /home/skovati/.config/nvim
 
 # install zsh plugins
 sudo git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_DIR

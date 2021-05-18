@@ -16,7 +16,7 @@ RUN addgroup -S skovati                                         && \
 # now act as skovati
 USER skovati
 
-# make dir structure 
+# make dir structure and clone repos
 RUN mkdir -p /home/skovati/dev/git                              && \
     cd /home/skovati/dev/git                                    && \
     git clone https://github.com/skovati/dotfiles               && \

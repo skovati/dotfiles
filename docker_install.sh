@@ -17,3 +17,6 @@ sudo git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZSH_DIR
 ln -s $REPO/vim/.vimrc          $HOME/.vimrc
 ln -s $REPO/tmux/.tmux.conf     $HOME/.tmux.conf
 ln -s $REPO/nvim/init.vim       $HOME/.config/nvim/init.vim
+ln -s $REPO/zsh/.zshrc          $HOME/.zshrc
+ln -s $REPO/zsh/.zsh_alias      $HOME/.zsh_alias
+ln -s $REPO/zsh/.zshenv         $HOME/.zshenv

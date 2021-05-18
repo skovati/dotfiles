@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 REPO=$(pwd)
 
-cd $HOME/code/git
+cd $HOME/dev/git
 
 echo "----------------------------------------"
 echo "installing important packages..."
@@ -89,7 +89,7 @@ symlink() {
 
 clone_scripts() {
     # clone scripts
-    cd $HOME/code/git
+    cd $HOME/dev/git
     git clone https://github.com/skovati/scripts
 }
 

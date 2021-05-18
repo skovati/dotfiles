@@ -1,5 +1,5 @@
 # important exports
-export PATH=/home/skovati/code/git/scripts:/home/skovati/.local/bin:/home/skovati/code/go/bin:$GOPATH/bin:$PATH
+export PATH=/home/skovati/dev/git/scripts:/home/skovati/.local/bin:/home/skovati/code/go/bin:$GOPATH/bin:$PATH
 export EDITOR="nvim"
 export READER="zathura"
 export IMAGE="sxiv"

@@ -1,6 +1,6 @@
 # important
-export PATH=/home/skovati/code/git/scripts:/home/skovati/.local/bin:/home/skovati/code/go/bin:$PATH
-export EDITOR=/usr/bin/vim
+export PATH=/home/skovati/code/git/scripts:/home/skovati/.local/bin:$GOPATH/bin:$PATH
+export EDITOR=/usr/bin/nvim
 export GPG_TTY=$(tty)
 
 # commented out bc of xdg-set command

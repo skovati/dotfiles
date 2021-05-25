@@ -14,7 +14,7 @@ promptinit
 zle -N edit-command-line
 
 # make ls pretty
-LS_COLORS='rs=0:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:tw=30;42:ow=34;42:st=37;44:ex=01;32:';
+LS_COLORS='rs=0:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=30;41:sg=30;43:tw=30;42:ow=30;42:st=30;44:ex=01;32:';
 export LS_COLORS
 
 alias ls="ls --color -F"
@@ -40,9 +40,12 @@ function git_branch() {
 
 # set prompt
 setopt prompt_subst
-PROMPT='%F{green}%~%f$(git_branch) '
+PROMPT=' %F{green}%~%f%F{yellow}$(git_branch) '
 
 # source addons
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# addons config
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#707070'

@@ -20,6 +20,8 @@ call plug#begin()
     Plug 'neoclide/coc.nvim', {'branch': 'release'} "auto complete + linting
     Plug 'junegunn/goyo.vim'            " distraction free writing
     Plug 'junegunn/fzf.vim'
+    Plug 'sheerun/vim-polyglot'         " better syntax highlighting
+    Plug 'vimwiki/vimwiki'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""

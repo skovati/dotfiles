@@ -100,10 +100,10 @@ monitor = DP-1
 
 [bar/bar]
 ;These will have to be adjusted to set position and size of main bar
-width = 2450
+width = 2480
 height = 28
-offset-x = 55
-offset-y = 25 
+offset-x = 40
+offset-y = 20
 radius = 0
 fixed-center = true
 enable-ipc = true
@@ -404,7 +404,7 @@ label = "VPN: %output% "
 
 [module/ip]
 type = custom/script
-exec = curl -4 -s ifconfig.io
+exec = curl -4 -s ifconfig.co
 interval = 1
 label = "ip: %output%"
 ; format-underline = ${colors.color8}

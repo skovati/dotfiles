@@ -1,5 +1,5 @@
 # important
-export PATH=/home/skovati/code/git/scripts:/home/skovati/.local/bin:$GOPATH/bin:$PATH
+export PATH=/home/skovati/dev/git/scripts:/home/skovati/.local/bin:$GOPATH/bin:$PATH
 export EDITOR=/usr/bin/nvim
 export GPG_TTY=$(tty)
 

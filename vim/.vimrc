@@ -191,7 +191,7 @@ nnoremap <leader>u :UndotreeToggle<CR>
 " toggle spellcheck quickly
 nnoremap <leader>s :setlocal spell!<CR>
 
-nnoremap <leader>c :setlocal conceallevel=0
+nnoremap <leader>c :setlocal conceallevel=0<CR>
 
 " coc go to definition
 nmap <silent> gd <Plug>(coc-definition)

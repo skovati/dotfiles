@@ -21,9 +21,11 @@ call plug#begin()
     Plug 'junegunn/goyo.vim'            " distraction free writing
     Plug 'junegunn/fzf.vim'             " fzf plays nice with vim
     Plug 'mbbill/undotree'              " undo tree visualization
-    Plug 'vimwiki/vimwiki'              " note-taking, wiki
     Plug 'chriskempson/base16-vim'      " colorscheme
     Plug 'morhetz/gruvbox'              " gruvbox
+
+    " plugins that I'm reconsidering
+    " Plug 'vimwiki/vimwiki'              " note-taking, wiki
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""
@@ -99,6 +101,7 @@ let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+' " hide hidden files, toggle with 
 """""""""""""""""""""""""""""""""""""""
 autocmd FileType systemverilog setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType html setlocal shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType yaml setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType python setlocal shiftwidth=4 softtabstop=4 expandtab
 autocmd FileType markdown call SetProseOpts()
 autocmd FileType text call SetProseOpts()
@@ -135,7 +138,7 @@ endif
 " make leader key space
 let mapleader=" " 
 " map wq to esc
-inoremap wq <Esc>l
+inoremap wq <Esc>
 
 " fix sticky shift
 cmap W w
@@ -187,6 +190,8 @@ nnoremap <leader>u :UndotreeToggle<CR>
 " toggle spellcheck quickly
 nnoremap <leader>s :setlocal spell!<CR>
 
+nnoremap <leader>c :setlocal conceallevel=0
+
 " coc go to definition
 nmap <silent> gd <Plug>(coc-definition)
 
@@ -216,14 +221,79 @@ let g:tagbar_compact = 1
 let g:fzf_layout = { 'down': '~30%' }       " open fzf below
 
 " vimwiki
-let g:vimwiki_list = [{'path': '~/code/git/vimwiki/', 'path_html': '~/code/git/vimwiki/html/'}]
+let g:vimwiki_list = [{'path': '~/dev/git/vimwiki/', 'path_html': '~/dev/git/vimwiki/html/'}]
 
 " coc
-let g:coc_global_extensions = ['coc-python', 'coc-java']
+let g:coc_global_extensions = ['coc-pyright', 'coc-go', 'coc-json', 'coc-yaml']
 
-" vim-go
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+"""""""""""""""""""""""""""""""""""""""
+" coc recommended config
+"""""""""""""""""""""""""""""""""""""""
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 
 """""""""""""""""""""""""""""""""""""""
 " statusline

@@ -22,7 +22,7 @@ cursor:
   style: Underline
   unfocused_hollow: false
 mouse:
-  url:
+  hints:
     launcher:
       program: xdg-open
       args: []

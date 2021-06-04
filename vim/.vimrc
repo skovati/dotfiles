@@ -21,7 +21,6 @@ call plug#begin()
     Plug 'junegunn/goyo.vim'            " distraction free writing
     Plug 'junegunn/fzf.vim'             " fzf plays nice with vim
     Plug 'mbbill/undotree'              " undo tree visualization
-    Plug 'vimwiki/vimwiki'              " note-taking, wiki
     Plug 'chriskempson/base16-vim'      " colorscheme
     Plug 'morhetz/gruvbox'              " gruvbox
 call plug#end()
@@ -106,6 +105,7 @@ autocmd FileType help wincmd L " open help in vsplit
 
 set omnifunc=syntaxcomplete#Complete
 
+" this is run when editing text or markdown
 function SetProseOpts() 
     setlocal spell
     setlocal linebreak
@@ -224,6 +224,9 @@ let g:coc_global_extensions = ['coc-python', 'coc-java']
 " vim-go
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
+
+" indentLine
+" let g:indentLine_setConceal = 0
 
 """""""""""""""""""""""""""""""""""""""
 " statusline

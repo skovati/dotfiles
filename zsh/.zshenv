@@ -1,5 +1,5 @@
 # important exports
-export PATH=/home/skovati/dev/git/scripts:/home/skovati/.local/bin:/home/skovati/code/go/bin:$GOPATH/bin:$PATH
+export PATH=/home/skovati/dev/git/scripts:/home/skovati/.local/bin:/home/skovati/dev/go/bin:$GOPATH/bin:$PATH
 export EDITOR="nvim"
 export READER="zathura"
 export IMAGE="sxiv"
@@ -18,7 +18,7 @@ export XDG_DOWNLOAD_DIR="$HOME/downs/"
 export XDG_PICTURES_DIR="$HOME/docs/pics/"
 
 # misc
-export GOPATH="/home/skovati/code/go"
+export GOPATH="/home/skovati/dev/go"
 # fixes matlab lol
 export _JAVA_AWT_WM_NONREPARENTING=1
 # fixes gpg-ncurses

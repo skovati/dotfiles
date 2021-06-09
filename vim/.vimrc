@@ -27,7 +27,7 @@ call plug#begin()
     Plug 'junegunn/goyo.vim'            " distraction free writing
     Plug 'itchyny/lightline.vim'        " statusline
     " plugins that I'm reconsidering
-    " Plug 'vimwiki/vimwiki'              " note-taking, wiki
+    Plug 'vimwiki/vimwiki'              " note-taking, wiki
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""
@@ -139,6 +139,7 @@ endif
 let mapleader=" " 
 " map wq to esc
 inoremap wq <Esc>
+vnoremap wq <Esc>
 
 " fix sticky shift
 cmap W w
@@ -222,7 +223,11 @@ let g:tagbar_compact = 1
 let g:fzf_layout = { 'down': '~30%' }       " open fzf below
 
 " vimwiki
-" let g:vimwiki_list = [{'path': '~/dev/git/vimwiki/', 'path_html': '~/dev/git/vimwiki/html/'}]
+" make it use markdown syntax
+let g:vimwiki_list = [{'path': '~/dev/git/wiki/wiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
+" and not treat every markdown as vimwiki
+let g:vimwiki_global_ext = 0
 
 " coc
 let g:coc_global_extensions = ['coc-pyright', 'coc-go', 'coc-json', 'coc-yaml']
@@ -250,7 +255,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> D :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)

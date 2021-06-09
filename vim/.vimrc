@@ -109,6 +109,7 @@ autocmd FileType help wincmd L " open help in vsplit
 
 set omnifunc=syntaxcomplete#Complete
 
+" this is run when editing text or markdown
 function SetProseOpts() 
     setlocal spell
     setlocal linebreak

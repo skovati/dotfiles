@@ -1,4 +1,4 @@
-"""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""
 " auto download plug
 """""""""""""""""""""""""""""""""""""""
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -11,21 +11,23 @@ endif
 " plug calls
 """""""""""""""""""""""""""""""""""""""
 call plug#begin()
+    " actually useful
     Plug 'tpope/vim-commentary'         " gcc Vgc
-    Plug 'Yggdroot/indentLine'          " display indents :IndentLineToggle
     Plug 'tpope/vim-surround'           " cs\"' 
+    Plug 'tpope/vim-fugitive'           " !Git integration
+    Plug 'neoclide/coc.nvim', {'branch': 'release'} " autocomplete, linting
+    Plug 'junegunn/fzf.vim'             " fzf plays nice with vim
+    " rice
+    Plug 'Yggdroot/indentLine'          " display indents :IndentLineToggle
     Plug 'skovati/skovati.vim'          " colorscheme
     Plug 'preservim/nerdtree'           " file tree
     Plug 'preservim/tagbar'             " tmp ctags display
-    Plug 'neoclide/coc.nvim', {'branch': 'release'} " autocomplete, linting
-    Plug 'junegunn/goyo.vim'            " distraction free writing
-    Plug 'junegunn/fzf.vim'             " fzf plays nice with vim
     Plug 'mbbill/undotree'              " undo tree visualization
-    Plug 'chriskempson/base16-vim'      " colorscheme
     Plug 'morhetz/gruvbox'              " gruvbox
-
+    Plug 'junegunn/goyo.vim'            " distraction free writing
+    Plug 'itchyny/lightline.vim'        " statusline
     " plugins that I'm reconsidering
-    " Plug 'vimwiki/vimwiki'              " note-taking, wiki
+    Plug 'vimwiki/vimwiki'              " note-taking, wiki
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""
@@ -34,14 +36,12 @@ call plug#end()
 " things that should be default
 filetype plugin on
 syntax on
-set encoding=utf-8          " defaualt on neovim
-set noerrorbells            " why is this a default
-set belloff=all
+set encoding=utf-8          " default in neovim
 set backspace=indent,eol,start
-set ttyfast
-set autoread
-set autoindent
-set smartindent
+set ttyfast                 " default in neovim
+set autoread                " reloads current buffer if change detected
+set autoindent              " indents based on previous line
+set smartindent             " indents after { and others
 set incsearch               " search as characters are entered
 
 " comfy 4 space tabs        
@@ -73,9 +73,9 @@ set undodir=~/.vim/undodir
 set undofile                
 
 " misc
-set history=10000
-set complete-=i
-set mouse=a                 " enable mouse
+set history=10000           " large histroy
+set complete-=i             " 
+" set mouse=a                 " enable mouse
 set wildmenu                " command line completion
 set number relativenumber   " shows current & relative line numbers
 set clipboard=unnamedplus   " default to system clipboard
@@ -140,6 +140,7 @@ endif
 let mapleader=" " 
 " map wq to esc
 inoremap wq <Esc>
+vnoremap wq <Esc>
 
 " fix sticky shift
 cmap W w
@@ -177,7 +178,6 @@ noremap <leader>g :Goyo<CR>
 
 " NerdTree
 nnoremap <leader>n :NERDTreeToggle<CR>
-nnoremap <leader>f :NERDTreeFind<CR>
 
 " fzf
 nnoremap <leader>f :Files<CR>
@@ -193,17 +193,19 @@ nnoremap <leader>s :setlocal spell!<CR>
 
 nnoremap <leader>c :setlocal conceallevel=0<CR>
 
-" coc go to definition
-nmap <silent> gd <Plug>(coc-definition)
-
 """""""""""""""""""""""""""""""""""""""
-" neovim specific
+" neovim/vim specific
 """""""""""""""""""""""""""""""""""""""
 
 if has("nvim") 
     set guicursor=          " fixes alacritty changing cursor
 "   set ttymouse=sgr
 "   let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0
+endif
+
+if !has("nvim") 
+set encoding=utf-8          " unicode
+set ttyfast                 " fix slugish scrolling
 endif
 
 """""""""""""""""""""""""""""""""""""""
@@ -222,36 +224,18 @@ let g:tagbar_compact = 1
 let g:fzf_layout = { 'down': '~30%' }       " open fzf below
 
 " vimwiki
-let g:vimwiki_list = [{'path': '~/dev/git/vimwiki/', 'path_html': '~/dev/git/vimwiki/html/'}]
+" make it use markdown syntax
+let g:vimwiki_list = [{'path': '~/dev/git/wiki/wiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
+" and not treat every markdown as vimwiki
+let g:vimwiki_global_ext = 0
 
 " coc
 let g:coc_global_extensions = ['coc-pyright', 'coc-go', 'coc-json', 'coc-yaml']
 
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
-
 """""""""""""""""""""""""""""""""""""""
 " coc recommended config
 """""""""""""""""""""""""""""""""""""""
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 
 " Use <c-space> to trigger completion.
 if has('nvim')
@@ -259,11 +243,6 @@ if has('nvim')
 else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
-
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -277,7 +256,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> D :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -289,42 +268,39 @@ function! s:show_documentation()
   endif
 endfunction
 
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-" indentLine
-" let g:indentLine_setConceal = 0
+xmap <leader>l  <Plug>(coc-format-selected)
+nmap <leader>l  <Plug>(coc-format-selected)
 
 """""""""""""""""""""""""""""""""""""""
 " statusline
 """""""""""""""""""""""""""""""""""""""
 
-" this array is called with mode() to get a formatted mode title
-let g:currentmode={
-     \ 'n'  : 'normal ',
-     \ 'v'  : 'visual ',
-     \ 'V'  : 'v line ',
-     \ '' : 'v block ',
-     \ 'i'  : 'insert ',
-     \ 'R'  : 'r ',
-     \ 'Rv' : 'v replace ',
-     \ 'c'  : 'command ',
-     \ 't'  : 'fzf ',
-     \}
-
-" set custom statusline
-set statusline=                                         " clear statusline
-set statusline+=%2*\ %{g:currentmode[mode()]}           " get formatted mode from array above
-set statusline+=%3*\ %t\ "                              " print local current file path
-set statusline+=%8*\ %M                                 " print + if current file has changes made
-set statusline+=%8*\ %R                                 " print RO if current file is read only
-set statusline+=%8*\ %=                                 " spacing between left and right
-set statusline+=%1*\ %y\ "                              " show filetype
-set statusline+=\%4*\ %l\/%L                            " show current line number vs total number
-set statusline+=\:"                                     " colon between line and column
-set statusline+=\%4*\%v                                 " column number
-set statusline+=\ %8*"                                  " final space for formattin
+let g:lightline = {
+\   'colorscheme': '16color',
+\   'active': {
+\     'left': [ [ 'mode', 'paste' ],
+\               [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+\     'right': [ [ 'lineinfo' ],
+\              [ 'percent' ],
+\              [ 'fileencoding', 'filetype' ] ]
+\   },
+\   'component_function': {
+\     'gitbranch': 'FugitiveHead'
+\   },
+\   'tabline': {
+\     'left': [ [ 'tabs' ] ]
+\   }
+\ }

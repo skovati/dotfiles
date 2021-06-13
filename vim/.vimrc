@@ -191,10 +191,10 @@ nnoremap <leader>u :UndotreeToggle<CR>
 " toggle spellcheck quickly
 nnoremap <leader>s :setlocal spell!<CR>
 
-nnoremap <leader>c call ToggleConcealLevel()
+nnoremap <leader>c :call ToggleConcealLevel()<CR>
 
 function ToggleConcealLevel()
-    if g:conceallevel == 2
+    if &conceallevel == 2
         setlocal conceallevel=0
     else
         setlocal conceallevel=2

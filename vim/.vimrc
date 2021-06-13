@@ -191,7 +191,15 @@ nnoremap <leader>u :UndotreeToggle<CR>
 " toggle spellcheck quickly
 nnoremap <leader>s :setlocal spell!<CR>
 
-nnoremap <leader>c :setlocal conceallevel=0<CR>
+nnoremap <leader>c call ToggleConcealLevel()
+
+function ToggleConcealLevel()
+    if g:conceallevel == 2
+        setlocal conceallevel=0
+    else
+        setlocal conceallevel=2
+    endif
+endfunction
 
 """""""""""""""""""""""""""""""""""""""
 " neovim/vim specific
@@ -229,6 +237,9 @@ let g:vimwiki_list = [{'path': '~/dev/git/wiki/wiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 " and not treat every markdown as vimwiki
 let g:vimwiki_global_ext = 0
+
+" makes markdown linkes like [text](text.md) instead of [text](text)
+let g:vimwiki_markdown_link_ext = 1
 
 " coc
 let g:coc_global_extensions = ['coc-pyright', 'coc-go', 'coc-json', 'coc-yaml']

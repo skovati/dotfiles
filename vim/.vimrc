@@ -109,7 +109,6 @@ autocmd FileType help wincmd L " open help in vsplit
 
 set omnifunc=syntaxcomplete#Complete
 
-" this is run when editing text or markdown
 function SetProseOpts() 
     setlocal spell
     setlocal linebreak
@@ -266,8 +265,8 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window.
-nnoremap <silent> D :call <SID>show_documentation()<CR>
+" Use D to show documentation in preview window.
+nnoremap <leader>d :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)

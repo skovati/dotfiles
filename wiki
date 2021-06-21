@@ -1,1 +1,65 @@
-/home/skovati/dev/git/wiki/wiki
+#!/bin/sh
+
+REPO=$HOME/dev/git/wiki
+GPG_KEY=D82CB814F5C6956ABD2DBD405026E406B7B3818F
+WIKIDIR=/tmp/wiki
+
+encrypt_wiki() {
+    tar cf /tmp/wiki.tar -C /tmp wiki || {
+        echo "unable to package wiki..."
+        exit 1
+    }
+    gpg -q -o $REPO/wiki.tar.gpg -sear $GPG_KEY /tmp/wiki.tar || {
+        echo "unable to encrypt wiki... try manually"
+        exit 1
+    }
+    shred -u /tmp/wiki.tar
+    rm -rf /tmp/wiki
+}
+
+decrypt_wiki() {
+    gpg -q -o /tmp/wiki.tar --decrypt $REPO/wiki.tar.gpg || {
+        echo "unable to decrypt and/or verify the signature... try manually"
+        exit 1
+    }
+    tar xf /tmp/wiki.tar -C /tmp && \
+    shred -u /tmp/wiki.tar
+    shred -u $REPO/wiki.tar.gpg
+}
+
+case "$1" in
+    edit | "")
+        [ -d /tmp/wiki ] || {
+            decrypt_wiki
+        }
+        $EDITOR /tmp/wiki/index.md
+        encrypt_wiki
+    ;;
+    push)
+        [ -d /tmp/wiki ] && {
+            encrypt_wiki
+        }
+        cd $REPO
+        git commit -S -am "update wiki" && git push origin main
+        cd -
+    ;;
+    encrypt)
+        [ -d $WIKIDIR ] && {
+            encrypt_wiki
+            echo "encrypted wiki located at $REPO"
+            exit 0
+        }
+        echo "wiki already encrypted at $REPO"
+    ;;
+    decrypt)
+        [ -d $WIKIDIR ] || {
+            decrypt_wiki
+            echo "decrypted wiki located at $WIKIDIR"
+            exit 0
+        }
+        echo "wiki already decrypted at $WIKIDIR"
+    ;;
+    *)
+        echo "usage: crypt [option]\n\t-e encrypt wiki\n\t-d decrypt wiki"
+    ;;
+esac

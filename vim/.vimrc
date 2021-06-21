@@ -142,11 +142,11 @@ inoremap wq <Esc>
 vnoremap wq <Esc>
 
 " fix sticky shift
-cmap W w
-cmap Wq wq
-cmap WQ wq
-cmap wQ wq
-cmap Q q
+cnoremap W w
+cnoremap Wq wq
+cnoremap WQ wq
+cnoremap wQ wq
+cnoremap Q q
 
 " show syntax highlighting group
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -182,7 +182,7 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>f :Files<CR>
 
 " tagbar
-nmap <leader>t :TagbarToggle<CR>
+nnoremap <leader>t :TagbarToggle<CR>
 
 " undotree
 nnoremap <leader>u :UndotreeToggle<CR>
@@ -232,7 +232,7 @@ let g:fzf_layout = { 'down': '~30%' }       " open fzf below
 
 " vimwiki
 " make it use markdown syntax
-let g:vimwiki_list = [{'path': '~/dev/git/wiki/wiki/',
+let g:vimwiki_list = [{'path': '/tmp/wiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 " and not treat every markdown as vimwiki
 let g:vimwiki_global_ext = 0

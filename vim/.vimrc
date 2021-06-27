@@ -26,6 +26,7 @@ call plug#begin()
     Plug 'morhetz/gruvbox'              " gruvbox
     Plug 'junegunn/goyo.vim'            " distraction free writing
     Plug 'itchyny/lightline.vim'        " statusline
+    Plug 'tpope/vim-markdown'           " markdown highlighing & folding
     " plugins that I'm reconsidering
     Plug 'vimwiki/vimwiki'              " note-taking, wiki
 call plug#end()
@@ -242,6 +243,9 @@ let g:vimwiki_markdown_link_ext = 1
 
 " coc
 let g:coc_global_extensions = ['coc-pyright', 'coc-go', 'coc-json', 'coc-yaml']
+
+" md
+let g:markdown_folding = 1
 
 """""""""""""""""""""""""""""""""""""""
 " coc recommended config

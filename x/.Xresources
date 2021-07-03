@@ -1,31 +1,20 @@
-URxvt.font: xft:tamzen:size=14, xft:Terminess TTF Nerd Font:size=18, xft:Monospace
-URxvt*.depth: 50
+#include "/home/skovati/dev/git/dotfiles/etc/colorschemes/forest/forest.xresources"
 
-Xft.dpi: 96
-Xft.autohint: 0
-Xft.antialias: 1
-Xft.hinting: true
-Xft.hintstyle: hintslight
-Xft.rgba: rgb
-Xft.lcdfilter: lcddefault
-
-URxvt.scrollBar: false
-
-URxvt*fading: 0
-
-URxvt.internalBorder: 30
-
-URxvt.letterSpace: -1
-URxvt.cursorBlink: 1
-URxvt.cursorUnderline: 1
-
-URxvt.iso14755:    false
-URxvt.iso14755_52: false
-
-! Disable Ctrl-Alt-c & Ctrl-Alt-v bindings (optional)
-URxvt.keysym.C-M-c:    builtin-string:
-URxvt.keysym.C-M-v:    builtin-string:
-
-! Bind Ctrl-Shift-c & Ctrl-Shift-v to copy and paste
-URxvt.keysym.C-S-0x43: eval:selection_to_clipboard
-URxvt.keysym.C-S-0x56: eval:paste_clipboard
+*.foreground:  FOREGROUND
+*.background:  BACKGROUND
+*.color0:      COLOR0
+*.color1:      COLOR1
+*.color2:      COLOR2
+*.color3:      COLOR3
+*.color4:      COLOR4
+*.color5:      COLOR5
+*.color6:      COLOR6
+*.color7:      COLOR7
+*.color8:      COLOR8
+*.color9:      COLOR9
+*.color10:     COLOR10
+*.color11:     COLOR11
+*.color12:     COLOR12
+*.color13:     COLOR13
+*.color14:     COLOR14
+*.color15:     COLOR15

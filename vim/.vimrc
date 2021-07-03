@@ -180,7 +180,8 @@ noremap <leader>g :Goyo<CR>
 nnoremap <leader>n :NERDTreeToggle<CR>
 
 " fzf
-nnoremap <leader>f :Files<CR>
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fg :GFiles<CR>
 
 " tagbar
 nnoremap <leader>t :TagbarToggle<CR>

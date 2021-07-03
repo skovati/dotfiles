@@ -1,0 +1,31 @@
+URxvt.font: xft:tamzen:size=14, xft:Terminess TTF Nerd Font:size=18, xft:Monospace
+URxvt*.depth: 50
+
+Xft.dpi: 96
+Xft.autohint: 0
+Xft.antialias: 1
+Xft.hinting: true
+Xft.hintstyle: hintslight
+Xft.rgba: rgb
+Xft.lcdfilter: lcddefault
+
+URxvt.scrollBar: false
+
+URxvt*fading: 0
+
+URxvt.internalBorder: 30
+
+URxvt.letterSpace: -1
+URxvt.cursorBlink: 1
+URxvt.cursorUnderline: 1
+
+URxvt.iso14755:    false
+URxvt.iso14755_52: false
+
+! Disable Ctrl-Alt-c & Ctrl-Alt-v bindings (optional)
+URxvt.keysym.C-M-c:    builtin-string:
+URxvt.keysym.C-M-v:    builtin-string:
+
+! Bind Ctrl-Shift-c & Ctrl-Shift-v to copy and paste
+URxvt.keysym.C-S-0x43: eval:selection_to_clipboard
+URxvt.keysym.C-S-0x56: eval:paste_clipboard

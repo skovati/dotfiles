@@ -26,6 +26,7 @@ call plug#begin()
     Plug 'morhetz/gruvbox'              " gruvbox
     Plug 'junegunn/goyo.vim'            " distraction free writing
     Plug 'itchyny/lightline.vim'        " statusline
+    Plug 'hashivim/vim-terraform'
     " plugins that I'm reconsidering
     Plug 'vimwiki/vimwiki'              " note-taking, wiki
 call plug#end()
@@ -179,7 +180,8 @@ noremap <leader>g :Goyo<CR>
 nnoremap <leader>n :NERDTreeToggle<CR>
 
 " fzf
-nnoremap <leader>f :Files<CR>
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fg :GFiles<CR>
 
 " tagbar
 nmap <leader>t :TagbarToggle<CR>
@@ -232,7 +234,7 @@ let g:fzf_layout = { 'down': '~30%' }       " open fzf below
 
 " vimwiki
 " make it use markdown syntax
-let g:vimwiki_list = [{'path': '~/dev/git/wiki/wiki/',
+let g:vimwiki_list = [{'path': '/tmp/wiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 " and not treat every markdown as vimwiki
 let g:vimwiki_global_ext = 0

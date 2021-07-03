@@ -1,10 +1,12 @@
-" set runtimepath^=~/.vim runtimepath+=~/.vim/after
-" let &packpath=&runtimepath
-" source ~/.vimrc
+" skovati's neovim config
+" https://github.com/skovati/dotfiles
 
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
+" source other VimL files
+" TODO find other way to source
+source /home/skovati/.config/nvim/plugs.vim
+source /home/skovati/.config/nvim/sets.vim
+source /home/skovati/.config/nvim/maps.vim
+source /home/skovati/.config/nvim/status.vim
 
+" source lua files
+lua require("init")

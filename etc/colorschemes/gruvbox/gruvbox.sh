@@ -1,7 +1,7 @@
-#!/usr/bin/env bash 
+#!/bin/sh 
 background='#181818' 
 foreground='#d8d8d8' 
-color0='#282828' 
+color0='#161616' 
 color1='#cc241d' 
 color2='#98971a' 
 color3='#d79921' 

@@ -2,7 +2,11 @@
 " colors
 """""""""""""""""""""""""""""""""""""""
 
-colorscheme skovati " https://github.com/skovati/skovati.vim
+" gruvbox
+colorscheme gruvbox
 
 set cursorline
-set background=dark
+" set background=dark
+
+" let terminal determine background
+hi Normal ctermbg=none

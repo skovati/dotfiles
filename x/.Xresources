@@ -1,4 +1,4 @@
-#include "/home/skovati/dev/git/dotfiles/etc/colorschemes/forest/forest.xresources"
+#include "/home/skovati/dev/git/dotfiles/etc/colorschemes/gruvbox/gruvbox.xresources"
 
 *.foreground:  FOREGROUND
 *.background:  BACKGROUND

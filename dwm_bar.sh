@@ -26,7 +26,6 @@ dwm_date () {
 }
 
 
-
 while true
 do
     xsetroot -name "$(dwm_ip)$(dwm_mem)$(dwm_cpu)$(dwm_date)"

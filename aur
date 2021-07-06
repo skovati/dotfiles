@@ -1,4 +1,4 @@
 #!/bin/sh
 # installs a package from the aur using fzf as a parser
 
-paru -Slq | fzf --multi --preview 'paru -Si {1}' | xargs -ro paru -S
+paru -Slq | fzf --multi --preview 'paru -Si {1}' | xargs -ro paru --sudo=doas -S

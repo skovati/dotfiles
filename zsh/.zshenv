@@ -6,7 +6,7 @@ export IMAGE="sxiv"
 export TERMINAL="alacritty"
 
 # unused bc of xdg-set command
-# export BROWSER=/usr/bin/firefox
+export BROWSER="firefox"
 
 # export xdg dirs
 export XDG_CONFIG_HOME="$HOME/.config"

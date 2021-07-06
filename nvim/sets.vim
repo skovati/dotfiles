@@ -2,6 +2,7 @@
 set smartindent
 set tabstop=4				" 4 space tabs
 set softtabstop=4			" backspace removes all spaces
+set shiftwidth=4            " >> shifts by 4
 set expandtab				" insert tabs as spaces
 set number relativenumber   " line nums
 set clipboard=unnamedplus   " share + register with system

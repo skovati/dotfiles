@@ -4,6 +4,7 @@ export EDITOR="nvim"
 export READER="zathura"
 export IMAGE="sxiv"
 export TERMINAL="alacritty"
+export BROWSER="firefox"
 
 # unused bc of xdg-set command
 export BROWSER="firefox"

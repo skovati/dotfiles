@@ -2,7 +2,7 @@
 # programs that should autostart for X11 window managers
 # this is a separate program in order to be WM-agnostic
 
-feh --bg-scale /home/skovati/docs/pics/lightest_red.png &
+feh --bg-scale /home/skovati/docs/pics/pape &
 xrdb /home/skovati/.Xresources &
 xset s off -dpms &
 picom --vsync --backend glx -GCb --config /dev/null &

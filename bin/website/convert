@@ -1,0 +1,3 @@
+#!/bin/bash 
+
+bash /home/skovati/code/docker/swag/status/ansi | ansi2html -s solarized -t "Skovati Network Status" -W > /home/skovati/code/docker/swag/status/index.html

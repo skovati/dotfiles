@@ -1,0 +1,24 @@
+#!/bin/sh
+# enables or disables the DP-1 screen
+
+if [ $# -eq 0 ] 
+then 
+  echo "use y or n flags"
+  exit 1
+fi
+
+while getopts yn option
+do
+  case "${option}" in
+    y)
+      xrandr --output DP-1 --mode 1920x1080 --right-of eDP-1
+      echo "usb-c display output enabled..."
+    ;;
+    n)
+      xrandr --output DP-1 --off
+      echo "usb-c display output disabled..."
+    ;;
+  esac
+done
+
+

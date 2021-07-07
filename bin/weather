@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+wttr > /tmp/wttr.in && less /tmp/wttr.in & radar

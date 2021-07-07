@@ -1,0 +1,4 @@
+#!/bin/sh
+# takes a screenshot using imagemagick
+
+import -quality 90 /home/skovati/docs/pics/screenshot.png

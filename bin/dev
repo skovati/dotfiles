@@ -1,0 +1,13 @@
+#!/bin/sh
+
+[ -d $HOME/dev/git/dev ] || {
+    echo "error, clone github.com/skovati/dev and run the build script"
+    exit 1
+}
+
+echo ========================================
+echo "entering $1 dev container..."
+echo ========================================
+
+IMAGE=$1-dev
+docker run -it -v $PWD:/home/dev -h $IMAGE $IMAGE:latest

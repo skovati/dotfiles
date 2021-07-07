@@ -1,0 +1,94 @@
+#!/bin/bash
+
+RED='\033[1;31m'
+GRE='\033[0;32m'
+YEL='\033[1;33m'
+BLU='\033[0;34m'
+MAG='\033[0;35m'
+CYA='\033[0;36m'
+NC='\033[0m' # No Color
+
+echo -e "${RED}
+Skovati Network Status Report----------
+${NC}"
+date
+
+echo -e "${YEL}
+Node-----------------------------------
+${NC}"
+/home/skovati/code/docker/swag/status/screenfetch-dev
+echo -e "${GRE}
+Network--------------------------------
+${NC}"
+vnstat -i eno1
+
+echo -e "${BLU}
+CPU/Mem--------------------------------
+${NC}"
+iostat -ch | tail -n 4 | head -n 2
+
+echo "
+"
+free -m
+
+echo -e "${MAG}
+Disks----------------------------------
+${NC}"
+iostat -h -m -d | tail -n 3 | head -n 2
+echo "
+"
+lsblk
+
+echo "
+"
+df -h --local -x tempfs -x devtempfs
+
+echo -e "${CYA}
+Docker---------------------------------
+${NC}"
+docker ps
+
+echo -e "${RED}
+Nas------------------------------------
+${NC}"
+ssh nas screenfetch
+echo -e "${GRE}
+Network--------------------------------
+${NC}"
+ssh nas vnstat -i eno1
+
+echo "
+"
+ssh nas vnstat -i wg0
+
+echo -e "${BLU}
+Cpu/Mem--------------------------------
+${NC}"
+ssh nas iostat -hc | tail -n 5 | head -n 2
+
+echo "
+"
+free -m
+
+echo -e "${MAG}
+Disks----------------------------------
+${NC}"
+ssh nas iostat -h -m -d | tail -n 6 | head -n 4
+
+echo "
+"
+ssh nas lsblk
+
+echo "
+"
+ssh nas df -h --local -x tempfs -x devtempfs
+
+echo -e "${CYA}
+Docker---------------------------------
+${NC}"
+ssh nas docker ps
+
+echo -e "${RED}
+Deluge---------------------------------
+${NC}"
+bash /home/skovati/code/docker/swag/status/deluge_stats

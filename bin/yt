@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# search videos on youtube and play them in mpv, without an API key
+# edited to use fzf and caca
+# credit to github.com/sayan01
+
+query=$1
+YEL='\033[1;33m'
+NC='\033[0m' # No Color
+
+# prompt if no command line args passed
+if [ -z "$query" ]; then 
+    printf "${YEL}Enter yt search query...${NC}\n"
+    read -p "query: " query
+fi 
+
+# exit if query is null
+if [ -z "$query" ]; then 
+    exit;
+fi 
+
+# sanitize the query
+query=$(sed \
+	-e 's|+|%2B|g'\
+	-e 's|#|%23|g'\
+	-e 's|&|%26|g'\
+	-e 's| |+|g'\
+	<<< "$query")
+
+# fetch the results with the $query and grep the video id and title
+# replace " with “ so that entire title is displayed even if it has "
+videoids=$(
+	curl -s "https://www.youtube.com/results?search_query=$query" | \
+	grep -oP '"videoRenderer":{"videoId":".{11}".+?"text":".+?[^\\](?=")' | \
+	sed 's|\\\"|“|g' | \
+	awk -F\" '{ print $6 " " $NF}'
+)
+
+videoid=$(
+	echo -e "$videoids" | \
+	fzf --header="Video to watch: " | \
+	cut -d' ' -f1
+)
+if [ -z "$videoid" ]; then exit; fi	
+DISPLAY= mpv --ytdl-format="=bestvideo[height<=?480]+bestaudio/best" --really-quiet -vo caca "https://www.youtube.com/watch?v=$videoid"

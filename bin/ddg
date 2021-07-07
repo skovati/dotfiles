@@ -1,0 +1,10 @@
+#!/bin/sh
+# uses dmenu to prompt for ddg search, then opens firefox with that query
+
+query=$(echo -n "" | dmenu -p "DuckDuckGo Search: ")
+if [ -n "$query" ]; then
+    base_url="https://duckduckgo.com/?q="
+    query=$base_url$(echo $query | sed "s/ /+/g")
+    firefox $query
+fi    
+

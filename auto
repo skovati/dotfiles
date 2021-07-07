@@ -2,17 +2,21 @@
 # programs that should autostart for X11 window managers
 # this is a separate program in order to be WM-agnostic
 
-feh --bg-scale /home/skovati/docs/pics/lightest_red.png
-xrdb /home/skovati/.Xresources
-xset s off -dpms
-picom --vsync --backend glx -GCb --config /dev/null
+feh --bg-scale /home/skovati/docs/pics/lightest_red.png &
+xrdb /home/skovati/.Xresources &
+xset s off -dpms &
+picom --vsync --backend glx -GCb --config /dev/null &
 pgrep redshift || redshift -t 5500:3800 -l 43:-89 -m randr &
 xsetroot -cursor_name left_ptr &
-xset r rate 300 35
-xss-lock -l -- xsecurelock
+xset r rate 300 35 &
+xss-lock -l -- xsecurelock &
+sxhkd &
 
 # dwm specific
 dbar &
+while true; do
+    dwm
+done
 
 # bspwm specific
 # sxhkd &

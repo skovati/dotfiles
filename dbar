@@ -1,17 +1,21 @@
 #!/bin/sh
 # outputs basic info to xroot for the dwm status bar
 
+SEP=" | "
+
 dmem() {
     printf "mem: %smb" "$(free -m | awk '(NR==2){ print $3 }')"
 }
 
 dtime() {
-    printf "%s" "$(date +%T)"
+    printf "%s" "$(date "+%a %h %d - %r")"
+}
+
+status() {
+    printf " %s$SEP%s" "$(dmem)" "$(dtime)"
 }
 
 while true; do
-    xsetroot -name "\
-        $(dmem) $(printf "|") \
-        $(dtime)"
+    xsetroot -name "$(status)"
     sleep 1
 done

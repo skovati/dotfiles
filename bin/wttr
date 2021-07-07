@@ -1,0 +1,4 @@
+#!/bin/sh
+# outputs wttr info for my location
+
+curl -s wttr.in/"Madison, Wisconsin"\?%tpFQn1m

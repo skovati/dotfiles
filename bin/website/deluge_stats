@@ -1,0 +1,7 @@
+#!/bin/bash
+
+TOTAL_DOWN=$(cat /home/skovati/code/docker/deluge/stats.totals | grep total_download | cut -d " " -f 6 | cut -d "," -f 1)
+TOTAL_UP=$(cat /home/skovati/code/docker/deluge/stats.totals | grep total_upload | cut -d " " -f 6 | cut -d "," -f 1)
+
+echo "Total Downloaded: $(bc -l <<< "scale=2;$TOTAL_DOWN/1000000000") GB"
+echo "Total Uploaded: $(bc -l <<< "scale=2;$TOTAL_UP/1000000000") GB"

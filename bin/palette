@@ -1,0 +1,157 @@
+#!/usr/bin/env python
+# converts custom colorschemes to alacritty, Xresources, and shell escape codes
+
+import yaml
+import os
+import sys
+import re
+
+def usage():
+    print(" \
+        palette [path_to_file]\n \
+        passed file should be of the yaml format: \
+        black: '#XXXXXX' \
+        red: '#XXXXXX' \
+        green: '#XXXXXX' \
+        yellow: '#XXXXXX' \
+        blue: '#XXXXXX' \
+        magenta: '#XXXXXX' \
+        cyan: '#XXXXXX' \
+        white: '#XXXXXX'")
+
+def get_file():
+    return(os.path.abspath(sys.argv[1]))
+
+def open_file():
+    with open(get_file()) as f:
+        return yaml.safe_load(f)
+
+def yml_to_list(palette_yml):
+    return [ 
+    palette_yml["black"],
+    palette_yml["red"], 
+    palette_yml["green"],
+    palette_yml["yellow"],
+    palette_yml["blue"],
+    palette_yml["magenta"],
+    palette_yml["cyan"],
+    palette_yml["white"],
+    palette_yml["grey"]]
+
+
+def format_alacritty(palette):
+
+    # yml with desired format
+    default = yaml.safe_load("{'colors': {'primary': {'background': '', 'foreground': ''}, 'normal': {'black': '', 'red': '', 'green': '', 'yellow': '', 'blue': '', 'magenta': '', 'cyan': '', 'white': ''}, 'bright': {'black': '', 'red': '', 'green': '', 'yellow': '', 'blue': '', 'magenta': '', 'cyan': '', 'white': ''}}}")
+
+    # set normal colors
+    default["colors"]["primary"]["background"] = palette[0]
+    default["colors"]["primary"]["foreground"] = palette[7]
+    default["colors"]["normal"]["black"] = palette[0]
+    default["colors"]["normal"]["red"] = palette[1]
+    default["colors"]["normal"]["green"] = palette[2]
+    default["colors"]["normal"]["yellow"] = palette[3]
+    default["colors"]["normal"]["blue"] = palette[4]
+    default["colors"]["normal"]["magenta"] = palette[5]
+    default["colors"]["normal"]["cyan"] = palette[6]
+    default["colors"]["normal"]["white"] = palette[7]
+
+    # set bright colors
+    default["colors"]["bright"]["black"] = palette[8]
+    default["colors"]["bright"]["red"] = palette[1]
+    default["colors"]["bright"]["green"] = palette[2]
+    default["colors"]["bright"]["yellow"] = palette[3]
+    default["colors"]["bright"]["blue"] = palette[4]
+    default["colors"]["bright"]["magenta"] = palette[5]
+    default["colors"]["bright"]["cyan"] = palette[6]
+    default["colors"]["bright"]["white"] = palette[7]
+
+    return default
+
+def format_xresources(palette):
+    return "" + \
+        "#define FOREGROUND " + palette[7] + "\n" + \
+        "#define BACKGROUND " + palette[0] + "\n" + \
+        "#define COLOR0 " + palette[0] + "\n" + \
+        "#define COLOR8 " + palette[0] + "\n" + \
+        "#define COLOR1 " + palette[1] + "\n" + \
+        "#define COLOR9 " + palette[1] + "\n" + \
+        "#define COLOR2 " + palette[2] + "\n" + \
+        "#define COLOR10 " + palette[2] + "\n" + \
+        "#define COLOR3  " + palette[3] + "\n" + \
+        "#define COLOR11 " + palette[3] + "\n" + \
+        "#define COLOR4  " + palette[4] + "\n" + \
+        "#define COLOR12 " + palette[4] + "\n" + \
+        "#define COLOR5  " + palette[5] + "\n" + \
+        "#define COLOR13 " + palette[5] + "\n" + \
+        "#define COLOR6  " + palette[6] + "\n" + \
+        "#define COLOR14 " + palette[6] + "\n" + \
+        "#define COLOR7  " + palette[7] + "\n" + \
+        "#define COLOR15 " + palette[7]
+
+def format_shell(palette):
+    return "" + \
+        "#!/usr/bin/env bash \n" + \
+        "background='#181818' \n" + \
+        "foreground='#d8d8d8' \n" + \
+        "color0='" + palette[0] + "' \n" + \
+        "color1='" + palette[1] + "' \n" + \
+        "color2='" + palette[2] + "' \n" + \
+        "color3='" + palette[3] + "' \n" + \
+        "color4='" + palette[4] + "' \n" + \
+        "color5='" + palette[5] + "' \n" + \
+        "color6='" + palette[6] + "' \n" + \
+        "color7='" + palette[7] + "' \n" + \
+        "color8='" + palette[8] + "' \n" + \
+        "color9='" + palette[1] + "' \n" + \
+        "color10='" + palette[2] + "' \n" + \
+        "color11='" + palette[3] + "' \n" + \
+        "color12='" + palette[4] + "' \n" + \
+        "color13='" + palette[5] + "' \n" + \
+        "color14='" + palette[6] + "' \n" + \
+        "color15='" + palette[7] + "'"
+
+def get_dir():
+    return os.path.dirname(get_file())
+
+def get_colorscheme():
+    return re.search("^(.*)?\.", file_name()).group(1)
+
+def file_name():
+    return os.path.basename(get_file())
+
+def main():
+    # if argv[0] is empty, print usage
+    if len(sys.argv) < 2:
+        usage()
+        sys.exit()
+
+    # load palette from file
+    palette = yml_to_list(open_file())
+
+    # convert to alacritty colors
+    alacritty_yml = format_alacritty(palette)
+
+    # save to file+alacitty.yml
+    with open(get_dir() + "/" + get_colorscheme() + "_alacritty.yml", "w") as f:
+        yaml.dump(alacritty_yml, f)
+        f.close()
+
+    # convert to Xresources colors
+    xresources = format_xresources(palette)
+
+    # save to file+.xresources
+    with open(get_dir() + "/" + get_colorscheme() + ".xresources", "w") as f:
+        f.write(xresources)
+        f.close()
+
+    # convert to shell
+    shell = format_shell(palette)
+
+    # save to colorscheme+.sh
+    with open(get_dir() + "/" + get_colorscheme() + ".sh", "w") as f:
+        f.write(shell)
+        f.close()
+
+if __name__ == "__main__":
+    main()

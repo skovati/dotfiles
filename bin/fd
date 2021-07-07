@@ -1,0 +1,4 @@
+#!/bin/sh
+# script to easily cd into common directories
+
+cd $(du --one-file-system /home/skovati/ | awk '{print $2}' | fzf)

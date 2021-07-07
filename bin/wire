@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+# script to facilitate connecting to mullvad vpn servers
+
+# us servers in chicago
+us_servers=("us4" "us18" "us22" "us23" "us128" "us129" "us130" "us131" "us132" "us133")
+
+usage() {
+    echo "
+    Usage: wire [command]
+    Commands: up, down, status
+    Run with no arguments for interactive mode
+    "
+}
+
+display() {
+    if [ -n "$1" ]
+    then
+        switch $1
+        exit
+    else
+       choice=$(printf "Connect\nStatus\nDisconnect\nHelp\nQuit" | smenu -c -W $'\n' -q -N -n 10 -3 '.*')
+       switch $choice
+    fi
+}
+
+switch() {
+    case $1 in
+        Connect|up)
+            connect
+            ;;
+        Status|status)
+            stat
+            ;;
+        Disconnect|down)
+            disconnect
+            ;;
+        Help|help)
+            usage
+            ;;
+        Quit)
+            exit
+            ;;
+        *)
+            usage
+            ;;
+    esac
+}
+
+connect() {
+    # choose randomly for different ips
+    rand=$[$RANDOM % ${#us_servers[@]}]
+    server="mullvad-${us_servers[rand]}"
+    echo "Connecting to $server over WireGuard..."
+    doas wg-quick up $server > /dev/null 2>&1
+    echo "Success, new ip: $(curl -s ifconfig.io)"
+}
+
+stat() {
+    echo "Currently connected to:"
+    doas wg | grep interface | awk '{print $2}'
+}
+
+disconnect() {
+    # grep to find current mullvad wg connection
+    curr_server=$(doas wg | grep mullvad | awk '{print $2}')
+    echo "Disconnecting from $curr_server..."
+    doas wg-quick down $curr_server > /dev/null 2>&1
+    echo "Success, new ip: $(curl -s ifconfig.io)"
+}
+
+display $1

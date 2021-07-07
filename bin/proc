@@ -1,0 +1,4 @@
+#!/bin/sh
+# script to select running process using fzf and kill it
+
+kill $(ps aux | fzf | awk '{print $2}')

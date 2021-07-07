@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# prints out a headset unicode character if connected to bluetooth
+
+if [[ $(bluetoothctl info) != "Missing device address argument" ]]
+then
+    echo ""
+else
+    echo ""
+fi

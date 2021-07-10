@@ -24,10 +24,11 @@ call plug#begin()
     Plug 'morhetz/gruvbox'              " gruvbox
     Plug 'junegunn/goyo.vim'            " distraction free writing
     Plug 'itchyny/lightline.vim'        " statusline
-    " plugins that I'm reconsidering
     Plug 'vimwiki/vimwiki'              " note-taking, wiki
     " neovim specific
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    " language specific
+    Plug 'hashivim/vim-terraform'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""

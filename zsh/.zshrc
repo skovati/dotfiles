@@ -3,7 +3,8 @@ HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=$HISTSIZE
 unsetopt beep
-
+# enable comments in interactive shell
+setopt interactivecomments 
 # set vim mode
 bindkey -v
 

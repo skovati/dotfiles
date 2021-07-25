@@ -28,6 +28,8 @@ call plug#begin()
     Plug 'vimwiki/vimwiki'              " note-taking, wiki
     " neovim specific
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'hrsh7th/nvim-compe'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""

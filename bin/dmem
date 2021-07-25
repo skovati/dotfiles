@@ -1,0 +1,3 @@
+#!/bin/sh
+
+printf "%smb\n" "$(free -m | awk '(NR==2){ print $3 }')"

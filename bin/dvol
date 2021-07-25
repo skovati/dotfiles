@@ -1,0 +1,4 @@
+#!/bin/sh
+# symbols:  
+
+amixer | grep -m1 -P -wo "\d{1,3}%"

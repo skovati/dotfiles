@@ -12,6 +12,7 @@ set showmatch               " highlight matching brackets
 set path+=**                " enable fuzzy :find ing
 set shortmess+=F
 set guicursor=              " fixes alacritty changing cursor
+set signcolumn=number
 
 " better backups (~/.local/share/nvim/undo)
 set noswapfile              " disable swapfiles

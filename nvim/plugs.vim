@@ -25,10 +25,12 @@ call plug#begin()
     Plug 'junegunn/goyo.vim'            " distraction free writing
     Plug 'itchyny/lightline.vim'        " statusline
     Plug 'vimwiki/vimwiki'              " note-taking, wiki
-    " neovim specific
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     " language specific
     Plug 'hashivim/vim-terraform'
+    " neovim specific
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'hrsh7th/nvim-compe'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""

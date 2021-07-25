@@ -25,6 +25,10 @@ super + w
 super + e
     $TERMINAL -e lf
 
+# audio controls
+super + v
+    $TERMINAL -e pulsemixer
+
 #lock
 super + ctrl + shift + l
     xsecurelock

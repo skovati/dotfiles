@@ -3,16 +3,8 @@
 
 SEP=" | "
 
-dmem() {
-    printf "mem: %smb" "$(free -m | awk '(NR==2){ print $3 }')"
-}
-
-dtime() {
-    printf "%s" "$(date "+%a %h %d - %r")"
-}
-
 status() {
-    printf " %s$SEP%s" "$(dmem)" "$(dtime)"
+    printf " %s$SEP%s$SEP%s$SEP%s$SEP%s" "vol: $(dvol)" "bat: $(dbat)" "wg: $(dwg)" "mem: $(dmem)" "$(dtime)"
 }
 
 while true; do

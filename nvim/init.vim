@@ -6,7 +6,6 @@
 source /home/skovati/.config/nvim/plugs.vim
 source /home/skovati/.config/nvim/sets.vim
 source /home/skovati/.config/nvim/maps.vim
-source /home/skovati/.config/nvim/status.vim
 source /home/skovati/.config/nvim/colors.vim
 source /home/skovati/.config/nvim/lang.vim
 

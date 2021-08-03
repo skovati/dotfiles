@@ -18,7 +18,7 @@ compe.setup {
     incomplete_delay = 400;
     max_abbr_width = 100;
     max_kind_width = 100;
-    max_menu_width = 100;
+    max_menu_width = 100000;
     documentation = {
         border = { '', '' ,'', ' ', '', '', '', ' ' }, -- the border option is the same as `|help nvim_open_win|`
         winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
@@ -50,15 +50,19 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 )
 
 vim.cmd([[
-    highlight LspDiagnosticsDefaultError ctermfg=grey
+    highlight LspDiagnosticsDefaultError ctermfg=red
+    highlight LspDiagnosticsDefaultHint ctermfg=blue
+    highlight LspDiagnosticsDefaultInformation ctermfg=magenta
+    highlight LspDiagnosticsDefaultWarning ctermfg=grey
+
+    autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 1000)
 ]])
 
-vim.o.completeopt = "menuone,noselect"
+vim.o.completeopt = "menuone,noinsert,noselect"
 
 -- keymaps
 
 vim.cmd([[
-inoremap <silent><expr> <C-Space> compe#complete()
 inoremap <silent><expr> <CR>      compe#confirm('<CR>')
 inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
@@ -66,9 +70,10 @@ inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 ]])
 
 remap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
-remap('n', '<leader>d', '<cmd>lua vim.lsp.buf.declaration()<CR>')
+remap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
 remap('n', '<leader>s', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 remap('n','K','<cmd>lua vim.lsp.buf.hover()<CR>')
 
 -- require lsps
 lsp.gopls.setup{}
+lsp.pyright.setup{}

@@ -1,3 +1,13 @@
 #!/bin/sh
-
-echo $(cat /sys/class/power_supply/BAT0/capacity)%
+case $(cat /sys/class/power_supply/BAT0/status) in
+    "Charging")
+        CHAR=↑
+        ;;
+    "Discharging")
+        CHAR=↓
+        ;;
+    "Full")
+        CHAR=full
+        ;;
+esac
+echo $(cat /sys/class/power_supply/BAT0/capacity)% $CHAR

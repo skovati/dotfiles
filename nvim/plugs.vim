@@ -31,6 +31,7 @@ call plug#begin()
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'neovim/nvim-lspconfig'
     Plug 'hrsh7th/nvim-compe'
+    Plug 'skammer/vim-css-color'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""

@@ -29,6 +29,6 @@ cd dotfiles
 ./arch_install
 ```
 #### screenshot
-![scrot](https://i.imgur.com/BNZldNc.png)
+![scrot](./etc/scrot.png)
 #### nvim IDE-like programming setup
-![vim](https://i.imgur.com/KH7oKrA.jpg)
+![nvim](./etc/nvim.png)

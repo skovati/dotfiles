@@ -37,6 +37,7 @@ compe.setup {
         vsnip = true;
         ultisnips = true;
         luasnip = true;
+        spell = true;
     };
 }
 

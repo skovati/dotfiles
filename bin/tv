@@ -11,7 +11,7 @@ while getopts yn option
 do
   case "${option}" in
     y)
-      xrandr --output DP-1 --mode 1920x1080 --right-of eDP-1
+      xrandr --output DP-1 --mode 1920x1080 --left-of eDP-1
       echo "usb-c display output enabled..."
     ;;
     n)

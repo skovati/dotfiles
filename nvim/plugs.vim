@@ -78,8 +78,12 @@ let g:fzf_layout = { 'down': '~30%' }       " open fzf below
 
 " vimwiki
 " make it use markdown syntax
-let g:vimwiki_list = [{'path': '/tmp/wiki/',
-                      \ 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_list = [{
+    \ 'path': '/tmp/notes/',
+    \ 'syntax': 'markdown',
+    \ 'ext': '.md',
+    \ 'auto_diary_index': 1,
+    \}]
 " and not treat every markdown as vimwiki
 let g:vimwiki_global_ext = 0
 

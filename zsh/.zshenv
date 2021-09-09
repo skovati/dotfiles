@@ -29,8 +29,9 @@ export GPG_TTY=$(tty)
 export BAT_THEME="base16"
 
 # fzf
-export FZF_DEFAULT_OPTS="--border=sharp --color=16 --preview 'bat --theme="base16" --color always {1}'"
+# export FZF_DEFAULT_OPTS="--border=sharp --color=16 --preview 'bat --theme="base16" --color always {1}'"
 
-# set manpager to nvim
-# export MANPAGER="nvim -c 'set ft=man' -"
-export MANPAGER="sh -c 'col -bx | bat --color=always -l man -p'"
+# # set manpager to nvim
+# # export MANPAGER="nvim -c 'set ft=man' -"
+# export MANPAGER="sh -c 'col -bx | bat --color=always -l man -p'"
+export MANPAGER="sh -c 'col -bx | bat --color=always --theme=base16 -l man -p'"

@@ -7,6 +7,7 @@ require'nvim-treesitter.configs'.setup {
     "bash",
     "c",
     "cpp",
+    "rust",
   },
   highlight = {
     enable = true,

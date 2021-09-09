@@ -72,3 +72,4 @@ remap('n','K','<cmd>lua vim.lsp.buf.hover()<CR>')
 
 -- require lsps
 lsp.gopls.setup{}
+lsp.rls.setup{}

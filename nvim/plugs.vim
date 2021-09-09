@@ -25,6 +25,7 @@ call plug#begin()
     Plug 'junegunn/goyo.vim'            " distraction free writing
     Plug 'itchyny/lightline.vim'        " statusline
     Plug 'vimwiki/vimwiki'              " note-taking, wiki
+    Plug 'lervag/vimtex'                " LaTeX
     " language specific
     Plug 'hashivim/vim-terraform'
     " neovim specific

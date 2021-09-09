@@ -1,9 +1,8 @@
 #!/bin/sh
 # symbols:  
 
-if [ pamixer --get-mute -eq "true" ]; then
-    printf "%s" "muted"
-else
-    printf "%s%s" $(pamixer --get-volume) "%"
-fi
-
+# if amixer | sed '/Capture/q' | grep off &> /dev/null; then
+#     printf "%s" "muted"
+# else
+#     amixer | grep -m1 -P -wo "\d{1,3}%"
+pamixer --get-volume-human

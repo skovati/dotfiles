@@ -1,0 +1,9 @@
+#!/bin/sh
+
+pactl info | grep -q "Default Sink: alsa_output.pci-0000_08_00.4.analog-stereo" && {
+    pactl set-default-sink alsa_output.usb-Generic_USB2.0_Device_20170726905959-00.iec958-stereo
+    printf "%s\n" "set to speakers"
+    exit 1
+}
+pactl set-default-sink alsa_output.pci-0000_08_00.4.analog-stereo
+printf "%s\n" "set to headphones"

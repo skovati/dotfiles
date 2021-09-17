@@ -4,7 +4,12 @@
 SEP=" | "
 
 status() {
-    printf " %s$SEP%s$SEP%s$SEP%s" "vol: $(dvol)" "wg: $(dwg)" "mem: $(dmem)" "$(dtime)"
+    if dmpd > /dev/null; then
+        MUS=" $(dmpd)$SEP"
+    else 
+        MUS=""
+    fi
+    printf " %s%s$SEP%s$SEP%s$SEP%s" "$MUS" "vol: $(dvol)" "wg: $(dwg)" "mem: $(dmem)" "$(dtime)"
 }
 
 while true; do

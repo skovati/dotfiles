@@ -1,0 +1,4 @@
+#!/bin/sh
+
+mpc status | grep -q playing || exit 1
+mpc current

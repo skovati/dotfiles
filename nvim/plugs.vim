@@ -90,3 +90,8 @@ let g:vimwiki_global_ext = 0
 
 " makes markdown linkes like [text](text.md) instead of [text](text)
 let g:vimwiki_markdown_link_ext = 1
+
+" vimtex
+let g:vimtex_quickfix_open_on_warning = 0
+let g:tex_flavor = 'latex'
+let g:vimtex_view_method = 'zathura'

@@ -34,9 +34,24 @@ super + ctrl + shift + l
 super + {s, y, Print}
     {ddg, yt, shot}
 
-#######################################
-# misc                                #
-#######################################
+# audio controls
+super + minus
+    pactl set-sink-volume @DEFAULT_SINK@ -5%
+   
+super + equal
+    pactl set-sink-volume @DEFAULT_SINK@ +5% 
+
+super + m
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+super + comma
+    mpc prev
+
+super + period
+    mpc next
+
+super + p
+    mpc toggle
 
 # custom media keybinds
 XF86MonBrightnessUp

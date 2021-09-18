@@ -32,6 +32,10 @@ inoremap <Right> <Nop>
 " autoclose stuff
 inoremap {<CR> {<CR>}<ESC>O
 
+" LaTeX
+noremap <leader>be i\begin{equation}<CR>\end{equation}<ESC>O
+noremap <leader>bm i\(\)<ESC>h
+
 " Split Navigation shortcuts
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j

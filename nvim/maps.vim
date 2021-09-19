@@ -34,7 +34,7 @@ inoremap {<CR> {<CR>}<ESC>O
 
 " LaTeX
 noremap <leader>be i\begin{equation}<CR>\end{equation}<ESC>O
-noremap <leader>bm i\(\)<ESC>h
+noremap <leader>bm i\(\)<ESC>hi
 
 " Split Navigation shortcuts
 noremap <C-h> <C-w>h

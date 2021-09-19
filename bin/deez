@@ -1,0 +1,93 @@
+#!/usr/bin/env python
+
+from deezer import Deezer
+from deezer import TrackFormats
+
+from deemix import generateDownloadObject
+from deemix.settings import load as loadSettings
+from deemix.utils import formatListener
+import deemix.utils.localpaths as localpaths
+from deemix.downloader import Downloader
+from deemix.itemgen import GenerationError
+
+import requests
+import sys
+
+class LogListener:
+    @classmethod
+    def send(cls, key, value=None):
+        logString = formatListener(key, value)
+        if logString: print(logString)
+
+def get_url(query):
+
+    search_url = "https://api.deezer.com/search?q=album:\""
+    album_url = "https://api.deezer.com/album/"
+
+    r = requests.get(search_url + query + "\"").json()
+    return album_url + str(r["data"][0]["album"]["id"])
+
+def download(urls):
+    # Check for local configFolder
+    configFolder = localpaths.getConfigFolder()
+    settings = loadSettings(configFolder)
+    dz = Deezer(settings.get('tagsLanguage', ""))
+    listener = LogListener()
+
+    def requestValidArl():
+        while True:
+            arl = input("Paste here your arl:")
+            if dz.login_via_arl(arl.strip()): break
+        return arl
+
+    if (configFolder / '.arl').is_file():
+        with open(configFolder / '.arl', 'r') as f:
+            arl = f.readline().rstrip("\n").strip()
+        if not dz.login_via_arl(arl): arl = requestValidArl()
+    else: arl = requestValidArl()
+    with open(configFolder / '.arl', 'w') as f:
+        f.write(arl)
+
+    plugins = {}
+
+    def downloadLinks(urls):
+        bitrate = settings.get("maxBitrate", TrackFormats.MP3_320)
+        links = []
+        for link in urls:
+            if ';' in link:
+                for l in link.split(";"):
+                    links.append(l)
+            else:
+                links.append(link)
+
+        downloadObjects = []
+
+        for link in links:
+            try:
+                downloadObject = generateDownloadObject(dz, link, bitrate, plugins, listener)
+            except GenerationError as e:
+                print(f"{e.link}: {e.message}")
+                exit()
+                # continue
+            if isinstance(downloadObject, list):
+                downloadObjects += downloadObject
+            else:
+                downloadObjects.append(downloadObject)
+
+        for obj in downloadObjects:
+            print(obj.__type__)
+            if obj.__type__ == "Convertable":
+                obj = plugins[obj.plugin].convert(dz, obj, settings, listener)
+            Downloader(dz, obj, settings, listener).start()
+
+    downloadLinks(urls)
+    print("All done!")
+
+def parse_stdin():
+    urls = []
+    for query in sys.stdin:
+        urls.append(get_url(query.rstrip()))
+    download(urls)
+
+if __name__ == '__main__':
+    parse_stdin()

@@ -19,7 +19,7 @@ super + v
 
 # web browser
 super + w
-    $BROWSER
+    firefox
 
 # file manager
 super + e
@@ -35,7 +35,7 @@ super + ctrl + shift + l
 
 # random scripts
 super + {s, y, Print}
-    {ddg, yt, shot}
+    {paswap, yt, shot}
 
 # audio controls
 super + minus

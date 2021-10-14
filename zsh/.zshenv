@@ -4,10 +4,9 @@ export EDITOR="nvim"
 export READER="zathura"
 export IMAGE="sxiv"
 export TERMINAL="alacritty"
-export BROWSER="firefox"
 
 # unused bc of xdg-set command
-export BROWSER="firefox"
+# export BROWSER="firefox"
 
 # export xdg dirs
 export XDG_CONFIG_HOME="$HOME/.config"

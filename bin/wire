@@ -1,71 +1,48 @@
-#!/usr/bin/env bash
-# script to facilitate connecting to mullvad vpn servers
-
-# us servers in chicago
-us_servers=("us4" "us18" "us22" "us23" "us128" "us129" "us130" "us131" "us132" "us133")
-
-usage() {
-    echo "
-    Usage: wire [command]
-    Commands: up, down, status
-    Run with no arguments for interactive mode
-    "
-}
-
-display() {
-    if [ -n "$1" ]
-    then
-        switch $1
-        exit
-    else
-       choice=$(printf "Connect\nStatus\nDisconnect\nHelp\nQuit" | smenu -c -W $'\n' -q -N -n 10 -3 '.*')
-       switch $choice
-    fi
-}
-
-switch() {
-    case $1 in
-        Connect|up)
-            connect
-            ;;
-        Status|status)
-            stat
-            ;;
-        Disconnect|down)
-            disconnect
-            ;;
-        Help|help)
-            usage
-            ;;
-        Quit)
-            exit
-            ;;
-        *)
-            usage
-            ;;
-    esac
-}
-
+#!/bin/sh
 connect() {
-    # choose randomly for different ips
-    rand=$[$RANDOM % ${#us_servers[@]}]
-    server="mullvad-${us_servers[rand]}"
-    echo "Connecting to $server over WireGuard..."
-    doas wg-quick up $server > /dev/null 2>&1
-    echo "Success, new ip: $(curl -s ifconfig.io)"
-}
-
-stat() {
-    echo "Currently connected to:"
-    doas wg | grep interface | awk '{print $2}'
+    status | grep -q mullvad && {
+        printf "%s\n" "error: already connected to mullvad wireguard servers, try \"wire down\""
+        status
+        exit 1
+    }
+    SERVER=$(doas find /etc/wireguard -name "*mullvad*.conf" -execdir basename {} ';' | shuf -n 1 | cut -d '.' -f 1)
+    printf "%s%s\n" "connecting to: " $SERVER
+    doas wg-quick up "$SERVER" > /dev/null 2>&1 && printf "%s\n" "connection established"
+    status
 }
 
 disconnect() {
-    # grep to find current mullvad wg connection
-    curr_server=$(doas wg | grep mullvad | awk '{print $2}')
-    echo "Disconnecting from $curr_server..."
-    doas wg-quick down $curr_server > /dev/null 2>&1
-    echo "Success, new ip: $(curl -s ifconfig.io)"
+    CURRENT=$(doas wg | grep mullvad | cut -d ' ' -f 2)
+    printf "%s%s\n" "disconnecting from " $CURRENT
+    doas wg-quick down "$CURRENT" > /dev/null 2>&1 || printf "%s\n" "error disconnecting"
+    status
 }
 
-display $1
+status() {
+    printf "%s\n" "wg status:"
+    doas wg | grep interface | cut -d ' ' -f 2 || printf "%s" "not connected to wireguard"
+    printf "%s%s\n" "with public ip: " $(curl -s ifconfig.io)
+}
+
+usage() {
+    printf "%s\n%s\n" "usage: wire [command]" "commands: up, down, status, help"
+    exit 1
+}
+
+case $1 in
+    up)
+        connect
+        ;;
+    status)
+        status
+        ;;
+    down)
+        disconnect
+        ;;
+    help)
+        usage
+        ;;
+    *)
+        usage
+        ;;
+esac

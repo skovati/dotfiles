@@ -6,14 +6,14 @@ connect() {
         exit 1
     }
     SERVER=$(doas find /etc/wireguard -name "*mullvad*.conf" -execdir basename {} ';' | shuf -n 1 | cut -d '.' -f 1)
-    printf "%s%s\n" "connecting to: " $SERVER
+    printf "%s%s\n" "connecting to: " "$SERVER"
     doas wg-quick up "$SERVER" > /dev/null 2>&1 && printf "%s\n" "connection established"
     status
 }
 
 disconnect() {
     CURRENT=$(doas wg | grep mullvad | cut -d ' ' -f 2)
-    printf "%s%s\n" "disconnecting from " $CURRENT
+    printf "%s%s\n" "disconnecting from " "$CURRENT"
     doas wg-quick down "$CURRENT" > /dev/null 2>&1 || printf "%s\n" "error disconnecting"
     status
 }

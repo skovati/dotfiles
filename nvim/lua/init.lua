@@ -1,2 +1,0 @@
-require("lsp")
-require("ts")

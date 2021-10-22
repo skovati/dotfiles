@@ -1,0 +1,2 @@
+#!/bin/sh
+mpv --demuxer-lavf-o=video_size=1920x1080,input_format=mjpeg av://v4l2:/dev/video0 --untimed --profile=low-latency

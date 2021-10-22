@@ -70,3 +70,7 @@ function ToggleConcealLevel()
         setlocal conceallevel=2
     endif
 endfunction
+
+" neovim defaults that rock
+nnoremap Y y$
+nnoremap <C-L> <Cmd>nohlsearch<Bar>diffupdate<CR><C-L>

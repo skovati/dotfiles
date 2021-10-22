@@ -8,6 +8,7 @@ require'nvim-treesitter.configs'.setup {
     "c",
     "cpp",
     "rust",
+    "verilog",
   },
   highlight = {
     enable = true,

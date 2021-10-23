@@ -27,25 +27,46 @@ vim.api.nvim_exec(
 
 local use = require("packer").use
 require("packer").startup(function()
-    use "wbthomason/packer.nvim" 		    -- package manager
+    use "wbthomason/packer.nvim" 		-- package manager
 
     -- actually useful
-    use "tpope/vim-commentary"         -- gcc Vgc
-    use "tpope/vim-surround"           -- cs\"" 
-    use "tpope/vim-fugitive"           -- !Git integration
+    use "tpope/vim-commentary"          -- gcc Vgc
+    use "tpope/vim-surround"            -- cs\"" 
+    use "tpope/vim-fugitive"            -- !Git integration
+    use {
+        "junegunn/fzf",                 -- fzf
+        cmd = { ":Files", ":GFiles" }
+    }
 
     -- rice
-    use "Yggdroot/indentLine"          -- display indents :IndentLineToggle
-    use "skovati/skovati.vim"          -- colorscheme
-    use "preservim/tagbar"             -- tmp ctags display
-    use "mbbill/undotree"              -- undo tree visualization
-    use "morhetz/gruvbox"              -- gruvbox
-    use "junegunn/goyo.vim"            -- distraction free writing
-    use "vimwiki/vimwiki"              -- note-taking, wiki
-    use "lervag/vimtex"                -- LaTeX
+    use "Yggdroot/indentLine"           -- display indents :IndentLineToggle
+    use {
+        "preservim/tagbar",             -- tmp ctags display
+        cmd = ":TagbarToggle"
+    }
+    use {
+        "mbbill/undotree",              -- undo tree visualization
+        cmd = ":UndotreeToggle"
+    }
+    use "morhetz/gruvbox"      -- gruvbox
+    use {
+        "junegunn/goyo.vim",            -- distraction free writing
+        cmd = ":Goyo"
+    }
+    use {
+        "vimwiki/vimwiki",              -- note-taking, wiki
+        ft = "markdown"
+    }
+    use {
+        "lervag/vimtex",                -- LaTeX
+        ft = "latex"
+    }
 
     -- language specific
-    use "hashivim/vim-terraform"
+    use {
+        "hashivim/vim-terraform",
+        ft = "hcl"
+    }
 
     -- neovim specific
     use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
@@ -68,7 +89,7 @@ require("lualine").setup {
     options = {
         icons_enabled = false,
         theme = "16color",
-        component_separators = { left = "|", right = "|"},
+        coponent_separators = { left = "|", right = "|"},
         section_separators = { left = "", right = ""},
         disabled_filetypes = {},
         always_divide_middle = true,
@@ -93,6 +114,36 @@ require("lualine").setup {
     tabline = {},
     extensions = {}
 }
+
+g.netrw_banner = 0                      -- disable annoying banner
+g.netrw_browse_split = 3                -- open in prior window
+g.netrw_altv = 1                        -- open splits to the right
+g.netrw_liststyle = 3                     -- tree view
+g.netrw_winsize = 20                    -- limit split size
+g.netrw_list_hide = [[\(^\|\s\s\)\zs\.\S\+]] -- hide hidden files, toggle with gh
+
+g.tagbar_compact = 1                -- tagbar
+
+g.fzf_layout = { down = "~30%" }   -- open fzf below
+
+-- vimwiki
+-- make it use markdown syntax
+g.vimwiki_list =  {{
+    path = "/tmp/wiki/",
+    syntax = "markdown", 
+    ext = ".md"
+}}
+
+-- and not treat every markdown as vimwiki
+g.vimwiki_global_ext = 0
+
+-- makes markdown linkes like [text](text.md) instead of [text](text)
+g.vimwiki_markdown_link_ext = 1
+
+-- vimtex
+g.vimtex_quickfix_open_on_warning = 0
+g.tex_flavor = "latex"
+g.vimtex_view_method = "zathura"
 ----------------------------------------
 -- color
 ----------------------------------------
@@ -100,7 +151,7 @@ opt.cursorline = true
 -- opt.termguicolors = true
 
 -- gruvbox
-cmd"colorscheme gruvbox"
+g.colors_name = "gruvbox"
 
 -- let terminal determine background
 -- override the horrible gruvbox visual colors
@@ -130,8 +181,8 @@ opt.smartcase = true                    -- unless capital query
 opt.showmatch = true                    -- highlight matching brackets
 
 opt.path:append("**")                   --enable fuzzy :find ing
-opt.shortmess:append("F")
-opt.guicursor = ""                  -- fixes alacritty changing cursor
+opt.shortmess:append("Fc")
+opt.guicursor = ""                      -- fixes alacritty changing cursor
 opt.signcolumn= "number"
 
 -- better backups (~/.local/share/nvim/undo)
@@ -156,6 +207,9 @@ opt.updatetime = 250                    -- decrease update time
 
 opt.hidden = true                       -- dont save when switching buffers
 opt.inccommand = "nosplit"              -- incremental live completion
+
+opt.lazyredraw = true                   -- dont redraw screen often
+opt.shada = ""                          -- disable shada
 ----------------------------------------
 -- maps
 ----------------------------------------
@@ -205,6 +259,9 @@ remap("n", "<C-l>", "<C-w>l")
 -- Goyo
 remap("n", "<leader>g", ":Goyo<CR>")
 
+-- netrw
+remap("n", "<leader>n", ":Vexplore<CR>")
+
 -- fzf
 remap("n", "<leader>ff", ":Files<CR>")
 remap("n", "<leader>fg", ":GFiles<CR>")
@@ -224,7 +281,7 @@ remap("n", "<leader>s", ":setlocal spell!<CR>")
 
 remap("n", "<leader>c", ":lua ToggleConcealLevel()<CR>")
 function ToggleConcealLevel()
-    if vim.opt.conceallevel:get() == 2 then
+    if opt.conceallevel:get() == 2 then
         opt.conceallevel = 0
     else
         opt.conceallevel = 2
@@ -329,10 +386,10 @@ cmp.setup {
         },
     },
     sources = {
-        { name = "nvim_lua" },
+        { name = "buffer" },
         { name = "nvim_lsp" },
+        { name = "nvim_lua" },
         { name = "path" },
         { name = "calc" },
-        { name = "buffer" },
     },
 }

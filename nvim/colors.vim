@@ -10,3 +10,4 @@ set cursorline
 
 " let terminal determine background
 hi Normal ctermbg=none
+hi Visual ctermbg=239 ctermfg=none cterm=none

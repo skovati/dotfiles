@@ -24,13 +24,13 @@ call plug#begin()
     Plug 'morhetz/gruvbox'              " gruvbox
     Plug 'junegunn/goyo.vim'            " distraction free writing
     Plug 'itchyny/lightline.vim'        " statusline
+    Plug 'lervag/vimtex'                " LaTeX
     " plugins that I'm reconsidering
     Plug 'vimwiki/vimwiki'              " note-taking, wiki
     " neovim specific
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'neovim/nvim-lspconfig'
     Plug 'hrsh7th/nvim-compe'
-    Plug 'skammer/vim-css-color'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""

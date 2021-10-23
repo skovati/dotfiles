@@ -73,9 +73,11 @@ inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 remap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
 remap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
 remap('n', '<leader>s', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-remap('n','K','<cmd>lua vim.lsp.buf.hover()<CR>')
+remap('n', 'K','<cmd>lua vim.lsp.buf.hover()<CR>')
+-- remap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 
 -- require lsps
 lsp.gopls.setup{}
 lsp.rls.setup{}
 lsp.pyright.setup{}
+lsp.clangd.setup{}

@@ -1,0 +1,238 @@
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.145  000.145: --- NVIM STARTING ---
+009.250  009.105: locale set
+018.735  009.485: inits 1
+018.799  000.065: window checked
+020.998  002.199: parsing arguments
+021.147  000.149: expanding arguments
+021.772  000.625: inits 2
+023.786  002.015: init highlight
+023.795  000.009: waiting for UI
+026.488  002.693: done waiting for UI
+026.554  000.066: init screen for UI
+027.657  000.239  000.239: sourcing /usr/share/nvim/archlinux.vim
+027.682  000.558  000.318: sourcing /etc/xdg//nvim/sysinit.vim
+036.571  005.658  005.658: sourcing /home/skovati/.local/share/nvim/site/autoload/plug.vim
+083.558  000.239  000.239: sourcing /home/skovati/.config/nvim/plugged/vim-fugitive/ftdetect/fugitive.vim
+085.356  000.239  000.239: sourcing /home/skovati/.config/nvim/plugged/vimtex/ftdetect/cls.vim
+085.658  000.230  000.230: sourcing /home/skovati/.config/nvim/plugged/vimtex/ftdetect/tex.vim
+085.953  000.219  000.219: sourcing /home/skovati/.config/nvim/plugged/vimtex/ftdetect/tikz.vim
+086.627  000.217  000.217: sourcing /home/skovati/.config/nvim/plugged/nvim-treesitter/ftdetect/gdscript.vim
+086.899  000.205  000.205: sourcing /home/skovati/.config/nvim/plugged/nvim-treesitter/ftdetect/gomod.vim
+087.210  000.245  000.245: sourcing /home/skovati/.config/nvim/plugged/nvim-treesitter/ftdetect/query.vim
+091.492  027.355  025.760: sourcing /usr/share/nvim/runtime/filetype.vim
+092.709  000.342  000.342: sourcing /usr/share/nvim/runtime/ftplugin.vim
+093.724  000.260  000.260: sourcing /usr/share/nvim/runtime/indent.vim
+099.936  000.783  000.783: sourcing /usr/share/nvim/runtime/syntax/syncolor.vim
+100.918  002.333  001.550: sourcing /usr/share/nvim/runtime/syntax/synload.vim
+101.160  005.388  003.055: sourcing /usr/share/nvim/runtime/syntax/syntax.vim
+101.340  071.553  032.550: sourcing /home/skovati/.config/nvim/plugs.vim
+102.395  000.975  000.975: sourcing /home/skovati/.config/nvim/sets.vim
+103.034  000.566  000.566: sourcing /home/skovati/.config/nvim/maps.vim
+105.164  000.353  000.353: sourcing /usr/share/nvim/runtime/syntax/syncolor.vim
+106.554  000.293  000.293: sourcing /usr/share/nvim/runtime/syntax/syncolor.vim
+122.050  018.285  017.640: sourcing /home/skovati/.config/nvim/plugged/gruvbox/colors/gruvbox.vim
+122.321  019.214  000.929: sourcing /home/skovati/.config/nvim/colors.vim
+122.713  000.284  000.284: sourcing /home/skovati/.config/nvim/lang.vim
+166.746  137.933  045.340: sourcing /home/skovati/.config/nvim/init.vim
+166.756  001.711: sourcing vimrc file(s)
+167.342  000.271  000.271: sourcing /home/skovati/.config/nvim/plugged/vim-commentary/plugin/commentary.vim
+168.043  000.497  000.497: sourcing /home/skovati/.config/nvim/plugged/vim-surround/plugin/surround.vim
+169.722  001.507  001.507: sourcing /home/skovati/.config/nvim/plugged/vim-fugitive/plugin/fugitive.vim
+170.692  000.276  000.276: sourcing /home/skovati/.config/nvim/plugged/nerdtree/autoload/nerdtree.vim
+172.113  000.504  000.504: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/path.vim
+172.378  000.214  000.214: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/menu_controller.vim
+172.594  000.169  000.169: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/menu_item.vim
+172.811  000.172  000.172: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/key_map.vim
+173.166  000.310  000.310: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/bookmark.vim
+173.520  000.306  000.306: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/tree_file_node.vim
+173.991  000.422  000.422: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/tree_dir_node.vim
+174.319  000.280  000.280: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/opener.vim
+174.646  000.271  000.271: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/creator.vim
+174.826  000.125  000.125: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/flag_set.vim
+175.065  000.189  000.189: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/nerdtree.vim
+175.479  000.351  000.351: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/ui.vim
+175.649  000.112  000.112: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/event.vim
+175.821  000.122  000.122: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/notifier.vim
+176.472  000.503  000.503: sourcing /home/skovati/.config/nvim/plugged/nerdtree/autoload/nerdtree/ui_glue.vim
+178.885  000.170  000.170: sourcing /home/skovati/.config/nvim/plugged/nerdtree/nerdtree_plugin/exec_menuitem.vim
+181.899  000.354  000.354: sourcing /usr/share/nvim/runtime/autoload/provider/clipboard.vim
+182.202  003.293  002.939: sourcing /home/skovati/.config/nvim/plugged/nerdtree/nerdtree_plugin/fs_menu.vim
+182.392  000.157  000.157: sourcing /home/skovati/.config/nvim/plugged/nerdtree/nerdtree_plugin/vcs.vim
+182.726  012.807  004.863: sourcing /home/skovati/.config/nvim/plugged/nerdtree/plugin/NERD_tree.vim
+184.091  001.184  001.184: sourcing /home/skovati/.config/nvim/plugged/tagbar/plugin/tagbar.vim
+184.492  000.219  000.219: sourcing /home/skovati/.config/nvim/plugged/undotree/plugin/undotree.vim
+184.801  000.125  000.125: sourcing /home/skovati/.config/nvim/plugged/goyo.vim/plugin/goyo.vim
+185.166  000.199  000.199: sourcing /home/skovati/.config/nvim/plugged/lightline.vim/plugin/lightline.vim
+186.490  000.669  000.669: sourcing /home/skovati/.config/nvim/plugged/vimwiki/autoload/vimwiki/vars.vim
+187.763  000.199  000.199: sourcing /home/skovati/.config/nvim/plugged/vimwiki/autoload/vimwiki/u.vim
+189.817  004.467  003.599: sourcing /home/skovati/.config/nvim/plugged/vimwiki/plugin/vimwiki.vim
+191.390  001.354  001.354: sourcing /home/skovati/.config/nvim/plugged/nvim-treesitter/plugin/nvim-treesitter.vim
+191.742  000.163  000.163: sourcing /home/skovati/.config/nvim/plugged/nvim-lspconfig/plugin/lspconfig.vim
+192.142  000.233  000.233: sourcing /home/skovati/.config/nvim/plugged/nvim-compe/plugin/compe.vim
+192.786  000.273  000.273: sourcing /usr/share/nvim/runtime/plugin/gzip.vim
+192.916  000.111  000.111: sourcing /usr/share/nvim/runtime/plugin/health.vim
+193.113  000.181  000.181: sourcing /usr/share/nvim/runtime/plugin/man.vim
+194.113  000.293  000.293: sourcing /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim
+194.194  001.064  000.771: sourcing /usr/share/nvim/runtime/plugin/matchit.vim
+194.448  000.237  000.237: sourcing /usr/share/nvim/runtime/plugin/matchparen.vim
+195.024  000.557  000.557: sourcing /usr/share/nvim/runtime/plugin/netrwPlugin.vim
+195.289  000.235  000.235: sourcing /usr/share/nvim/runtime/plugin/rplugin.vim
+195.526  000.208  000.208: sourcing /usr/share/nvim/runtime/plugin/shada.vim
+195.682  000.117  000.117: sourcing /usr/share/nvim/runtime/plugin/spellfile.vim
+195.953  000.245  000.245: sourcing /usr/share/nvim/runtime/plugin/tarPlugin.vim
+196.233  000.254  000.254: sourcing /usr/share/nvim/runtime/plugin/tohtml.vim
+196.390  000.127  000.127: sourcing /usr/share/nvim/runtime/plugin/tutor.vim
+196.689  000.278  000.278: sourcing /usr/share/nvim/runtime/plugin/zipPlugin.vim
+197.831  000.920  000.920: sourcing /usr/share/vim/vimfiles/plugin/fzf.vim
+198.362  003.775: loading plugins
+198.447  000.085: loading packages
+199.305  000.644  000.644: sourcing /home/skovati/.config/nvim/plugged/indentLine/after/plugin/indentLine.vim
+204.958  005.436  005.436: sourcing /home/skovati/.config/nvim/plugged/nvim-compe/after/plugin/compe.vim
+205.161  000.633: loading after plugins
+205.168  000.008: inits 3
+207.811  002.643: reading ShaDa
+212.611  000.412  000.412: sourcing /usr/share/nvim/runtime/ftplugin/vim.vim
+216.529  000.302  000.302: sourcing /usr/share/nvim/runtime/indent/vim.vim
+222.334  001.159  001.159: sourcing /usr/share/nvim/runtime/syntax/lua.vim
+223.498  006.291  005.132: sourcing /usr/share/nvim/runtime/syntax/vim.vim
+226.007  002.315  002.315: sourcing /usr/share/nvim/runtime/syntax/vim/generated.vim
+227.083  000.856  000.856: sourcing /usr/share/nvim/runtime/syntax/vim/generated.vim
+228.066  000.842  000.842: sourcing /usr/share/nvim/runtime/syntax/vim/generated.vim
+230.792  011.962: opening buffers
+231.673  000.774  000.774: sourcing /home/skovati/.config/nvim/plugged/lightline.vim/autoload/lightline.vim
+236.673  004.589  004.589: sourcing /home/skovati/.config/nvim/plugged/vim-fugitive/autoload/fugitive.vim
+237.454  000.136  000.136: sourcing /home/skovati/.config/nvim/plugged/lightline.vim/autoload/lightline/tab.vim
+238.245  000.261  000.261: sourcing /home/skovati/.config/nvim/plugged/lightline.vim/autoload/lightline/colorscheme.vim
+238.838  001.058  000.797: sourcing /home/skovati/.config/nvim/plugged/lightline.vim/autoload/lightline/colorscheme/16color.vim
+241.707  004.358: BufEnter autocommands
+241.710  000.004: editing files in windows
+241.880  000.170: VimEnter autocommands
+241.884  000.003: UIEnter autocommands
+241.887  000.003: before starting main loop
+245.952  004.065: first screen update
+245.955  000.003: --- NVIM STARTED ---
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.054  000.054: --- NVIM STARTING ---
+005.376  005.323: locale set
+011.539  006.163: inits 1
+011.599  000.060: window checked
+013.394  001.795: parsing arguments
+013.534  000.140: expanding arguments
+014.038  000.504: inits 2
+015.468  001.430: init highlight
+015.474  000.006: waiting for UI
+017.553  002.079: done waiting for UI
+017.610  000.057: init screen for UI
+018.592  000.200  000.200: sourcing /usr/share/nvim/archlinux.vim
+018.613  000.467  000.266: sourcing /etc/xdg//nvim/sysinit.vim
+028.526  006.022  006.022: sourcing /home/skovati/.local/share/nvim/site/autoload/plug.vim
+076.541  000.234  000.234: sourcing /home/skovati/.config/nvim/plugged/vim-fugitive/ftdetect/fugitive.vim
+078.272  000.230  000.230: sourcing /home/skovati/.config/nvim/plugged/vimtex/ftdetect/cls.vim
+078.566  000.222  000.222: sourcing /home/skovati/.config/nvim/plugged/vimtex/ftdetect/tex.vim
+078.856  000.215  000.215: sourcing /home/skovati/.config/nvim/plugged/vimtex/ftdetect/tikz.vim
+080.226  000.233  000.233: sourcing /home/skovati/.config/nvim/plugged/nvim-treesitter/ftdetect/gdscript.vim
+080.515  000.222  000.222: sourcing /home/skovati/.config/nvim/plugged/nvim-treesitter/ftdetect/gomod.vim
+080.842  000.263  000.263: sourcing /home/skovati/.config/nvim/plugged/nvim-treesitter/ftdetect/query.vim
+086.036  028.997  027.377: sourcing /usr/share/nvim/runtime/filetype.vim
+087.274  000.337  000.337: sourcing /usr/share/nvim/runtime/ftplugin.vim
+088.578  000.336  000.336: sourcing /usr/share/nvim/runtime/indent.vim
+096.456  001.187  001.187: sourcing /usr/share/nvim/runtime/syntax/syncolor.vim
+097.462  002.953  001.766: sourcing /usr/share/nvim/runtime/syntax/synload.vim
+097.690  006.651  003.698: sourcing /usr/share/nvim/runtime/syntax/syntax.vim
+097.878  077.389  035.046: sourcing /home/skovati/.config/nvim/plugs.vim
+098.942  000.970  000.970: sourcing /home/skovati/.config/nvim/sets.vim
+099.474  000.469  000.469: sourcing /home/skovati/.config/nvim/maps.vim
+101.530  000.267  000.267: sourcing /usr/share/nvim/runtime/syntax/syncolor.vim
+102.586  000.220  000.220: sourcing /usr/share/nvim/runtime/syntax/syncolor.vim
+113.160  012.966  012.479: sourcing /home/skovati/.config/nvim/plugged/gruvbox/colors/gruvbox.vim
+113.311  013.768  000.802: sourcing /home/skovati/.config/nvim/colors.vim
+113.586  000.211  000.211: sourcing /home/skovati/.config/nvim/lang.vim
+145.223  125.576  032.769: sourcing /home/skovati/.config/nvim/init.vim
+145.232  001.579: sourcing vimrc file(s)
+145.811  000.268  000.268: sourcing /home/skovati/.config/nvim/plugged/vim-commentary/plugin/commentary.vim
+146.516  000.503  000.503: sourcing /home/skovati/.config/nvim/plugged/vim-surround/plugin/surround.vim
+148.188  001.508  001.508: sourcing /home/skovati/.config/nvim/plugged/vim-fugitive/plugin/fugitive.vim
+149.140  000.274  000.274: sourcing /home/skovati/.config/nvim/plugged/nerdtree/autoload/nerdtree.vim
+150.562  000.505  000.505: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/path.vim
+150.821  000.207  000.207: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/menu_controller.vim
+151.034  000.166  000.166: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/menu_item.vim
+151.249  000.170  000.170: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/key_map.vim
+151.602  000.307  000.307: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/bookmark.vim
+151.955  000.305  000.305: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/tree_file_node.vim
+152.420  000.419  000.419: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/tree_dir_node.vim
+152.745  000.278  000.278: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/opener.vim
+153.072  000.267  000.267: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/creator.vim
+153.248  000.121  000.121: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/flag_set.vim
+153.485  000.188  000.188: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/nerdtree.vim
+153.990  000.344  000.344: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/ui.vim
+154.155  000.108  000.108: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/event.vim
+154.323  000.118  000.118: sourcing /home/skovati/.config/nvim/plugged/nerdtree/lib/nerdtree/notifier.vim
+154.966  000.495  000.495: sourcing /home/skovati/.config/nvim/plugged/nerdtree/autoload/nerdtree/ui_glue.vim
+157.380  000.169  000.169: sourcing /home/skovati/.config/nvim/plugged/nerdtree/nerdtree_plugin/exec_menuitem.vim
+160.322  000.353  000.353: sourcing /usr/share/nvim/runtime/autoload/provider/clipboard.vim
+160.626  003.223  002.869: sourcing /home/skovati/.config/nvim/plugged/nerdtree/nerdtree_plugin/fs_menu.vim
+160.812  000.153  000.153: sourcing /home/skovati/.config/nvim/plugged/nerdtree/nerdtree_plugin/vcs.vim
+161.148  012.772  004.956: sourcing /home/skovati/.config/nvim/plugged/nerdtree/plugin/NERD_tree.vim
+162.508  001.182  001.182: sourcing /home/skovati/.config/nvim/plugged/tagbar/plugin/tagbar.vim
+162.902  000.214  000.214: sourcing /home/skovati/.config/nvim/plugged/undotree/plugin/undotree.vim
+163.206  000.122  000.122: sourcing /home/skovati/.config/nvim/plugged/goyo.vim/plugin/goyo.vim
+163.567  000.204  000.204: sourcing /home/skovati/.config/nvim/plugged/lightline.vim/plugin/lightline.vim
+164.873  000.653  000.653: sourcing /home/skovati/.config/nvim/plugged/vimwiki/autoload/vimwiki/vars.vim
+166.160  000.193  000.193: sourcing /home/skovati/.config/nvim/plugged/vimwiki/autoload/vimwiki/u.vim
+168.234  004.481  003.635: sourcing /home/skovati/.config/nvim/plugged/vimwiki/plugin/vimwiki.vim
+169.794  001.357  001.357: sourcing /home/skovati/.config/nvim/plugged/nvim-treesitter/plugin/nvim-treesitter.vim
+170.139  000.160  000.160: sourcing /home/skovati/.config/nvim/plugged/nvim-lspconfig/plugin/lspconfig.vim
+170.525  000.224  000.224: sourcing /home/skovati/.config/nvim/plugged/nvim-compe/plugin/compe.vim
+171.174  000.272  000.272: sourcing /usr/share/nvim/runtime/plugin/gzip.vim
+171.296  000.103  000.103: sourcing /usr/share/nvim/runtime/plugin/health.vim
+171.489  000.178  000.178: sourcing /usr/share/nvim/runtime/plugin/man.vim
+172.474  000.287  000.287: sourcing /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim
+172.556  001.049  000.762: sourcing /usr/share/nvim/runtime/plugin/matchit.vim
+172.805  000.233  000.233: sourcing /usr/share/nvim/runtime/plugin/matchparen.vim
+173.368  000.544  000.544: sourcing /usr/share/nvim/runtime/plugin/netrwPlugin.vim
+173.630  000.231  000.231: sourcing /usr/share/nvim/runtime/plugin/rplugin.vim
+173.864  000.205  000.205: sourcing /usr/share/nvim/runtime/plugin/shada.vim
+174.016  000.112  000.112: sourcing /usr/share/nvim/runtime/plugin/spellfile.vim
+174.281  000.240  000.240: sourcing /usr/share/nvim/runtime/plugin/tarPlugin.vim
+174.546  000.239  000.239: sourcing /usr/share/nvim/runtime/plugin/tohtml.vim
+174.702  000.123  000.123: sourcing /usr/share/nvim/runtime/plugin/tutor.vim
+174.994  000.272  000.272: sourcing /usr/share/nvim/runtime/plugin/zipPlugin.vim
+176.110  000.907  000.907: sourcing /usr/share/vim/vimfiles/plugin/fzf.vim
+176.640  003.706: loading plugins
+176.723  000.084: loading packages
+177.577  000.639  000.639: sourcing /home/skovati/.config/nvim/plugged/indentLine/after/plugin/indentLine.vim
+183.166  005.378  005.378: sourcing /home/skovati/.config/nvim/plugged/nvim-compe/after/plugin/compe.vim
+183.368  000.628: loading after plugins
+183.376  000.008: inits 3
+185.979  002.603: reading ShaDa
+190.384  000.408  000.408: sourcing /usr/share/nvim/runtime/ftplugin/vim.vim
+194.264  000.298  000.298: sourcing /usr/share/nvim/runtime/indent/vim.vim
+200.096  001.146  001.146: sourcing /usr/share/nvim/runtime/syntax/lua.vim
+201.258  006.319  005.173: sourcing /usr/share/nvim/runtime/syntax/vim.vim
+203.757  002.305  002.305: sourcing /usr/share/nvim/runtime/syntax/vim/generated.vim
+204.800  000.843  000.843: sourcing /usr/share/nvim/runtime/syntax/vim/generated.vim
+205.811  000.867  000.867: sourcing /usr/share/nvim/runtime/syntax/vim/generated.vim
+208.497  011.477: opening buffers
+209.362  000.755  000.755: sourcing /home/skovati/.config/nvim/plugged/lightline.vim/autoload/lightline.vim
+214.292  004.519  004.519: sourcing /home/skovati/.config/nvim/plugged/vim-fugitive/autoload/fugitive.vim
+215.074  000.139  000.139: sourcing /home/skovati/.config/nvim/plugged/lightline.vim/autoload/lightline/tab.vim
+215.874  000.272  000.272: sourcing /home/skovati/.config/nvim/plugged/lightline.vim/autoload/lightline/colorscheme.vim
+216.466  001.065  000.793: sourcing /home/skovati/.config/nvim/plugged/lightline.vim/autoload/lightline/colorscheme/16color.vim
+219.335  004.359: BufEnter autocommands
+219.338  000.003: editing files in windows
+219.508  000.170: VimEnter autocommands
+219.511  000.003: UIEnter autocommands
+219.514  000.004: before starting main loop
+223.566  004.051: first screen update
+223.568  000.003: --- NVIM STARTED ---

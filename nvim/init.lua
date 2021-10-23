@@ -37,12 +37,10 @@ require("packer").startup(function()
     -- rice
     use 'Yggdroot/indentLine'          -- display indents :IndentLineToggle
     use 'skovati/skovati.vim'          -- colorscheme
-    use 'preservim/nerdtree'           -- file tree
     use 'preservim/tagbar'             -- tmp ctags display
     use 'mbbill/undotree'              -- undo tree visualization
     use 'morhetz/gruvbox'              -- gruvbox
     use 'junegunn/goyo.vim'            -- distraction free writing
-    use 'nvim-lualine/lualine.nvim'    -- statusline
     use 'vimwiki/vimwiki'              -- note-taking, wiki
     use 'lervag/vimtex'                -- LaTeX
 
@@ -51,6 +49,9 @@ require("packer").startup(function()
 
     -- neovim specific
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use 'nvim-lualine/lualine.nvim'
+
+    -- lsp completion
     use 'neovim/nvim-lspconfig'
     use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-nvim-lsp'
@@ -92,6 +93,21 @@ require('lualine').setup {
     tabline = {},
     extensions = {}
 }
+----------------------------------------
+-- color
+----------------------------------------
+opt.cursorline = true
+-- opt.termguicolors = true
+
+-- gruvbox
+cmd"colorscheme gruvbox"
+
+-- let terminal determine background
+-- override the horrible gruvbox visual colors
+cmd[[
+au ColorScheme * hi Normal ctermbg=none guibg=none
+au ColorScheme * hi Visual ctermbg=237 ctermfg=none cterm=none
+]]
 
 ----------------------------------------
 -- sets
@@ -137,6 +153,9 @@ opt.laststatus = 2                      -- Always display the status line
 opt.showmode = false                    -- hide current mode
 
 opt.updatetime = 250                    -- decrease update time
+
+opt.hidden = true                       -- dont save when switching buffers
+opt.inccommand = 'nosplit'              -- incremental live completion
 ----------------------------------------
 -- maps
 ----------------------------------------
@@ -144,7 +163,6 @@ opt.updatetime = 250                    -- decrease update time
 local remap = function(type, key, value)
     vim.api.nvim_set_keymap(type,key,value,{noremap = true, silent = true});
 end
-
 
 -- set leader as space
 remap("", "<Space>", "<Nop>")
@@ -174,7 +192,6 @@ remap("i", "<Right>", "<Nop>")
 -- autoclose {}
 remap("i", "{<CR>", "{<CR>}<Esc>O")
 
-
 -- LaTeX
 remap("n", "<leader>be", "i\\begin{equation}<CR>\\end{equation}<ESC>O")
 remap("n", "<leader>bm", "i\\(\\)<ESC>hi")
@@ -187,9 +204,6 @@ remap("n", "<C-l>", "<C-w>l")
 
 -- Goyo
 remap("n", "<leader>g", ":Goyo<CR>")
-
--- NerdTree
-remap("n", "<leader>n", ":NERDTreeToggle<CR>")
 
 -- fzf
 remap("n", "<leader>ff", ":Files<CR>")
@@ -216,3 +230,109 @@ function ToggleConcealLevel()
         opt.conceallevel = 2
     end
 end
+
+----------------------------------------
+-- treesitter
+----------------------------------------
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = {
+    "go",
+    "python",
+    "yaml",
+    "lua",
+    "bash",
+    "c",
+    "cpp",
+    "rust",
+    "verilog",
+  },
+  highlight = {
+    enable = true,
+  },
+  indent = {
+    enable = true,
+  }
+}
+
+----------------------------------------
+-- lsp
+----------------------------------------
+-- references
+local nvim_lsp = require("lspconfig")
+
+local on_attach = function(client, bufnr)
+    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+    -- Enable completion triggered by <c-x><c-o>
+    buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+
+    -- Mappings.
+    local opts = { noremap=true, silent=true }
+
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+    buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+    buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+    buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+    buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+    buf_set_keymap("n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+    buf_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+    buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+    buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+    buf_set_keymap("n", "<leader>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
+    buf_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
+    buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
+    buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+        vim.lsp.diagnostic.on_publish_diagnostics, {
+            -- virtual_text = false,
+            underline = true,
+            signs = false,
+        }
+    )
+
+end
+
+-- other 
+vim.cmd([[
+highlight LspDiagnosticsDefaultError ctermfg=grey
+]])
+vim.o.completeopt = "menuone,noselect"
+
+-- Use a loop to conveniently call "setup" on multiple servers and
+-- map buffer local keybindings when the language server attaches
+local servers = { "pyright", "rust_analyzer", "gopls", "clangd" }
+for _, lsp in ipairs(servers) do
+    nvim_lsp[lsp].setup {
+        on_attach = on_attach,
+        flags = {
+            debounce_text_changes = 150,
+        }
+    }
+end
+
+-- nvim-cmp setup
+local cmp = require 'cmp'
+cmp.setup {
+  mapping = {
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+  },
+  sources = {
+    { name = 'nvim_lua' },
+    { name = 'nvim_lsp' },
+    { name = 'path' },
+    { name = 'calc' },
+    { name = 'buffer' },
+  },
+}

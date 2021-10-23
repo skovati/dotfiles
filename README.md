@@ -26,7 +26,7 @@
 install arch linux
 git clone https://github.com/skovati/dotfiles
 cd dotfiles
-./arch_install
+./bin/arch_install
 ```
 #### screenshot
 ![scrot](./etc/scrot.png)

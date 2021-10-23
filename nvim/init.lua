@@ -16,13 +16,13 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 
 vim.api.nvim_exec(
-[[
-augroup Packer
-autocmd!
-autocmd BufWritePost init.lua PackerCompile
-augroup end
-]],
-false
+    [[
+    augroup Packer
+    autocmd!
+    autocmd BufWritePost init.lua PackerCompile
+    augroup end
+    ]],
+    false
 )
 
 local use = require("packer").use
@@ -76,7 +76,7 @@ require("lualine").setup {
     sections = {
         lualine_a = {"mode"},
         lualine_b = {"branch", "diff",
-        {"diagnostics", sources={"nvim_lsp"}}},
+            {"diagnostics", sources={"nvim_lsp"}}},
         lualine_c = {"filename"},
         lualine_x = {"encoding", "filetype"},
         lualine_y = {"progress"},
@@ -235,23 +235,23 @@ end
 -- treesitter
 ----------------------------------------
 require"nvim-treesitter.configs".setup {
-  ensure_installed = {
-    "go",
-    "python",
-    "yaml",
-    "lua",
-    "bash",
-    "c",
-    "cpp",
-    "rust",
-    "verilog",
-  },
-  highlight = {
-    enable = true,
-  },
-  indent = {
-    enable = true,
-  }
+    ensure_installed = {
+        "go",
+        "python",
+        "yaml",
+        "lua",
+        "bash",
+        "c",
+        "cpp",
+        "rust",
+        "verilog",
+    },
+    highlight = {
+        enable = true,
+    },
+    indent = {
+        enable = true,
+    }
 }
 
 ----------------------------------------
@@ -316,23 +316,23 @@ end
 -- nvim-cmp setup
 local cmp = require "cmp"
 cmp.setup {
-  mapping = {
-    ["<C-p>"] = cmp.mapping.select_prev_item(),
-    ["<C-n>"] = cmp.mapping.select_next_item(),
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    ["<C-Space>"] = cmp.mapping.complete(),
-    ["<C-e>"] = cmp.mapping.close(),
-    ["<CR>"] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
+    mapping = {
+        ["<C-p>"] = cmp.mapping.select_prev_item(),
+        ["<C-n>"] = cmp.mapping.select_next_item(),
+        ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<C-e>"] = cmp.mapping.close(),
+        ["<CR>"] = cmp.mapping.confirm {
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+        },
     },
-  },
-  sources = {
-    { name = "nvim_lua" },
-    { name = "nvim_lsp" },
-    { name = "path" },
-    { name = "calc" },
-    { name = "buffer" },
-  },
+    sources = {
+        { name = "nvim_lua" },
+        { name = "nvim_lsp" },
+        { name = "path" },
+        { name = "calc" },
+        { name = "buffer" },
+    },
 }

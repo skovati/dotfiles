@@ -30,63 +30,63 @@ require("packer").startup(function()
     use "wbthomason/packer.nvim" 		    -- package manager
 
     -- actually useful
-    use 'tpope/vim-commentary'         -- gcc Vgc
-    use 'tpope/vim-surround'           -- cs\"' 
-    use 'tpope/vim-fugitive'           -- !Git integration
+    use "tpope/vim-commentary"         -- gcc Vgc
+    use "tpope/vim-surround"           -- cs\"" 
+    use "tpope/vim-fugitive"           -- !Git integration
 
     -- rice
-    use 'Yggdroot/indentLine'          -- display indents :IndentLineToggle
-    use 'skovati/skovati.vim'          -- colorscheme
-    use 'preservim/tagbar'             -- tmp ctags display
-    use 'mbbill/undotree'              -- undo tree visualization
-    use 'morhetz/gruvbox'              -- gruvbox
-    use 'junegunn/goyo.vim'            -- distraction free writing
-    use 'vimwiki/vimwiki'              -- note-taking, wiki
-    use 'lervag/vimtex'                -- LaTeX
+    use "Yggdroot/indentLine"          -- display indents :IndentLineToggle
+    use "skovati/skovati.vim"          -- colorscheme
+    use "preservim/tagbar"             -- tmp ctags display
+    use "mbbill/undotree"              -- undo tree visualization
+    use "morhetz/gruvbox"              -- gruvbox
+    use "junegunn/goyo.vim"            -- distraction free writing
+    use "vimwiki/vimwiki"              -- note-taking, wiki
+    use "lervag/vimtex"                -- LaTeX
 
     -- language specific
-    use 'hashivim/vim-terraform'
+    use "hashivim/vim-terraform"
 
     -- neovim specific
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-    use 'nvim-lualine/lualine.nvim'
+    use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
+    use "nvim-lualine/lualine.nvim"
 
     -- lsp completion
-    use 'neovim/nvim-lspconfig'
-    use 'hrsh7th/nvim-cmp'
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-nvim-lua'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/cmp-path'
-    use 'hrsh7th/cmp-calc'
+    use "neovim/nvim-lspconfig"
+    use "hrsh7th/nvim-cmp"
+    use "hrsh7th/cmp-nvim-lsp"
+    use "hrsh7th/cmp-nvim-lua"
+    use "hrsh7th/cmp-buffer"
+    use "hrsh7th/cmp-path"
+    use "hrsh7th/cmp-calc"
 end)
 
 ----------------------------------------
 -- plugins
 ----------------------------------------
-require('lualine').setup {
+require("lualine").setup {
     options = {
         icons_enabled = false,
-        theme = '16color',
-        component_separators = { left = '|', right = '|'},
-        section_separators = { left = '', right = ''},
+        theme = "16color",
+        component_separators = { left = "|", right = "|"},
+        section_separators = { left = "", right = ""},
         disabled_filetypes = {},
         always_divide_middle = true,
     },
     sections = {
-        lualine_a = {'mode'},
-        lualine_b = {'branch', 'diff',
-        {'diagnostics', sources={'nvim_lsp'}}},
-        lualine_c = {'filename'},
-        lualine_x = {'encoding', 'filetype'},
-        lualine_y = {'progress'},
-        lualine_z = {'location'}
+        lualine_a = {"mode"},
+        lualine_b = {"branch", "diff",
+        {"diagnostics", sources={"nvim_lsp"}}},
+        lualine_c = {"filename"},
+        lualine_x = {"encoding", "filetype"},
+        lualine_y = {"progress"},
+        lualine_z = {"location"}
     },
     inactive_sections = {
         lualine_a = {},
         lualine_b = {},
-        lualine_c = {'filename'},
-        lualine_x = {'location'},
+        lualine_c = {"filename"},
+        lualine_x = {"location"},
         lualine_y = {},
         lualine_z = {}
     },
@@ -155,7 +155,7 @@ opt.showmode = false                    -- hide current mode
 opt.updatetime = 250                    -- decrease update time
 
 opt.hidden = true                       -- dont save when switching buffers
-opt.inccommand = 'nosplit'              -- incremental live completion
+opt.inccommand = "nosplit"              -- incremental live completion
 ----------------------------------------
 -- maps
 ----------------------------------------
@@ -234,7 +234,7 @@ end
 ----------------------------------------
 -- treesitter
 ----------------------------------------
-require'nvim-treesitter.configs'.setup {
+require"nvim-treesitter.configs".setup {
   ensure_installed = {
     "go",
     "python",
@@ -314,25 +314,25 @@ for _, lsp in ipairs(servers) do
 end
 
 -- nvim-cmp setup
-local cmp = require 'cmp'
+local cmp = require "cmp"
 cmp.setup {
   mapping = {
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm {
+    ["<C-p>"] = cmp.mapping.select_prev_item(),
+    ["<C-n>"] = cmp.mapping.select_next_item(),
+    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<C-e>"] = cmp.mapping.close(),
+    ["<CR>"] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
   },
   sources = {
-    { name = 'nvim_lua' },
-    { name = 'nvim_lsp' },
-    { name = 'path' },
-    { name = 'calc' },
-    { name = 'buffer' },
+    { name = "nvim_lua" },
+    { name = "nvim_lsp" },
+    { name = "path" },
+    { name = "calc" },
+    { name = "buffer" },
   },
 }

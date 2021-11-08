@@ -27,31 +27,29 @@ vim.api.nvim_exec(
 
 local use = require("packer").use
 require("packer").startup(function()
-    use "wbthomason/packer.nvim" 		-- package manager
+    use "wbthomason/packer.nvim"        -- packer manages itself
 
     -- actually useful
     use "tpope/vim-commentary"          -- gcc Vgc
-    use "tpope/vim-surround"            -- cs\"" 
+    use "tpope/vim-surround"            -- cs\""
     use "tpope/vim-fugitive"            -- !Git integration
     use {
         "junegunn/fzf",                 -- fzf
-        cmd = { ":Files", ":GFiles" }
+        run = "fzf#install()"
     }
+    use "junegunn/fzf.vim"              -- fzf vim integration
 
     -- rice
-    use "Yggdroot/indentLine"           -- display indents :IndentLineToggle
+    use "lukas-reineke/indent-blankline.nvim"
+    use "preservim/tagbar"              -- tmp ctags display
+    use "mbbill/undotree"               -- undo tree visualization
+    use "morhetz/gruvbox"               -- gruvbox
+    use "junegunn/goyo.vim"             -- distraction free writing
+
+    -- language specific
     use {
-        "preservim/tagbar",             -- tmp ctags display
-        cmd = ":TagbarToggle"
-    }
-    use {
-        "mbbill/undotree",              -- undo tree visualization
-        cmd = ":UndotreeToggle"
-    }
-    use "morhetz/gruvbox"      -- gruvbox
-    use {
-        "junegunn/goyo.vim",            -- distraction free writing
-        cmd = ":Goyo"
+        "hashivim/vim-terraform",
+        ft = "hcl"
     }
     use {
         "vimwiki/vimwiki",              -- note-taking, wiki
@@ -59,27 +57,30 @@ require("packer").startup(function()
     }
     use {
         "lervag/vimtex",                -- LaTeX
-        ft = "latex"
+        ft = "tex"
     }
 
-    -- language specific
-    use {
-        "hashivim/vim-terraform",
-        ft = "hcl"
-    }
-
-    -- neovim specific
+    -- nvim specific
     use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
     use "nvim-lualine/lualine.nvim"
 
-    -- lsp completion
+    -- lsp
     use "neovim/nvim-lspconfig"
     use "hrsh7th/nvim-cmp"
-    use "hrsh7th/cmp-nvim-lsp"
-    use "hrsh7th/cmp-nvim-lua"
     use "hrsh7th/cmp-buffer"
     use "hrsh7th/cmp-path"
-    use "hrsh7th/cmp-calc"
+    use {
+        "hrsh7th/cmp-nvim-lsp",
+        ft = { "go", "python", "c", "rust" }
+    }
+    use {
+        "hrsh7th/cmp-nvim-lua",
+        ft = "lua"
+    }
+    use {
+        "hrsh7th/cmp-calc",
+        ft = { "tex", "markdown" }
+    }
 end)
 
 ----------------------------------------
@@ -89,10 +90,10 @@ require("lualine").setup {
     options = {
         icons_enabled = false,
         theme = "16color",
-        coponent_separators = { left = "|", right = "|"},
+        component_separators = { left = "|", right = "|"},
         section_separators = { left = "", right = ""},
         disabled_filetypes = {},
-        always_divide_middle = true,
+        always_divide_middle = false,
     },
     sections = {
         lualine_a = {"mode"},
@@ -115,16 +116,35 @@ require("lualine").setup {
     extensions = {}
 }
 
+local disabled_built_ins = {
+    "gzip",
+    "zip",
+    "zipPlugin",
+    "tar",
+    "tarPlugin",
+    "getscript",
+    "getscriptPlugin",
+    "vimball",
+    "vimballPlugin",
+    "2html_plugin",
+    "logipat",
+    "rrhelper",
+    "spellfile_plugin"
+}
+for _, plugin in pairs(disabled_built_ins) do
+    g["loaded_" .. plugin] = 1
+end
+
 g.netrw_banner = 0                      -- disable annoying banner
 g.netrw_browse_split = 3                -- open in prior window
 g.netrw_altv = 1                        -- open splits to the right
-g.netrw_liststyle = 3                     -- tree view
+g.netrw_liststyle = 3                   -- tree view
 g.netrw_winsize = 20                    -- limit split size
 g.netrw_list_hide = [[\(^\|\s\s\)\zs\.\S\+]] -- hide hidden files, toggle with gh
 
-g.tagbar_compact = 1                -- tagbar
+g.tagbar_compact = 1                    -- tagbar
 
-g.fzf_layout = { down = "~30%" }   -- open fzf below
+g.fzf_layout = { down = "~30%" }        -- open fzf below
 
 -- vimwiki
 -- make it use markdown syntax
@@ -144,6 +164,11 @@ g.vimwiki_markdown_link_ext = 1
 g.vimtex_quickfix_open_on_warning = 0
 g.tex_flavor = "latex"
 g.vimtex_view_method = "zathura"
+
+-- indent
+g.indent_blankline_char = "¦"
+g.indent_blankline_show_trailing_blankline_indent = false
+vim.opt.list = true
 ----------------------------------------
 -- color
 ----------------------------------------
@@ -163,6 +188,7 @@ au ColorScheme * hi Visual ctermbg=237 ctermfg=none cterm=none
 ----------------------------------------
 -- sets
 ----------------------------------------
+opt.shadafile = "NONE"                  -- disable shada
 opt.number = true                       -- line nums
 opt.relativenumber = true
 
@@ -180,7 +206,7 @@ opt.smartcase = true                    -- unless capital query
 
 opt.showmatch = true                    -- highlight matching brackets
 
-opt.path:append("**")                   --enable fuzzy :find ing
+opt.path:append("**")                   -- enable fuzzy :find ing
 opt.shortmess:append("Fc")
 opt.guicursor = ""                      -- fixes alacritty changing cursor
 opt.signcolumn= "number"
@@ -209,7 +235,8 @@ opt.hidden = true                       -- dont save when switching buffers
 opt.inccommand = "nosplit"              -- incremental live completion
 
 opt.lazyredraw = true                   -- dont redraw screen often
-opt.shada = ""                          -- disable shada
+
+vim.opt.nrformats:append("alpha")       -- let <Ctrl-a> do letters as well
 ----------------------------------------
 -- maps
 ----------------------------------------
@@ -225,6 +252,7 @@ vim.g.mapleader = " "
 -- add wq esc remap
 remap("i", "wq", "<esc>")
 remap("v", "wq", "<esc>")
+remap("t", "wq", "<C-\\><C-n>")
 
 -- fix sticky shift
 remap("c", "W", "w")
@@ -258,6 +286,9 @@ remap("n", "<C-l>", "<C-w>l")
 
 -- Goyo
 remap("n", "<leader>g", ":Goyo<CR>")
+
+-- git
+remap("n", "<leader>gs", ":Git status<CR>")
 
 -- netrw
 remap("n", "<leader>n", ":Vexplore<CR>")
@@ -380,10 +411,6 @@ cmp.setup {
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.close(),
-        ["<CR>"] = cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
-        },
     },
     sources = {
         { name = "buffer" },

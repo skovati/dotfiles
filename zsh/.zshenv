@@ -2,12 +2,11 @@
 export PATH=/home/skovati/dev/git/dotfiles/bin:/home/skovati/.local/bin:/home/skovati/dev/go/bin:$GOPATH/bin:$PATH
 export EDITOR="nvim"
 export READER="zathura"
-export IMAGE="sxiv"
+export IMAGE="nsxiv"
 export TERMINAL="alacritty"
-export BROWSER="firefox"
 
 # unused bc of xdg-set command
-# export BROWSER=/usr/bin/firefox
+# export BROWSER="firefox"
 
 # export xdg dirs
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -28,9 +27,7 @@ export GPG_TTY=$(tty)
 # set default bat theme
 export BAT_THEME="base16"
 
+# use nvim as pager
+export MANPAGER='nvim +Man!'
 # fzf
-export FZF_DEFAULT_OPTS="--border=sharp --color=16 --preview 'bat --theme="base16" --color always {1}'"
-
-# set manpager to nvim
-# export MANPAGER="nvim -c 'set ft=man' -"
-export MANPAGER="sh -c 'col -bx | bat --color=always -l man -p'"
+# export FZF_DEFAULT_OPTS="--border=sharp --color=16 --preview 'bat --theme="base16" --color always {1}'"

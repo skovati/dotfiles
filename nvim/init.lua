@@ -43,7 +43,8 @@ require("packer").startup(function()
     use "lukas-reineke/indent-blankline.nvim"
     use "preservim/tagbar"              -- tmp ctags display
     use "mbbill/undotree"               -- undo tree visualization
-    use "morhetz/gruvbox"               -- gruvbox
+    use "chriskempson/base16-vim"       -- base16 colorschemes
+    use "rktjmp/lush.nvim"              -- colorscheme
     use "junegunn/goyo.vim"             -- distraction free writing
 
     -- language specific
@@ -89,7 +90,7 @@ end)
 require("lualine").setup {
     options = {
         icons_enabled = false,
-        theme = "16color",
+        theme = "auto",
         component_separators = { left = "|", right = "|"},
         section_separators = { left = "", right = ""},
         disabled_filetypes = {},
@@ -115,25 +116,6 @@ require("lualine").setup {
     tabline = {},
     extensions = {}
 }
-
-local disabled_built_ins = {
-    "gzip",
-    "zip",
-    "zipPlugin",
-    "tar",
-    "tarPlugin",
-    "getscript",
-    "getscriptPlugin",
-    "vimball",
-    "vimballPlugin",
-    "2html_plugin",
-    "logipat",
-    "rrhelper",
-    "spellfile_plugin"
-}
-for _, plugin in pairs(disabled_built_ins) do
-    g["loaded_" .. plugin] = 1
-end
 
 g.netrw_banner = 0                      -- disable annoying banner
 g.netrw_browse_split = 3                -- open in prior window
@@ -173,16 +155,16 @@ vim.opt.list = true
 -- color
 ----------------------------------------
 opt.cursorline = true
--- opt.termguicolors = true
+opt.termguicolors = true
 
--- gruvbox
-g.colors_name = "gruvbox"
+-- set colorscheme
+g.colors_name = "base16-tomorrow-night"
 
 -- let terminal determine background
--- override the horrible gruvbox visual colors
 cmd[[
-au ColorScheme * hi Normal ctermbg=none guibg=none
-au ColorScheme * hi Visual ctermbg=237 ctermfg=none cterm=none
+    au ColorScheme * hi Normal ctermbg=none guibg=none
+    au ColorScheme * hi LineNr ctermbg=none ctermfg=9 guibg=none
+    au ColorScheme * hi Visual ctermbg=237 ctermfg=none guibg=Grey23
 ]]
 
 ----------------------------------------
@@ -194,10 +176,10 @@ opt.relativenumber = true
 
 opt.smartindent = true                  -- indent according to lang 
 
-opt.tabstop = 4			                -- 4 space tabs
-opt.softtabstop = 4			            -- backspace removes all spaces
-opt.shiftwidth = 4			            -- >> shifts by 4
-opt.expandtab = true			        -- insert tabs as spaces
+opt.tabstop = 4                         -- 4 space tabs
+opt.softtabstop = 4                     -- backspace removes all spaces
+opt.shiftwidth = 4                      -- >> shifts by 4
+opt.expandtab = true                    -- insert tabs as spaces
 
 opt.clipboard = "unnamedplus"           -- use system clipboard
 
@@ -336,6 +318,7 @@ require"nvim-treesitter.configs".setup {
     },
     highlight = {
         enable = true,
+        -- additional_vim_regex_highlighting = false,
     },
     indent = {
         enable = true,
@@ -385,7 +368,7 @@ end
 
 -- other 
 vim.cmd([[
-highlight LspDiagnosticsDefaultError ctermfg=grey
+    highlight LspDiagnosticsDefaultError ctermfg=grey
 ]])
 vim.o.completeopt = "menuone,noselect"
 

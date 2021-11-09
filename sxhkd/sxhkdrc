@@ -16,7 +16,7 @@ super + d
 
 # web browser
 super + w
-    $BROWSER
+    firefox
 
 # file manager
 super + e

@@ -28,9 +28,6 @@ vim.api.nvim_exec(
 
 local use = require("packer").use
 require("packer").startup(function()
-    use "wbthomason/packer.nvim"        -- packer manages itself
-    use 'lewis6991/impatient.nvim'
-
     -- actually useful
     use "tpope/vim-commentary"          -- gcc Vgc
     use "tpope/vim-surround"            -- cs\""
@@ -58,12 +55,23 @@ require("packer").startup(function()
         cmd = "UndotreeToggle"
     }
     use "chriskempson/base16-vim"       -- base16 colorschemes
-    use "rktjmp/lush.nvim"              -- colorscheme
+    use "skovati/cybrpnk.vim"
     use {
         "junegunn/goyo.vim",            -- distraction free writing
         opt = true,
         cmd = "Goyo"
     }
+    use {                               -- color hex code colors
+        "norcalli/nvim-colorizer.lua",
+        opt = true,
+        cmd = "ColorizerAttachToBuffer"
+    }
+
+    -- meta
+    use "wbthomason/packer.nvim"        -- packer manages itself
+    use "nathom/filetype.nvim"
+    use "rktjmp/lush.nvim"              -- colorscheme
+    use 'lewis6991/impatient.nvim'
 
     -- language specific (langs I want fancy stuff for)
     local langs = { "go", "python", "sh", "bash", "rust", "c", "lua", "cpp"}
@@ -76,7 +84,7 @@ require("packer").startup(function()
     use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
     use "nvim-lualine/lualine.nvim"
 
-    -- lsp
+    -- lsp/completion
     use "neovim/nvim-lspconfig"
     use "hrsh7th/nvim-cmp"
     use "hrsh7th/cmp-buffer"
@@ -143,6 +151,8 @@ g.vimtex_view_method = "zathura"
 -- indent
 g.indent_blankline_char = "¦"
 g.indent_blankline_show_trailing_blankline_indent = false
+
+vim.g.did_load_filetypes = 1            -- filetype.nvim
 
 ----------------------------------------
 -- color

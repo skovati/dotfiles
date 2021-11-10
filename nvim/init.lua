@@ -9,6 +9,7 @@ local cmd = vim.cmd                     -- run : cmd
 ----------------------------------------
 -- install packer
 ----------------------------------------
+require('impatient')
 local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -27,59 +28,75 @@ vim.api.nvim_exec(
 
 local use = require("packer").use
 require("packer").startup(function()
-    use "wbthomason/packer.nvim"        -- packer manages itself
-
     -- actually useful
     use "tpope/vim-commentary"          -- gcc Vgc
     use "tpope/vim-surround"            -- cs\""
-    use "tpope/vim-fugitive"            -- !Git integration
     use {
-        "junegunn/fzf",                 -- fzf
-        run = "fzf#install()"
+        "tpope/vim-fugitive",           -- !Git integration
+        opt = true,
+        cmd = "Git"
     }
-    use "junegunn/fzf.vim"              -- fzf vim integration
+    use {
+        "junegunn/fzf.vim",             -- fzf vim integration
+        opt = true,
+        cmd = {"Files", "GFiles"}
+    }
 
     -- rice
     use "lukas-reineke/indent-blankline.nvim"
-    use "preservim/tagbar"              -- tmp ctags display
-    use "mbbill/undotree"               -- undo tree visualization
-    use "morhetz/gruvbox"               -- gruvbox
-    use "junegunn/goyo.vim"             -- distraction free writing
+    use {
+        "preservim/tagbar",             -- tmp ctags display
+        opt = true,
+        cmd = "TagbarToggle"
+    }
+    use {
+        "mbbill/undotree",              -- undo tree visualization
+        opt = true,
+        cmd = "UndotreeToggle"
+    }
+    use "chriskempson/base16-vim"       -- base16 colorschemes
+    use "skovati/cybrpnk.vim"
+    use {
+        "junegunn/goyo.vim",            -- distraction free writing
+        opt = true,
+        cmd = "Goyo"
+    }
+    use {                               -- color hex code colors
+        "norcalli/nvim-colorizer.lua",
+        opt = true,
+        cmd = "ColorizerAttachToBuffer"
+    }
 
-    -- language specific
-    use {
-        "hashivim/vim-terraform",
-        ft = "hcl"
-    }
-    use {
-        "vimwiki/vimwiki",              -- note-taking, wiki
-        ft = "markdown"
-    }
-    use {
-        "lervag/vimtex",                -- LaTeX
-        ft = "tex"
-    }
+    -- meta
+    use "wbthomason/packer.nvim"        -- packer manages itself
+    use "nathom/filetype.nvim"
+    use "rktjmp/lush.nvim"              -- colorscheme
+    use 'lewis6991/impatient.nvim'
+
+    -- language specific (langs I want fancy stuff for)
+    local langs = { "go", "python", "sh", "bash", "rust", "c", "lua", "cpp"}
+
+    use { "hashivim/vim-terraform", ft = "hcl" }
+    use { "vimwiki/vimwiki", ft = "markdown" }
+    use { "lervag/vimtex", ft = "tex" }
 
     -- nvim specific
-    use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
+    use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
     use "nvim-lualine/lualine.nvim"
 
-    -- lsp
+    -- lsp/completion
     use "neovim/nvim-lspconfig"
     use "hrsh7th/nvim-cmp"
     use "hrsh7th/cmp-buffer"
     use "hrsh7th/cmp-path"
-    use {
-        "hrsh7th/cmp-nvim-lsp",
-        ft = { "go", "python", "c", "rust" }
-    }
-    use {
-        "hrsh7th/cmp-nvim-lua",
-        ft = "lua"
-    }
+    use "hrsh7th/cmp-nvim-lsp"
+    use { "hrsh7th/cmp-nvim-lua", ft = "lua" }
     use {
         "hrsh7th/cmp-calc",
         ft = { "tex", "markdown" }
+    }
+    config = {
+        compile_path = vim.fn.stdpath('config')..'/lua/packer_compiled.lua'
     }
 end)
 
@@ -89,7 +106,7 @@ end)
 require("lualine").setup {
     options = {
         icons_enabled = false,
-        theme = "16color",
+        theme = "auto",
         component_separators = { left = "|", right = "|"},
         section_separators = { left = "", right = ""},
         disabled_filetypes = {},
@@ -103,37 +120,8 @@ require("lualine").setup {
         lualine_x = {"encoding", "filetype"},
         lualine_y = {"progress"},
         lualine_z = {"location"}
-    },
-    inactive_sections = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = {"filename"},
-        lualine_x = {"location"},
-        lualine_y = {},
-        lualine_z = {}
-    },
-    tabline = {},
-    extensions = {}
+    }
 }
-
-local disabled_built_ins = {
-    "gzip",
-    "zip",
-    "zipPlugin",
-    "tar",
-    "tarPlugin",
-    "getscript",
-    "getscriptPlugin",
-    "vimball",
-    "vimballPlugin",
-    "2html_plugin",
-    "logipat",
-    "rrhelper",
-    "spellfile_plugin"
-}
-for _, plugin in pairs(disabled_built_ins) do
-    g["loaded_" .. plugin] = 1
-end
 
 g.netrw_banner = 0                      -- disable annoying banner
 g.netrw_browse_split = 3                -- open in prior window
@@ -147,70 +135,60 @@ g.tagbar_compact = 1                    -- tagbar
 g.fzf_layout = { down = "~30%" }        -- open fzf below
 
 -- vimwiki
--- make it use markdown syntax
-g.vimwiki_list =  {{
+g.vimwiki_list =  {                     -- make it use markdown syntax
     path = "/tmp/wiki/",
     syntax = "markdown", 
     ext = ".md"
-}}
-
--- and not treat every markdown as vimwiki
-g.vimwiki_global_ext = 0
-
--- makes markdown linkes like [text](text.md) instead of [text](text)
-g.vimwiki_markdown_link_ext = 1
+}
+g.vimwiki_global_ext = 0                -- and not treat every markdown as vimwiki
+g.vimwiki_markdown_link_ext = 1         -- makes markdown linkes like [text](text.md) instead of [text](text)
 
 -- vimtex
-g.vimtex_quickfix_open_on_warning = 0
+g.vimtex_quickfix_mode = 0
 g.tex_flavor = "latex"
 g.vimtex_view_method = "zathura"
 
 -- indent
 g.indent_blankline_char = "¦"
 g.indent_blankline_show_trailing_blankline_indent = false
-vim.opt.list = true
+
+vim.g.did_load_filetypes = 1            -- filetype.nvim
+
 ----------------------------------------
 -- color
 ----------------------------------------
 opt.cursorline = true
--- opt.termguicolors = true
+opt.termguicolors = true
 
--- gruvbox
-g.colors_name = "gruvbox"
+-- set colorscheme
+g.colors_name = "base16-tomorrow-night"
 
 -- let terminal determine background
--- override the horrible gruvbox visual colors
 cmd[[
-au ColorScheme * hi Normal ctermbg=none guibg=none
-au ColorScheme * hi Visual ctermbg=237 ctermfg=none cterm=none
+    au ColorScheme * hi Normal ctermbg=none guibg=none
+    au ColorScheme * hi LineNr ctermbg=none ctermfg=9 guibg=none
+    au ColorScheme * hi Visual ctermbg=237 ctermfg=none guibg=Grey23
 ]]
 
 ----------------------------------------
 -- sets
 ----------------------------------------
-opt.shadafile = "NONE"                  -- disable shada
-opt.number = true                       -- line nums
-opt.relativenumber = true
-
-opt.smartindent = true                  -- indent according to lang 
-
-opt.tabstop = 4			                -- 4 space tabs
-opt.softtabstop = 4			            -- backspace removes all spaces
-opt.shiftwidth = 4			            -- >> shifts by 4
-opt.expandtab = true			        -- insert tabs as spaces
-
+opt.relativenumber = true               -- number line shows relative
+opt.number = true                       -- and current line shows actual line nrl
+opt.smartindent = true                  -- indent according to lang
+opt.autoindent = true                   -- use current indentation for next
+opt.tabstop = 4                         -- 4 space tabs
+opt.softtabstop = 4                     -- backspace removes all spaces
+opt.shiftwidth = 4                      -- >> shifts by 4
+opt.expandtab = true                    -- insert tabs as spaces
 opt.clipboard = "unnamedplus"           -- use system clipboard
-
 opt.ignorecase = true                   -- ignore case in searches
 opt.smartcase = true                    -- unless capital query
-
 opt.showmatch = true                    -- highlight matching brackets
-
 opt.path:append("**")                   -- enable fuzzy :find ing
-opt.shortmess:append("Fc")
+opt.shortmess:append("Fc")              -- don't show "1 of 20 matches" etc for completion
 opt.guicursor = ""                      -- fixes alacritty changing cursor
-opt.signcolumn= "number"
-
+opt.signcolumn= "number"                -- combines the signcolumn and number columns
 -- better backups (~/.local/share/nvim/undo)
 opt.swapfile = false                    -- disable swapfiles
 opt.backup = false                      -- and auto backps, to instead use
@@ -230,13 +208,12 @@ opt.laststatus = 2                      -- Always display the status line
 opt.showmode = false                    -- hide current mode
 
 opt.updatetime = 250                    -- decrease update time
-
 opt.hidden = true                       -- dont save when switching buffers
 opt.inccommand = "nosplit"              -- incremental live completion
-
 opt.lazyredraw = true                   -- dont redraw screen often
-
-vim.opt.nrformats:append("alpha")       -- let <Ctrl-a> do letters as well
+opt.nrformats:append("alpha")           -- let <Ctrl-a> do letters as well
+opt.splitbelow = true
+opt.splitright = true
 ----------------------------------------
 -- maps
 ----------------------------------------
@@ -247,7 +224,7 @@ end
 
 -- set leader as space
 remap("", "<Space>", "<Nop>")
-vim.g.mapleader = " "
+g.mapleader = " "
 
 -- add wq esc remap
 remap("i", "wq", "<esc>")
@@ -261,20 +238,9 @@ remap("c", "Wq", "wq")
 remap("c", "WQ", "wq")
 remap("c", "wQ", "wq")
 
--- fuck arrow keys
-remap("n", "<Up>", "<Nop>")
-remap("n", "<Down>", "<Nop>")
-remap("n", "<Left>", "<Nop>")
-remap("n", "<Right>", "<Nop>")
-remap("i", "<Up>", "<Nop>")
-remap("i", "<Down>", "<Nop>")
-remap("i", "<Left>", "<Nop>")
-remap("i", "<Right>", "<Nop>")
+remap("i", "{<CR>", "{<CR>}<Esc>O")             -- autoclose {}
 
--- autoclose {}
-remap("i", "{<CR>", "{<CR>}<Esc>O")
-
--- LaTeX
+-- LaTeX shortcuts (I should probably use a snippet plugin for this)
 remap("n", "<leader>be", "i\\begin{equation}<CR>\\end{equation}<ESC>O")
 remap("n", "<leader>bm", "i\\(\\)<ESC>hi")
 
@@ -284,31 +250,20 @@ remap("n", "<C-j>", "<C-w>j")
 remap("n", "<C-k>", "<C-w>k")
 remap("n", "<C-l>", "<C-w>l")
 
--- Goyo
-remap("n", "<leader>g", ":Goyo<CR>")
-
--- git
-remap("n", "<leader>gs", ":Git status<CR>")
-
--- netrw
-remap("n", "<leader>n", ":Vexplore<CR>")
-
 -- fzf
 remap("n", "<leader>ff", ":Files<CR>")
 remap("n", "<leader>fg", ":GFiles<CR>")
-
--- tagbar
-remap("n", "<leader>t", ":TagbarToggle<CR>")
-
--- undotree
-remap("n", "<leader>u", ":UndotreeToggle<CR>")
 
 -- neovim defaults that rock
 remap("n", "Y", "y$")
 remap("n", "<C-L>", "<Cmd>nohlsearch<Bar>diffupdate<CR><C-L>")
 
--- toggle spellcheck quickly
-remap("n", "<leader>s", ":setlocal spell!<CR>")
+remap("n", "<leader>g", ":Goyo<CR>")            -- Goyo
+remap("n", "<leader>gs", ":Git status<CR>")     -- git
+remap("n", "<leader>n", ":Vexplore<CR>")        -- netrw
+remap("n", "<leader>t", ":TagbarToggle<CR>")    -- tagbar
+remap("n", "<leader>u", ":UndotreeToggle<CR>")  -- undotree
+remap("n", "<leader>s", ":setlocal spell!<CR>") -- toggle spellcheck quickly
 
 remap("n", "<leader>c", ":lua ToggleConcealLevel()<CR>")
 function ToggleConcealLevel()
@@ -322,7 +277,7 @@ end
 ----------------------------------------
 -- treesitter
 ----------------------------------------
-require"nvim-treesitter.configs".setup {
+require("nvim-treesitter.configs").setup {
     ensure_installed = {
         "go",
         "python",
@@ -336,6 +291,7 @@ require"nvim-treesitter.configs".setup {
     },
     highlight = {
         enable = true,
+        additional_vim_regex_highlighting = false,
     },
     indent = {
         enable = true,
@@ -380,14 +336,13 @@ local on_attach = function(client, bufnr)
             signs = false,
         }
     )
-
 end
 
 -- other 
-vim.cmd([[
-highlight LspDiagnosticsDefaultError ctermfg=grey
+cmd([[
+    highlight LspDiagnosticsDefaultError ctermfg=grey
 ]])
-vim.o.completeopt = "menuone,noselect"
+opt.completeopt = "menuone,noselect"
 
 -- Use a loop to conveniently call "setup" on multiple servers and
 -- map buffer local keybindings when the language server attaches

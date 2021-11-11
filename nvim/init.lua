@@ -90,7 +90,6 @@ require("packer").startup(function()
     use "hrsh7th/cmp-buffer"
     use "hrsh7th/cmp-path"
     use "hrsh7th/cmp-nvim-lsp"
-    use { "hrsh7th/cmp-nvim-lua", ft = "lua" }
     use {
         "hrsh7th/cmp-calc",
         ft = { "tex", "markdown" }
@@ -106,7 +105,7 @@ end)
 require("lualine").setup {
     options = {
         icons_enabled = false,
-        theme = "auto",
+        theme = "cybrpnk",
         component_separators = { left = "|", right = "|"},
         section_separators = { left = "", right = ""},
         disabled_filetypes = {},
@@ -161,7 +160,7 @@ opt.cursorline = true
 opt.termguicolors = true
 
 -- set colorscheme
-g.colors_name = "base16-tomorrow-night"
+g.colors_name = "cybrpnk"
 
 -- let terminal determine background
 cmd[[

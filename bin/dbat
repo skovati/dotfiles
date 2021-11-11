@@ -1,10 +1,10 @@
 #!/bin/sh
 case $(cat /sys/class/power_supply/BAT0/status) in
     "Charging")
-        CHAR=↑
+        CHAR=+
         ;;
     "Discharging")
-        CHAR=↓
+        CHAR=-
         ;;
     "Full")
         CHAR=full

@@ -74,7 +74,6 @@ require("packer").startup(function()
     use 'lewis6991/impatient.nvim'
 
     -- language specific (langs I want fancy stuff for)
-    local langs = { "go", "python", "sh", "bash", "rust", "c", "lua", "cpp"}
 
     use { "hashivim/vim-terraform", ft = "hcl" }
     use { "vimwiki/vimwiki", ft = "markdown" }
@@ -90,7 +89,6 @@ require("packer").startup(function()
     use "hrsh7th/cmp-buffer"
     use "hrsh7th/cmp-path"
     use "hrsh7th/cmp-nvim-lsp"
-    use { "hrsh7th/cmp-nvim-lua", ft = "lua" }
     use {
         "hrsh7th/cmp-calc",
         ft = { "tex", "markdown" }
@@ -370,7 +368,6 @@ cmp.setup {
     sources = {
         { name = "buffer" },
         { name = "nvim_lsp" },
-        { name = "nvim_lua" },
         { name = "path" },
         { name = "calc" },
     },

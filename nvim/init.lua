@@ -74,6 +74,7 @@ require("packer").startup(function()
     use 'lewis6991/impatient.nvim'
 
     -- language specific (langs I want fancy stuff for)
+    local langs = { "go", "python", "sh", "bash", "rust", "c", "lua", "cpp"}
 
     use { "hashivim/vim-terraform", ft = "hcl" }
     use { "vimwiki/vimwiki", ft = "markdown" }
@@ -104,7 +105,7 @@ end)
 require("lualine").setup {
     options = {
         icons_enabled = false,
-        theme = "auto",
+        theme = "cybrpnk",
         component_separators = { left = "|", right = "|"},
         section_separators = { left = "", right = ""},
         disabled_filetypes = {},
@@ -159,7 +160,7 @@ opt.cursorline = true
 opt.termguicolors = true
 
 -- set colorscheme
-g.colors_name = "base16-tomorrow-night"
+g.colors_name = "cybrpnk"
 
 -- let terminal determine background
 cmd[[
@@ -368,6 +369,7 @@ cmp.setup {
     sources = {
         { name = "buffer" },
         { name = "nvim_lsp" },
+        { name = "nvim_lua" },
         { name = "path" },
         { name = "calc" },
     },

@@ -17,6 +17,7 @@ dbar &
 while true; do
     dwm
 done
+# exec xmonad
 
 # bspwm specific
 # sxhkd &

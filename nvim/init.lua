@@ -160,7 +160,7 @@ opt.cursorline = true
 opt.termguicolors = true
 
 -- set colorscheme
-g.colors_name = "cybrpnk"
+g.colors_name = "base16-tomorrow-night"
 
 -- let terminal determine background
 cmd[[
@@ -286,6 +286,7 @@ require("nvim-treesitter.configs").setup {
         "c",
         "cpp",
         "rust",
+        "haskell",
         "verilog",
     },
     highlight = {
@@ -345,7 +346,7 @@ opt.completeopt = "menuone,noselect"
 
 -- Use a loop to conveniently call "setup" on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pyright", "rust_analyzer", "gopls", "clangd" }
+local servers = { "pyright", "rust_analyzer", "gopls", "clangd", "hls" }
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
         on_attach = on_attach,

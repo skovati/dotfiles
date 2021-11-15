@@ -1,13 +1,14 @@
 #!/bin/sh
+
 case $(cat /sys/class/power_supply/BAT0/status) in
     "Charging")
-        CHAR=+
+        printf "%s%% +" $(cat /sys/class/power_supply/BAT0/capacity)
         ;;
+
     "Discharging")
-        CHAR=-
+        printf "%s%% -" $(cat /sys/class/power_supply/BAT0/capacity)
         ;;
     "Full")
-        CHAR=full
+        printf "%s%%" $(cat /sys/class/power_supply/BAT0/capacity)
         ;;
 esac
-echo $(cat /sys/class/power_supply/BAT0/capacity)% $CHAR

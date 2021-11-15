@@ -240,7 +240,7 @@ remap("c", "wQ", "wq")
 remap("i", "{<CR>", "{<CR>}<Esc>O")             -- autoclose {}
 
 -- LaTeX shortcuts (I should probably use a snippet plugin for this)
-remap("n", "<leader>be", "i\\begin{equation}<CR>\\end{equation}<ESC>O")
+remap("n", "<leader>be", "i\\begin{equation}<CR><C-h>\\end{equation}<ESC>O")
 remap("n", "<leader>bm", "i\\(\\)<ESC>hi")
 
 -- Split Navigation shortcuts

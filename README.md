@@ -6,7 +6,7 @@
 | :---                                  | :---                                                                              |
 | distro                                | [arch](https://www.archlinux.org/)                                                |
 | wm                                    | [dwm](https://dwm.suckless.org/)                                                  |    
-| bar                                   | [dbar](https://github.com/skovati/dotfiles/bin/.local/bin/dbar)                   |
+| bar                                   | [dbar](https://github.com/skovati/dotfiles/tree/master/bin/.local/bin/dbar)                   |
 | launcher                              | [dmenu](https://tools.suckless.org/dmenu/)                                        |
 | pape                                  | [feh](https://github.com/derf/feh)                                                |
 | browser                               | [firefox](https://www.mozilla.org/en-US/firefox)                                  |

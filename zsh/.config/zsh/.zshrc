@@ -1,5 +1,54 @@
+#!/bin/zsh
+########################################
+# EXPORTS
+########################################
+export GOPATH="/home/skovati/dev/go"
+export PATH=/home/skovati/.local/bin:$GOPATH/bin:$PATH
+export EDITOR="nvim"
+export VISUAL="nvim"
+export READER="zathura"
+export IMAGE="nsxiv"
+export TERMINAL="alacritty"
+
+# export xdg dirs
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_DESKTOP_DIR="$HOME/"
+export XDG_DOCUMENTS_DIR="$HOME/docs/"
+export XDG_DOWNLOAD_DIR="$HOME/downs/"
+export XDG_PICTURES_DIR="$HOME/docs/pics/"
+
+# fixes matlab lol
+export _JAVA_AWT_WM_NONREPARENTING=1
+# fixes gpg-ncurses
+export GPG_TTY=$(tty)
+# use nvim as pager
+export MANPAGER='nvim +Man!'
+
+########################################
+# ALIASES
+########################################
+alias fd=". fd"
+alias cp="cp -v"
+alias mv="mv -iv"
+alias rm="rm -vI"
+alias syu="doas pacman -Syu"
+alias vim="nvim"
+alias sudo="doas"
+alias one="ping -c 3 1.1.1.1"
+alias vrc="nvim ~/.config/nvim/init.lua"
+alias sx="nsxiv -b"
+alias dots="cd $HOME/dev/git/dotfiles/"
+alias rcp="rsync -avzhP"
+alias z="zathura"
+
+########################################
+# CONFIG
+########################################
+
 # some sane defaults
-HISTFILE=~/.zsh_history
+HISTFILE="$XDG_DATA_HOME/zsh/.zsh_history"
 HISTSIZE=1000000
 SAVEHIST=$HISTSIZE
 unsetopt beep
@@ -19,12 +68,6 @@ LS_COLORS='rs=0:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;3
 export LS_COLORS
 
 alias ls="ls --color -F"
-
-# general aliases
-source /home/skovati/.zsh_alias
-
-# source private env vars
-# source /home/skovati/.zsh_secret
 
 # open command in vim
 bindkey '\ev' edit-command-line
@@ -50,7 +93,9 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # addons config
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#707070'
 
-# fzf shit
+########################################
+# FZF CONFIG
+########################################
 if 'zmodload' 'zsh/parameter' 2>'/dev/null' && (( ${+options} )); then
   __fzf_key_bindings_options="options=(${(j: :)${(kv)options[@]}})"
 else

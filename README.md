@@ -5,12 +5,12 @@
 | program                               | name                                                                              |
 | :---                                  | :---                                                                              |
 | distro                                | [arch](https://www.archlinux.org/)                                                |
-| wm                                    | [dwm](https://dwm.suckless.org/)                                     |
-| bar                                   | [polybar](https://github.com/jaagr/polybar)                                       |
+| wm                                    | [dwm](https://dwm.suckless.org/)                                                  |    
+| bar                                   | [dbar](https://github.com/skovati/dotfiles/bin/.local/bin/dbar)                   |
 | launcher                              | [dmenu](https://tools.suckless.org/dmenu/)                                        |
 | pape                                  | [feh](https://github.com/derf/feh)                                                |
 | browser                               | [firefox](https://www.mozilla.org/en-US/firefox)                                  |
-| editor                                | [neovim](https://neovim.io/)                                                       |
+| editor                                | [neovim](https://neovim.io/)                                                      |
 | font                                  | [tamzen](https://github.com/sunaku/tamzen-font)                                   |
 | shell                                 | [zsh](https://www.zsh.org/)                                                       |
 | term                                  | [alacritty](https://github.com/alacritty/alacritty)                               |
@@ -24,7 +24,7 @@
 install arch linux
 git clone https://github.com/skovati/dotfiles
 cd dotfiles
-./arch_install
+stow */
 ```
 #### screenshot
 ![scrot](./etc/scrot.png)

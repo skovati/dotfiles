@@ -1,7 +1,11 @@
 # dotfiles
 
-### personal dotfiles for bspwm, vim, zsh, etc.
+### personal dotfiles for void/arch, dwm, nvim, zsh, etc.
 
+#### screenshot
+![scrot](./etc/scrot.png)
+
+#### software
 | program                               | name                                                                              |
 | :---                                  | :---                                                                              |
 | distro                                | [void](https://voidlinux.org/)                                                |
@@ -21,12 +25,8 @@
 ### installation
 
 ```
-install void linux
+install a minimal linux distro (arch, void)
 git clone https://github.com/skovati/dotfiles
 cd dotfiles
 stow */
 ```
-#### screenshot
-![scrot](./etc/scrot.png)
-#### Vim IDE-like programming setup
-![nvim](./etc/nvim.png)

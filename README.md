@@ -4,7 +4,7 @@
 
 | program                               | name                                                                              |
 | :---                                  | :---                                                                              |
-| distro                                | [arch](https://www.archlinux.org/)                                                |
+| distro                                | [void](https://voidlinux.org/)                                                |
 | wm                                    | [dwm](https://dwm.suckless.org/)                                                  |    
 | bar                                   | [dbar](https://github.com/skovati/dotfiles/tree/master/bin/.local/bin/dbar)                   |
 | launcher                              | [dmenu](https://tools.suckless.org/dmenu/)                                        |
@@ -16,12 +16,12 @@
 | term                                  | [alacritty](https://github.com/alacritty/alacritty)                               |
 | doc viewer                            | [zathura](https://pwmt.org/projects/zathura/)                                     |
 | file manager                          | [lf](https://github.com/gokcehan/lf)                                              |
-| colorscheme                           | [gruvbox](https://github.com/morhetz/gruvbox)          |
+| colorscheme                           | [cybrpnk](https://github.com/skovati/cybrpnk.nvim)          |
 
 ### installation
 
 ```
-install arch linux
+install void linux
 git clone https://github.com/skovati/dotfiles
 cd dotfiles
 stow */

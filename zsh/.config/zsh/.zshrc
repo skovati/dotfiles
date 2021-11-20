@@ -18,6 +18,7 @@ export XDG_DESKTOP_DIR="$HOME/"
 export XDG_DOCUMENTS_DIR="$HOME/docs/"
 export XDG_DOWNLOAD_DIR="$HOME/downs/"
 export XDG_PICTURES_DIR="$HOME/docs/pics/"
+export XDG_RUNTIME_DIR="/run/user/$UID"
 
 # fixes matlab lol
 export _JAVA_AWT_WM_NONREPARENTING=1
@@ -33,7 +34,7 @@ alias fd=". fd"
 alias cp="cp -v"
 alias mv="mv -iv"
 alias rm="rm -vI"
-alias syu="doas pacman -Syu"
+alias syu="doas xbps-install -Su"
 alias vim="nvim"
 alias sudo="doas"
 alias one="ping -c 3 1.1.1.1"

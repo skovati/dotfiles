@@ -11,6 +11,8 @@ xsetroot -cursor_name left_ptr &
 xset r rate 300 35 &
 xss-lock -l -- xsecurelock &
 sxhkd &
+pipewire &
+pipewire-pulse &
 
 # dwm specific
 dbar &

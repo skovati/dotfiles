@@ -286,7 +286,6 @@ require("nvim-treesitter.configs").setup {
         "c",
         "cpp",
         "rust",
-        "haskell",
         "verilog",
         "html",
         "css",

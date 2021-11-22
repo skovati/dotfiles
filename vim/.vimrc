@@ -11,6 +11,7 @@
 filetype plugin indent on
 syntax on
 
+set guicursor = ""          " fix neovim cursor changing
 set smartindent             " indents after { and others
 
 " comfy 4 space tabs        

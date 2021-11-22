@@ -11,17 +11,14 @@ xsetroot -cursor_name left_ptr &
 xset r rate 300 35 &
 xss-lock -l -- xsecurelock &
 sxhkd &
-pipewire &
-pipewire-pulse &
+echo 0 | sudo tee /sys/class/leds/platform::micmute/brightness
+
+# if running void
+# pipewire &
+# pipewire-pulse &
 
 # dwm specific
 dbar &
 while true; do
     dwm
 done
-# exec xmonad
-
-# bspwm specific
-# sxhkd &
-# pgrep bspswallow || bspswallow &
-# bash /home/skovati/.config/polybar/launch.sh &

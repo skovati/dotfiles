@@ -1,24 +1,23 @@
 #!/bin/sh
-# enables or disables the DP-1 screen
+# enables or disables the HDMI port as an external screen
 
-if [ $# -eq 0 ] 
-then 
-  echo "use y or n flags"
-  exit 1
-fi
+usage() {
+    printf "%s\n" "use y or n flags"
+    exit 1
+}
 
-while getopts yn option
-do
-  case "${option}" in
-    y)
-      xrandr --output DP-1 --mode 1920x1080 --right-of eDP-1
-      echo "usb-c display output enabled..."
-    ;;
-    n)
-      xrandr --output DP-1 --off
-      echo "usb-c display output disabled..."
-    ;;
-  esac
-done
+[ $# -eq 0 ] && usage
 
-
+case "$1" in
+    on)
+        xrandr --output HDMI-A-0 --mode 1920x1080 --left-of eDP
+        printf "%s\n" "HDMI display output enabled."
+        ;;
+    off)
+        xrandr --output HDMI-A-0 --off
+        printf "%s\n" "HDMI display output disabled."
+        ;;
+    *)
+        usage
+        ;;
+esac

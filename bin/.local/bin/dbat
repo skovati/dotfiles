@@ -1,3 +1,13 @@
 #!/bin/sh
 
-echo $(cat /sys/class/power_supply/BAT0/capacity)%
+case $(cat /sys/class/power_supply/BAT0/status) in
+    "Charging")
+        printf "%s%% +" $(cat /sys/class/power_supply/BAT0/capacity)
+        ;;
+    "Discharging")
+        printf "%s%% -" $(cat /sys/class/power_supply/BAT0/capacity)
+        ;;
+    *)
+        printf "%s%%" $(cat /sys/class/power_supply/BAT0/capacity)
+        ;;
+esac

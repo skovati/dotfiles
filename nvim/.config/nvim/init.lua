@@ -30,7 +30,7 @@ local use = require("packer").use
 require("packer").startup(function()
     -- actually useful
     use "tpope/vim-commentary"          -- gcc Vgc
-    use "tpope/vim-surround"            -- cs\""
+    use "tpope/vim-surround"            -- cs""
     use {
         "tpope/vim-fugitive",           -- !Git integration
         opt = true,
@@ -69,12 +69,9 @@ require("packer").startup(function()
 
     -- meta
     use "wbthomason/packer.nvim"        -- packer manages itself
-    use "nathom/filetype.nvim"
+    use { "nathom/filetype.nvim", branch = "dev" }
     use "rktjmp/lush.nvim"              -- colorscheme
     use 'lewis6991/impatient.nvim'
-
-    -- language specific (langs I want fancy stuff for)
-    local langs = { "go", "python", "sh", "bash", "rust", "c", "lua", "cpp"}
 
     use { "hashivim/vim-terraform", ft = "hcl" }
     use { "vimwiki/vimwiki", ft = "markdown" }
@@ -159,15 +156,15 @@ vim.g.did_load_filetypes = 1            -- filetype.nvim
 opt.cursorline = true
 opt.termguicolors = true
 
--- set colorscheme
-g.colors_name = "base16-tomorrow-night"
-
 -- let terminal determine background
 cmd[[
     au ColorScheme * hi Normal ctermbg=none guibg=none
     au ColorScheme * hi LineNr ctermbg=none ctermfg=9 guibg=none
     au ColorScheme * hi Visual ctermbg=237 ctermfg=none guibg=Grey23
 ]]
+
+-- set colorscheme
+cmd[[ colorscheme base16-tomorrow-night ]]
 
 ----------------------------------------
 -- sets
@@ -207,8 +204,6 @@ opt.laststatus = 2                      -- Always display the status line
 opt.showmode = false                    -- hide current mode
 
 opt.updatetime = 250                    -- decrease update time
-opt.hidden = true                       -- dont save when switching buffers
-opt.inccommand = "nosplit"              -- incremental live completion
 opt.lazyredraw = true                   -- dont redraw screen often
 opt.nrformats:append("alpha")           -- let <Ctrl-a> do letters as well
 opt.splitbelow = true
@@ -253,10 +248,6 @@ remap("n", "<C-l>", "<C-w>l")
 remap("n", "<leader>ff", ":Files<CR>")
 remap("n", "<leader>fg", ":GFiles<CR>")
 
--- neovim defaults that rock
-remap("n", "Y", "y$")
-remap("n", "<C-L>", "<Cmd>nohlsearch<Bar>diffupdate<CR><C-L>")
-
 remap("n", "<leader>g", ":Goyo<CR>")            -- Goyo
 remap("n", "<leader>gs", ":Git status<CR>")     -- git
 remap("n", "<leader>n", ":Vexplore<CR>")        -- netrw
@@ -277,20 +268,7 @@ end
 -- treesitter
 ----------------------------------------
 require("nvim-treesitter.configs").setup {
-    ensure_installed = {
-        "go",
-        "python",
-        "yaml",
-        "lua",
-        "bash",
-        "c",
-        "cpp",
-        "rust",
-        "verilog",
-        "html",
-        "css",
-        "javascript",
-    },
+    ensure_installed = "maintained",
     highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
@@ -326,23 +304,17 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
     buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
     buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-    buf_set_keymap("n", "<leader>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
-    buf_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-    buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
+    buf_set_keymap("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+    buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+    buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
     buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
-    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-        vim.lsp.diagnostic.on_publish_diagnostics, {
-            -- virtual_text = false,
-            underline = true,
-            signs = false,
-        }
-    )
+    vim.diagnostic.config({virtual_text=true, signs=false, underline=true, update_in_insert=false})
 end
 
 -- other 
 cmd([[
-    highlight LspDiagnosticsDefaultError ctermfg=grey
+    highlight DiagnosticError ctermfg=grey guifg=Grey
 ]])
 opt.completeopt = "menuone,noselect"
 

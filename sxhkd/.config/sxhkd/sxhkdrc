@@ -6,10 +6,6 @@
 super + Return
 	$TERMINAL
 
-# start tmux w/ alacritty
-super + shift + Return
-    $TERMINAL -e tmux
-
 # program launcher
 super + d
 	dmenu_run

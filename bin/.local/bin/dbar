@@ -4,7 +4,7 @@
 SEP=" | "
 
 status() {
-    printf " %s$SEP%s$SEP%s$SEP%s$SEP%s$SEP%s" "vol: $(dvol)" "bat: $(dbat)" "pow: $(dpow)" "wg: $(dwg)" "mem: $(dmem)" "$(dtime)"
+    printf " %s$SEP%s$SEP%s$SEP%s" "vol: $(dvol)" "wg: $(dwg)" "mem: $(dmem)" "$(dtime)"
 }
 
 while true; do

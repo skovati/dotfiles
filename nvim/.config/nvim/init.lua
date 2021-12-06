@@ -1,3 +1,4 @@
+require("impatient")                    -- gotta go fast
 ----------------------------------------
 -- shortcut definitions
 ----------------------------------------
@@ -9,7 +10,6 @@ local cmd = vim.cmd                     -- run : cmd
 ----------------------------------------
 -- install packer
 ----------------------------------------
-require('impatient')
 local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -26,10 +26,12 @@ vim.api.nvim_exec(
     false
 )
 
+----------------------------------------
+-- plugin declaration
+----------------------------------------
 local use = require("packer").use
 require("packer").startup(function()
     -- actually useful
-    use "tpope/vim-commentary"          -- gcc Vgc
     use "tpope/vim-surround"            -- cs""
     use {
         "tpope/vim-fugitive",           -- !Git integration
@@ -40,6 +42,12 @@ require("packer").startup(function()
         "junegunn/fzf.vim",             -- fzf vim integration
         opt = true,
         cmd = {"Files", "GFiles"}
+    }
+    use {                               -- gcc Vgc
+        "numToStr/Comment.nvim",
+        config = function()
+            require("Comment").setup()
+        end
     }
 
     -- rice
@@ -71,8 +79,9 @@ require("packer").startup(function()
     use "wbthomason/packer.nvim"        -- packer manages itself
     use { "nathom/filetype.nvim", branch = "dev" }
     use "rktjmp/lush.nvim"              -- colorscheme
-    use 'lewis6991/impatient.nvim'
+    use "lewis6991/impatient.nvim"
 
+    -- language specific
     use { "hashivim/vim-terraform", ft = "hcl" }
     use { "vimwiki/vimwiki", ft = "markdown" }
     use { "lervag/vimtex", ft = "tex" }
@@ -92,12 +101,12 @@ require("packer").startup(function()
         ft = { "tex", "markdown" }
     }
     config = {
-        compile_path = vim.fn.stdpath('config')..'/lua/packer_compiled.lua'
+        compile_path = vim.fn.stdpath("config").."/lua/packer_compiled.lua"
     }
 end)
 
 ----------------------------------------
--- plugins
+-- plugin config
 ----------------------------------------
 require("lualine").setup {
     options = {
@@ -148,8 +157,6 @@ g.vimtex_view_method = "zathura"
 g.indent_blankline_char = "¦"
 g.indent_blankline_show_trailing_blankline_indent = false
 
-vim.g.did_load_filetypes = 1            -- filetype.nvim
-
 ----------------------------------------
 -- color
 ----------------------------------------
@@ -158,9 +165,9 @@ opt.termguicolors = true
 
 -- let terminal determine background
 cmd[[
-    au ColorScheme * hi Normal ctermbg=none guibg=none
-    au ColorScheme * hi LineNr ctermbg=none ctermfg=9 guibg=none
-    au ColorScheme * hi Visual ctermbg=237 ctermfg=none guibg=Grey23
+au ColorScheme * hi Normal ctermbg=none guibg=none
+au ColorScheme * hi LineNr ctermbg=none ctermfg=9 guibg=none
+au ColorScheme * hi Visual ctermbg=237 ctermfg=none guibg=Grey23
 ]]
 
 -- set colorscheme
@@ -182,7 +189,7 @@ opt.ignorecase = true                   -- ignore case in searches
 opt.smartcase = true                    -- unless capital query
 opt.showmatch = true                    -- highlight matching brackets
 opt.path:append("**")                   -- enable fuzzy :find ing
-opt.shortmess:append("Fc")              -- don't show "1 of 20 matches" etc for completion
+opt.shortmess:append("Fc")              -- don"t show "1 of 20 matches" etc for completion
 opt.guicursor = ""                      -- fixes alacritty changing cursor
 opt.signcolumn= "number"                -- combines the signcolumn and number columns
 -- better backups (~/.local/share/nvim/undo)
@@ -208,6 +215,7 @@ opt.lazyredraw = true                   -- dont redraw screen often
 opt.nrformats:append("alpha")           -- let <Ctrl-a> do letters as well
 opt.splitbelow = true
 opt.splitright = true
+
 ----------------------------------------
 -- maps
 ----------------------------------------
@@ -254,6 +262,8 @@ remap("n", "<leader>n", ":Vexplore<CR>")        -- netrw
 remap("n", "<leader>t", ":TagbarToggle<CR>")    -- tagbar
 remap("n", "<leader>u", ":UndotreeToggle<CR>")  -- undotree
 remap("n", "<leader>s", ":setlocal spell!<CR>") -- toggle spellcheck quickly
+
+remap("n", "<C-L>", "<Cmd>nohlsearch<Bar>diffupdate<CR><C-L>")
 
 remap("n", "<leader>c", ":lua ToggleConcealLevel()<CR>")
 function ToggleConcealLevel()
@@ -309,17 +319,17 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
     buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
-    vim.diagnostic.config({virtual_text=true, signs=false, underline=true, update_in_insert=false})
+    -- configure how lsp diagnostics are shown
+    vim.diagnostic.config({virtual_text=true, signs=false, underline=true, update_in_insert=false}) 
 end
 
 -- other 
 cmd([[
-    highlight DiagnosticError ctermfg=grey guifg=Grey
+highlight DiagnosticError ctermfg=grey guifg=Grey
 ]])
 opt.completeopt = "menuone,noselect"
 
--- Use a loop to conveniently call "setup" on multiple servers and
--- map buffer local keybindings when the language server attaches
+-- setup specific LSPs
 local servers = { "pyright", "rust_analyzer", "gopls", "clangd", "denols" }
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
@@ -330,7 +340,7 @@ for _, lsp in ipairs(servers) do
     }
 end
 
--- nvim-cmp setup
+-- auto-completion setup
 local cmp = require "cmp"
 cmp.setup {
     mapping = {

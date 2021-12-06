@@ -26,4 +26,3 @@ mouse:
     launcher:
       program: xdg-open
       args: []
-key-bindings:

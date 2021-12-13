@@ -10,7 +10,7 @@ usage() {
 
 case "$1" in
     on)
-        xrandr --output HDMI-A-0 --mode 1920x1080 --left-of eDP
+        xrandr --output HDMI-A-0 --mode 3840x2160 --pos 0x0 --rotate normal --left-of eDP
         printf "%s\n" "HDMI display output enabled."
         ;;
     off)

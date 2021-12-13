@@ -1,0 +1,4 @@
+#!/bin/sh
+# lets the user iteractively and fuzzy search through man pages
+
+man $(apropos --long . | fzf | awk '{print $2, $1}' | tr -d '()')

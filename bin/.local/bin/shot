@@ -1,4 +1,4 @@
 #!/bin/sh
 # takes a screenshot using imagemagick
 
-import /home/skovati/docs/pics/screenshot.png
+import /tmp/shot.png && xclip -sel clipboard -t image/png /tmp/shot.png

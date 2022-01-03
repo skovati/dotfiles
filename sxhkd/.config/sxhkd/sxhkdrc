@@ -15,7 +15,7 @@ super + v
 
 # web browser
 super + w
-    firefox
+    librewolf
 
 # file manager
 super + e
@@ -30,7 +30,7 @@ super + ctrl + shift + l
     xsecurelock
 
 # random scripts
-super + {s, y, Print}
+super + {s, y, p}
     {paswap, yt, shot}
 
 # audio controls
@@ -42,15 +42,6 @@ super + equal
 
 super + m
     pactl set-sink-mute @DEFAULT_SINK@ toggle
-
-super + comma
-    mpc prev
-
-super + period
-    mpc next
-
-super + p
-    mpc toggle
 
 # custom media keybinds
 XF86MonBrightnessUp

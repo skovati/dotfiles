@@ -77,7 +77,7 @@ require("packer").startup(function()
 
     -- meta
     use "wbthomason/packer.nvim"        -- packer manages itself
-    use { "nathom/filetype.nvim", branch = "dev" }
+    use "nathom/filetype.nvim"
     use "rktjmp/lush.nvim"              -- colorscheme
     use "lewis6991/impatient.nvim"
 
@@ -140,11 +140,15 @@ g.tagbar_compact = 1                    -- tagbar
 g.fzf_layout = { down = "~30%" }        -- open fzf below
 
 -- vimwiki
-g.vimwiki_list =  {                     -- make it use markdown syntax
-    path = "/tmp/wiki/",
-    syntax = "markdown", 
+g.vimwiki_list = {{                     -- make it use markdown syntax
+    path = "/tmp/notes/",
+    syntax = "markdown",
     ext = ".md"
-}
+}}
+-- cmd[[
+-- let g:vimwiki_list = [{'path': '/tmp/notes',
+--                       \ 'syntax': 'markdown', 'ext': '.md'}]
+-- ]]
 g.vimwiki_global_ext = 0                -- and not treat every markdown as vimwiki
 g.vimwiki_markdown_link_ext = 1         -- makes markdown linkes like [text](text.md) instead of [text](text)
 

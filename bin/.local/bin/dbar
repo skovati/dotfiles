@@ -4,7 +4,11 @@
 SEP=" | "
 
 status() {
-    printf " %s$SEP%s$SEP%s$SEP%s$SEP%s$SEP%s" "cpu: $(dcpu)" "bat: $(dbat)" "vol: $(dvol)" "wg: $(dwg)" "mem: $(dmem)" "$(dtime)"
+    if [ -d /sys/class/power_supply/BAT0 ]; then
+        printf " %s$SEP%s$SEP%s$SEP%s$SEP%s$SEP%s" "cpu: $(dcpu)" "bat: $(dbat)" "vol: $(dvol)" "wg: $(dwg)" "mem: $(dmem)" "$(dtime)"
+    else
+        printf " %s$SEP%s$SEP%s$SEP%s$SEP%s" "cpu: $(dcpu)" "vol: $(dvol)" "wg: $(dwg)" "mem: $(dmem)" "$(dtime)"
+    fi
 }
 
 while true; do

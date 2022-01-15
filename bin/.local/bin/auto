@@ -5,7 +5,7 @@
 feh --bg-scale /home/skovati/docs/pics/pape &
 xrdb /home/skovati/.Xresources &
 xset s off -dpms &
-picom --vsync --config /dev/null &
+picom --backend glx --vsync --config /dev/null &
 pgrep redshift || redshift -t 5500:3800 -l 43:-89 -m randr &
 xsetroot -cursor_name left_ptr &
 xset r rate 300 35 &

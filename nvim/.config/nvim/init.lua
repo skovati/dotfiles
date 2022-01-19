@@ -16,12 +16,11 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     vim.fn.execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
 end
 
-vim.api.nvim_exec(
-    [[
-    augroup Packer
-    autocmd!
-    autocmd BufWritePost init.lua PackerCompile
-    augroup end
+vim.api.nvim_exec([[
+        augroup Packer
+        autocmd!
+        autocmd BufWritePost init.lua PackerCompile
+        augroup end
     ]],
     false
 )
@@ -44,7 +43,7 @@ require("packer").startup(function()
         cmd = {"Files", "GFiles"}
     }
     use {                               -- gcc Vgc
-        "numToStr/Comment.nvim",
+    "numToStr/Comment.nvim",
         config = function()
             require("Comment").setup()
         end
@@ -120,7 +119,7 @@ require("lualine").setup {
     sections = {
         lualine_a = {"mode"},
         lualine_b = {"branch", "diff",
-            {"diagnostics", sources = {"nvim_diagnostic"}}},
+        {"diagnostics", sources = {"nvim_diagnostic"}}},
         lualine_c = {"filename"},
         lualine_x = {"encoding", "filetype"},
         lualine_y = {"progress"},
@@ -145,10 +144,7 @@ g.vimwiki_list = {{                     -- make it use markdown syntax
     syntax = "markdown",
     ext = ".md"
 }}
--- cmd[[
--- let g:vimwiki_list = [{'path': '/tmp/notes',
---                       \ 'syntax': 'markdown', 'ext': '.md'}]
--- ]]
+
 g.vimwiki_global_ext = 0                -- and not treat every markdown as vimwiki
 g.vimwiki_markdown_link_ext = 1         -- makes markdown linkes like [text](text.md) instead of [text](text)
 
@@ -169,9 +165,9 @@ opt.termguicolors = true
 
 -- let terminal determine background
 cmd[[
-au ColorScheme * hi Normal ctermbg=none guibg=none
-au ColorScheme * hi LineNr ctermbg=none ctermfg=9 guibg=none
-au ColorScheme * hi Visual ctermbg=237 ctermfg=none guibg=Grey23
+    au ColorScheme * hi Normal ctermbg=none guibg=none
+    au ColorScheme * hi LineNr ctermbg=none ctermfg=9 guibg=none
+    au ColorScheme * hi Visual ctermbg=237 ctermfg=none guibg=Grey23
 ]]
 
 -- set colorscheme
@@ -283,6 +279,7 @@ end
 ----------------------------------------
 require("nvim-treesitter.configs").setup {
     ensure_installed = "maintained",
+    sync_install = false,
     highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,

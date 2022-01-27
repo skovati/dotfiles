@@ -9,6 +9,7 @@ export VISUAL="nvim"
 export READER="zathura"
 export IMAGE="nsxiv"
 export TERMINAL="alacritty"
+export TZ='America/Chicago'
 
 # export xdg dirs
 export XDG_CONFIG_HOME="$HOME/.config"

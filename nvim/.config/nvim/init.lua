@@ -331,7 +331,7 @@ highlight DiagnosticError ctermfg=grey guifg=Grey
 opt.completeopt = "menuone,noselect"
 
 -- setup specific LSPs
-local servers = { "pyright", "rust_analyzer", "gopls", "clangd", "denols" }
+local servers = { "pyright", "rust_analyzer", "gopls", "clangd", "tsserver" }
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
         on_attach = on_attach,
@@ -344,14 +344,17 @@ end
 -- auto-completion setup
 local cmp = require "cmp"
 cmp.setup {
-    mapping = {
-        ["<C-p>"] = cmp.mapping.select_prev_item(),
-        ["<C-n>"] = cmp.mapping.select_next_item(),
-        ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-e>"] = cmp.mapping.close(),
-    },
+     mapping = {
+         ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+         ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+         ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+         ['<C-y>'] = cmp.config.disable,
+         ['<C-e>'] = cmp.mapping({
+             i = cmp.mapping.abort(),
+             c = cmp.mapping.close(),
+         }),
+         ['<CR>'] = cmp.mapping.confirm({ select = false }),
+     },
     sources = {
         { name = "buffer" },
         { name = "nvim_lsp" },

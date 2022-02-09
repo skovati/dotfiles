@@ -120,14 +120,18 @@ require("lualine").setup({
 
 require("telescope").setup({
     defaults = {
+        prompt_title = false;
+        results_title = false;
+        preview_title = false;
+        layout_strategy = "horizontal",
         layout_config = {
-            horizontal = {width = 0.75, height = 0.75}
+            width = 0.80,
         },
-        file_previewer = require("telescope.previewers").vim_buffer_cat.new,
+        borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
         mappings = {
             i = {["<esc>"] = require("telescope.actions").close}
-        }
-    }
+        },
+	},
 })
 
 g.netrw_banner = 0                          -- disable annoying banner
@@ -246,7 +250,7 @@ remap("n", "<C-k>", "<C-w>k")
 remap("n", "<C-l>", "<C-w>l")
 
 -- telescope
-remap("n", "<leader>ff", "<cmd>Telescope find_files<cr>")
+remap("n", "<leader>ff", "<cmd>Telescope find_files <cr>")
 remap("n", "<leader>fg", "<cmd>Telescope git_files<cr>")
 remap("n", "<leader>fb", "<cmd>Telescope buffers<cr>")
 
@@ -370,4 +374,4 @@ ls.snippets = {
         ls.parser.parse_snippet("be", "\\begin{equation}\n\t$0\n\\end{equation}"),
         ls.parser.parse_snippet("bm", "\\($0\\)")
     }
-}
+C

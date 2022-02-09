@@ -40,6 +40,7 @@ require("packer").startup(function()
             require("Comment").setup()
         end
     }
+
     -- meta
     use "wbthomason/packer.nvim"        -- packer manages itself
     use "nathom/filetype.nvim"          -- faster filetype parsing
@@ -54,7 +55,6 @@ require("packer").startup(function()
     -- nvim specific
     use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
     use "nvim-lualine/lualine.nvim"     -- statusline
-    use "L3MON4D3/LuaSnip"              -- snippets
 
     -- lsp/completion
     use "neovim/nvim-lspconfig"
@@ -66,6 +66,8 @@ require("packer").startup(function()
         "hrsh7th/cmp-calc",
         ft = { "tex", "markdown" }
     }
+    use "L3MON4D3/LuaSnip"              -- snippets
+    use "saadparwaiz1/cmp_luasnip"
 
     -- rice
     use "lukas-reineke/indent-blankline.nvim"   -- show indents w/ virtual text
@@ -283,7 +285,6 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
     buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
     buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-    buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
     buf_set_keymap("n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
     buf_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
     buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
@@ -315,7 +316,8 @@ for _, lsp in ipairs(servers) do
 end
 
 -- auto-completion setup
-local cmp = require "cmp"
+local cmp = require("cmp")
+local ls = require("luasnip")
 cmp.setup {
      mapping = {
          ["<C-d>"] = cmp.mapping.scroll_docs(-4),
@@ -326,6 +328,11 @@ cmp.setup {
              behavior = cmp.ConfirmBehavior.Insert,
              select = true,
          },
+         ["<C-k>"] = cmp.mapping(function()
+            if ls.expand_or_jumpable() then
+                ls.expand_or_jump()
+            end
+    	end, {"i"}),
      },
     sources = {
         { name = "nvim_lua" },
@@ -337,7 +344,7 @@ cmp.setup {
     },
     snippet = {
         expand = function(args)
-            require"luasnip".lsp_expand(args.body)
+            ls.lsp_expand(args.body)
         end
     },
 }
@@ -345,3 +352,9 @@ cmp.setup {
 ----------------------------------------
 -- luasnip
 ----------------------------------------
+ls.snippets = {
+    tex = {
+        ls.parser.parse_snippet("be", "\\begin{equation}\n\t$0\n\\end{equation}"),
+        ls.parser.parse_snippet("bm", "\\($0\\)"),
+    }
+}

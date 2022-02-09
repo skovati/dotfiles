@@ -374,4 +374,4 @@ ls.snippets = {
         ls.parser.parse_snippet("be", "\\begin{equation}\n\t$0\n\\end{equation}"),
         ls.parser.parse_snippet("bm", "\\($0\\)")
     }
-C
+}

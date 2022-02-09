@@ -3,7 +3,7 @@
 ### personal dotfiles for void/arch, dwm, nvim, zsh, etc.
 
 #### screenshot
-![scrot](./etc/scrot.png)
+![scrot](https://user-images.githubusercontent.com/49844593/153116571-89edb50a-5863-42ab-b348-e457f67d71ad.png)
 
 #### software
 | program                               | name                                                                              |
@@ -13,7 +13,7 @@
 | bar                                   | [dbar](https://github.com/skovati/dotfiles/tree/master/bin/.local/bin/dbar)                   |
 | launcher                              | [dmenu](https://tools.suckless.org/dmenu/)                                        |
 | pape                                  | [feh](https://github.com/derf/feh)                                                |
-| browser                               | [firefox](https://www.mozilla.org/en-US/firefox)                                  |
+| browser                               | [librewolf](https://librewolf.net/)                                  |
 | editor                                | [neovim](https://neovim.io/)                                                      |
 | font                                  | [tamzen](https://github.com/sunaku/tamzen-font)                                   |
 | shell                                 | [zsh](https://www.zsh.org/)                                                       |

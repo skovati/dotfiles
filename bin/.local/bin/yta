@@ -1,2 +1,2 @@
 #!/bin/sh
-mpv --ytdl-format=bestaudio ytdl://ytsearch:"$*"
+mpv --ytdl-format=bestaudio --no-resume-playback ytdl://ytsearch:"$*"

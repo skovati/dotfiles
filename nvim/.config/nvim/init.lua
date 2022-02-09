@@ -10,10 +10,9 @@ local cmd = vim.cmd                     -- run : cmd
 ----------------------------------------
 -- install packer
 ----------------------------------------
-local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
-
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    vim.fn.execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
+local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({"git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path})
 end
 
 vim.api.nvim_exec([[
@@ -31,63 +30,31 @@ vim.api.nvim_exec([[
 local use = require("packer").use
 require("packer").startup(function()
     -- actually useful
-    use "tpope/vim-surround"            -- cs""
-    use {
-        "tpope/vim-fugitive",           -- !Git integration
-        opt = true,
-        cmd = "Git"
-    }
-    use {
-        "junegunn/fzf.vim",             -- fzf vim integration
-        opt = true,
-        cmd = {"Files", "GFiles"}
-    }
+    use "tpope/vim-surround"            -- cs"" ysiw)
+    use { "tpope/vim-fugitive", opt = true, cmd = "Git" }   -- !Git integration
+    use "nvim-lua/plenary.nvim"
+    use "nvim-telescope/telescope.nvim" -- fuzzy finder
     use {                               -- gcc Vgc
-    "numToStr/Comment.nvim",
+        "numToStr/Comment.nvim",
         config = function()
             require("Comment").setup()
         end
     }
-
-    -- rice
-    use "lukas-reineke/indent-blankline.nvim"
-    use {
-        "preservim/tagbar",             -- tmp ctags display
-        opt = true,
-        cmd = "TagbarToggle"
-    }
-    use {
-        "mbbill/undotree",              -- undo tree visualization
-        opt = true,
-        cmd = "UndotreeToggle"
-    }
-    use "chriskempson/base16-vim"       -- base16 colorschemes
-    use "skovati/cybrpnk.vim"
-    use {
-        "junegunn/goyo.vim",            -- distraction free writing
-        opt = true,
-        cmd = "Goyo"
-    }
-    use {                               -- color hex code colors
-        "norcalli/nvim-colorizer.lua",
-        opt = true,
-        cmd = "ColorizerAttachToBuffer"
-    }
-
     -- meta
     use "wbthomason/packer.nvim"        -- packer manages itself
-    use "nathom/filetype.nvim"
+    use "nathom/filetype.nvim"          -- faster filetype parsing
     use "rktjmp/lush.nvim"              -- colorscheme
-    use "lewis6991/impatient.nvim"
+    use "lewis6991/impatient.nvim"      -- faster nvim loading
 
     -- language specific
-    use { "hashivim/vim-terraform", ft = "hcl" }
-    use { "vimwiki/vimwiki", ft = "markdown" }
-    use { "lervag/vimtex", ft = "tex" }
+    use { "hashivim/vim-terraform", ft = "hcl" }    -- pretty terraform
+    use { "vimwiki/vimwiki", ft = "markdown" }      -- notes/wiki plugin
+    use { "lervag/vimtex", ft = "tex" }             -- latex integration
 
     -- nvim specific
     use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
-    use "nvim-lualine/lualine.nvim"
+    use "nvim-lualine/lualine.nvim"     -- statusline
+    use "L3MON4D3/LuaSnip"              -- snippets
 
     -- lsp/completion
     use "neovim/nvim-lspconfig"
@@ -98,6 +65,21 @@ require("packer").startup(function()
     use {
         "hrsh7th/cmp-calc",
         ft = { "tex", "markdown" }
+    }
+
+    -- rice
+    use "lukas-reineke/indent-blankline.nvim"   -- show indents w/ virtual text
+    use {
+        "mbbill/undotree",              -- undo tree visualization
+        opt = true,
+        cmd = "UndotreeToggle",
+    }
+    use "chriskempson/base16-vim"       -- base16 colorschemes
+    use "skovati/cybrpnk.vim"
+    use {
+        "junegunn/goyo.vim",            -- distraction free writing
+        opt = true,
+        cmd = "Goyo"
     }
     config = {
         compile_path = vim.fn.stdpath("config").."/lua/packer_compiled.lua"
@@ -127,16 +109,24 @@ require("lualine").setup {
     }
 }
 
+require("telescope").setup({
+    defaults = {
+        layout_config = {
+            horizontal = { width = 0.75, height = 0.75 }
+        },
+        file_previewer = require("telescope.previewers").vim_buffer_cat.new,
+        mappings = {
+		i = { ["<esc>"] = require("telescope.actions").close },
+	},
+    },
+})
+
 g.netrw_banner = 0                      -- disable annoying banner
 g.netrw_browse_split = 3                -- open in prior window
 g.netrw_altv = 1                        -- open splits to the right
 g.netrw_liststyle = 3                   -- tree view
 g.netrw_winsize = 20                    -- limit split size
 g.netrw_list_hide = [[\(^\|\s\s\)\zs\.\S\+]] -- hide hidden files, toggle with gh
-
-g.tagbar_compact = 1                    -- tagbar
-
-g.fzf_layout = { down = "~30%" }        -- open fzf below
 
 -- vimwiki
 g.vimwiki_list = {{                     -- make it use markdown syntax
@@ -188,7 +178,6 @@ opt.clipboard = "unnamedplus"           -- use system clipboard
 opt.ignorecase = true                   -- ignore case in searches
 opt.smartcase = true                    -- unless capital query
 opt.showmatch = true                    -- highlight matching brackets
-opt.path:append("**")                   -- enable fuzzy :find ing
 opt.shortmess:append("Fc")              -- don"t show "1 of 20 matches" etc for completion
 opt.guicursor = ""                      -- fixes alacritty changing cursor
 opt.signcolumn= "number"                -- combines the signcolumn and number columns
@@ -211,7 +200,7 @@ opt.laststatus = 2                      -- Always display the status line
 opt.showmode = false                    -- hide current mode
 
 opt.updatetime = 250                    -- decrease update time
-opt.lazyredraw = true                   -- dont redraw screen often
+opt.lazyredraw = true                   -- dont redraw screen when exec macros
 opt.nrformats:append("alpha")           -- let <Ctrl-a> do letters as well
 opt.splitbelow = true
 opt.splitright = true
@@ -242,37 +231,24 @@ remap("c", "wQ", "wq")
 
 remap("i", "{<CR>", "{<CR>}<Esc>O")             -- autoclose {}
 
--- LaTeX shortcuts (I should probably use a snippet plugin for this)
-remap("n", "<leader>be", "i\\begin{equation}<CR><C-h>\\end{equation}<ESC>O")
-remap("n", "<leader>bm", "i\\(\\)<ESC>hi")
-
 -- Split Navigation shortcuts
 remap("n", "<C-h>", "<C-w>h")
 remap("n", "<C-j>", "<C-w>j")
 remap("n", "<C-k>", "<C-w>k")
 remap("n", "<C-l>", "<C-w>l")
 
--- fzf
-remap("n", "<leader>ff", ":Files<CR>")
-remap("n", "<leader>fg", ":GFiles<CR>")
+-- telescope
+remap("n", "<leader>ff", "<cmd>Telescope find_files<cr>")
+remap("n", "<leader>fg", "<cmd>Telescope git_files<cr>")
+remap("n", "<leader>fb", "<cmd>Telescope buffers<cr>")
 
 remap("n", "<leader>g", ":Goyo<CR>")            -- Goyo
 remap("n", "<leader>gs", ":Git status<CR>")     -- git
 remap("n", "<leader>n", ":Vexplore<CR>")        -- netrw
-remap("n", "<leader>t", ":TagbarToggle<CR>")    -- tagbar
-remap("n", "<leader>u", ":UndotreeToggle<CR>")  -- undotree
 remap("n", "<leader>s", ":setlocal spell!<CR>") -- toggle spellcheck quickly
+remap("n", "<leader>u", ":UndotreeToggle<CR>")  -- undotree
 
-remap("n", "<C-L>", "<Cmd>nohlsearch<Bar>diffupdate<CR><C-L>")
-
-remap("n", "<leader>c", ":lua ToggleConcealLevel()<CR>")
-function ToggleConcealLevel()
-    if opt.conceallevel:get() == 2 then
-        opt.conceallevel = 0
-    else
-        opt.conceallevel = 2
-    end
-end
+remap("n", "<C-L>", "<Cmd>nohlsearch<Bar>diffupdate<CR><C-L>") -- clear prev search results
 
 ----------------------------------------
 -- treesitter
@@ -299,9 +275,6 @@ local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-    -- Enable completion triggered by <c-x><c-o>
-    buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-
     -- Mappings.
     local opts = { noremap=true, silent=true }
 
@@ -318,7 +291,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
     buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
     buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
-    buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    buf_set_keymap("n", "<leader>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
     -- configure how lsp diagnostics are shown
     vim.diagnostic.config({virtual_text=true, signs=false, underline=true, update_in_insert=false}) 
@@ -326,12 +299,12 @@ end
 
 -- other 
 cmd([[
-highlight DiagnosticError ctermfg=grey guifg=Grey
+    highlight DiagnosticError ctermfg=grey guifg=Grey
 ]])
 opt.completeopt = "menuone,noselect"
 
 -- setup specific LSPs
-local servers = { "pyright", "rust_analyzer", "gopls", "clangd", "tsserver" }
+local servers = { "pyright", "rust_analyzer", "gopls", "clangd", "tsserver", "svls", "texlab" }
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
         on_attach = on_attach,
@@ -345,21 +318,30 @@ end
 local cmp = require "cmp"
 cmp.setup {
      mapping = {
-         ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-         ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-         ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-         ['<C-y>'] = cmp.config.disable,
-         ['<C-e>'] = cmp.mapping({
-             i = cmp.mapping.abort(),
-             c = cmp.mapping.close(),
-         }),
-         ['<CR>'] = cmp.mapping.confirm({ select = false }),
+         ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+         ["<C-u>"] = cmp.mapping.scroll_docs(4),
+         ["<C-e>"] = cmp.mapping.close(),
+         ["<C-Space>"] = cmp.mapping.complete(),
+         ["<C-y>"] = cmp.mapping.confirm {
+             behavior = cmp.ConfirmBehavior.Insert,
+             select = true,
+         },
      },
     sources = {
-        { name = "buffer" },
-        { name = "nvim_lsp" },
         { name = "nvim_lua" },
+        { name = "luasnip" },
+        { name = "nvim_lsp" },
         { name = "path" },
         { name = "calc" },
+        { name = "buffer" },
+    },
+    snippet = {
+        expand = function(args)
+            require"luasnip".lsp_expand(args.body)
+        end
     },
 }
+
+----------------------------------------
+-- luasnip
+----------------------------------------

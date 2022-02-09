@@ -110,12 +110,12 @@ set_pape() {
 }
 
 other() {
-    xdg-settings set default-web-browser firefox.desktop
+    xdg-settings set default-web-browser librewolf.desktop
     xdg-mime default org.pwmt.zathura.desktop application/epub
     xdg-mime default org.pwmt.zathura.desktop application/pdf
     xdg-mime default mpv.desktop video/mp4
     xdg-mime default mpv.desktop video/mkv
-    xdg-mime default sxiv.dekstop image/jpeg
-    xdg-mime default sxiv.dekstop image/jpg
-    xdg-mime default sxiv.dekstop image/png
+    xdg-mime default nsxiv.desktop image/jpeg
+    xdg-mime default nsxiv.desktop image/jpg
+    xdg-mime default nsxiv.desktop image/png
 }

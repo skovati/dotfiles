@@ -43,7 +43,7 @@ alias vrc="nvim ~/.config/nvim/init.lua"
 alias sx="nsxiv -b"
 alias dots="cd $HOME/dev/git/dotfiles/"
 alias rcp="rsync -avzhP"
-alias z="zathura"
+alias z="zathura --fork"
 
 ########################################
 # CONFIG

@@ -254,7 +254,7 @@ remap("n", "<leader>ff", "<cmd>Telescope find_files <cr>")
 remap("n", "<leader>fg", "<cmd>Telescope git_files<cr>")
 remap("n", "<leader>fb", "<cmd>Telescope buffers<cr>")
 
-remap("n", "<leader>g", ":Goyo<CR>")        -- Goyo
+remap("n", "<leader>gg", ":Goyo<CR>")        -- Goyo
 remap("n", "<leader>gs", ":Git status<CR>") -- git
 remap("n", "<leader>n", ":Vexplore<CR>")    -- netrw
 remap("n", "<leader>s", ":setlocal spell!<CR>") -- toggle spellcheck quickly

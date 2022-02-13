@@ -10,6 +10,7 @@ export READER="zathura"
 export IMAGE="nsxiv"
 export TERMINAL="alacritty"
 export TZ='America/Chicago'
+export BAT_THEME="ansi"
 
 # export xdg dirs
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -44,6 +45,7 @@ alias sx="nsxiv -b"
 alias dots="cd $HOME/dev/git/dotfiles/"
 alias rcp="rsync -avzhP"
 alias z="zathura --fork"
+which exa > /dev/null 2>&1 && alias ls="exa -F" || alias ls="ls --color -F"
 
 ########################################
 # CONFIG
@@ -69,7 +71,7 @@ zle -N edit-command-line
 LS_COLORS='rs=0:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=30;41:sg=30;43:tw=30;42:ow=30;42:st=30;44:ex=01;32:';
 export LS_COLORS
 
-alias ls="ls --color -F"
+
 
 # open command in vim
 bindkey '\ev' edit-command-line
@@ -194,3 +196,4 @@ bindkey '^R' fzf-history-widget
   eval $__fzf_key_bindings_options
   'unset' '__fzf_key_bindings_options'
 }
+which zoxide > /dev/null 2>&1 && eval "$(zoxide init --cmd cd zsh)"

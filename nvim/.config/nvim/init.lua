@@ -36,19 +36,27 @@ require("packer").startup(
         use {"tpope/vim-fugitive", opt = true, cmd = "Git"} -- !Git integration
         use "nvim-lua/plenary.nvim"
         use "nvim-telescope/telescope.nvim" -- fuzzy finder
-        use "numToStr/Comment.nvim"         -- gcc Vgc
+        use {                               -- gcc Vgc
+            "numToStr/Comment.nvim",
+            config = require("Comment").setup()
+        }
+
         -- meta
         use "wbthomason/packer.nvim"        -- packer manages itself
         use "nathom/filetype.nvim"          -- faster filetype parsing
         use "rktjmp/lush.nvim"              -- colorscheme
         use "lewis6991/impatient.nvim"      -- faster nvim loading
-        -- nvim specific
-        use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
-        use "nvim-lualine/lualine.nvim"     -- statusline
+        use "tweekmonster/startuptime.vim"
+
         -- language specific
         use {"hashivim/vim-terraform", ft = "hcl"} -- pretty terraform
         use {"vimwiki/vimwiki", ft = "markdown"} -- notes/wiki plugin
         use {"lervag/vimtex", ft = "tex"}   -- latex integration
+
+        -- nvim specific
+        use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
+        use "nvim-lualine/lualine.nvim"     -- statusline
+
         -- lsp/completion
         use "neovim/nvim-lspconfig"
         use "hrsh7th/nvim-cmp"
@@ -61,14 +69,15 @@ require("packer").startup(
         }
         use "L3MON4D3/LuaSnip"              -- snippets
         use "saadparwaiz1/cmp_luasnip"
+
         -- rice
         use "lukas-reineke/indent-blankline.nvim" -- show indents w/ virtual text
+        use "chriskempson/base16-vim"       -- base16 colorschemes
         use {
             "mbbill/undotree",              -- undo tree visualization
             opt = true,
             cmd = "UndotreeToggle"
         }
-        use "chriskempson/base16-vim"       -- base16 colorschemes
         use "skovati/cybrpnk.vim"
         use {
             "junegunn/goyo.vim",            -- distraction free writing
@@ -88,22 +97,11 @@ require("lualine").setup({
     options = {
         icons_enabled = false,
         theme = "cybrpnk",
-        component_separators = {left = "|", right = "|"},
-        section_separators = {left = "", right = ""},
-        disabled_filetypes = {},
-        always_divide_middle = false,
+        component_separators = "|",
+        section_separators = "",
     },
     sections = {
-        lualine_a = {"mode"},
-        lualine_b = {
-            "branch",
-            "diff",
-            {"diagnostics", sources = {"nvim_diagnostic"}}
-        },
-        lualine_c = {"filename"},
         lualine_x = {"encoding", "filetype"},
-        lualine_y = {"progress"},
-        lualine_z = {"location"},
     },
 })
 
@@ -164,22 +162,27 @@ cmd [[
 -- set colorscheme
 cmd [[ colorscheme base16-tomorrow-night ]]
 
+-- highlight selection on yank
+cmd [[
+    augroup YankHighlight
+        autocmd!
+        autocmd TextYankPost * silent! lua vim.highlight.on_yank()
+    augroup end
+]]
+
 ----------------------------------------
 -- sets
 ----------------------------------------
 opt.relativenumber = true                   -- number line shows relative
 opt.number = true                           -- and current line shows actual line nrl
 opt.smartindent = true                      -- indent according to lang
-opt.autoindent = true                       -- use current indentation for next
 opt.tabstop = 4                             -- 4 space tabs
-opt.softtabstop = 4                         -- backspace removes all spaces
-opt.shiftwidth = 4                          -- >> shifts by 4
+opt.shiftwidth = 0                          -- >> shifts by tabstop amount
+opt.softtabstop = -1                        -- backspace removes $tabstop spaces
 opt.expandtab = true                        -- insert tabs as spaces
 opt.clipboard = "unnamedplus"               -- use system clipboard
 opt.ignorecase = true                       -- ignore case in searches
 opt.smartcase = true                        -- unless capital query
-opt.showmatch = true                        -- highlight matching brackets
-opt.shortmess:append("Fc")                  -- don"t show "1 of 20 matches" etc for completion
 opt.guicursor = ""                          -- fixes alacritty changing cursor
 opt.signcolumn = "number"                   -- combines the signcolumn and number columns
 -- better backups (~/.local/share/nvim/undo)
@@ -197,7 +200,6 @@ opt.spelllang = "en_us"
 opt.complete:append("kspell")
 
 -- for custom statusline
-opt.laststatus = 2                          -- Always display the status line
 opt.showmode = false                        -- hide current mode
 
 opt.updatetime = 250                        -- decrease update time

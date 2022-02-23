@@ -36,29 +36,19 @@ require("packer").startup(
         use {"tpope/vim-fugitive", opt = true, cmd = "Git"} -- !Git integration
         use "nvim-lua/plenary.nvim"
         use "nvim-telescope/telescope.nvim" -- fuzzy finder
-        use {
-            -- gcc Vgc
-            "numToStr/Comment.nvim",
-            config = function()
-                require("Comment").setup()
-            end
-        }
-
+        use "numToStr/Comment.nvim"         -- gcc Vgc
         -- meta
         use "wbthomason/packer.nvim"        -- packer manages itself
         use "nathom/filetype.nvim"          -- faster filetype parsing
         use "rktjmp/lush.nvim"              -- colorscheme
         use "lewis6991/impatient.nvim"      -- faster nvim loading
-
+        -- nvim specific
+        use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
+        use "nvim-lualine/lualine.nvim"     -- statusline
         -- language specific
         use {"hashivim/vim-terraform", ft = "hcl"} -- pretty terraform
         use {"vimwiki/vimwiki", ft = "markdown"} -- notes/wiki plugin
         use {"lervag/vimtex", ft = "tex"}   -- latex integration
-
-        -- nvim specific
-        use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
-        use "nvim-lualine/lualine.nvim"     -- statusline
-
         -- lsp/completion
         use "neovim/nvim-lspconfig"
         use "hrsh7th/nvim-cmp"
@@ -71,7 +61,6 @@ require("packer").startup(
         }
         use "L3MON4D3/LuaSnip"              -- snippets
         use "saadparwaiz1/cmp_luasnip"
-
         -- rice
         use "lukas-reineke/indent-blankline.nvim" -- show indents w/ virtual text
         use {

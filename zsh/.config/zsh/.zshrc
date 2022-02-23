@@ -39,12 +39,13 @@ alias rm="rm -vI"
 alias syu="doas pacman -Syu"
 alias vim="nvim"
 alias sudo="doas"
-alias one="ping -c 3 1.1.1.1"
+alias one="ping -c 5 1.1.1.1"
 alias vrc="nvim ~/.config/nvim/init.lua"
-alias sx="nsxiv -b"
-alias dots="cd $HOME/dev/git/dotfiles/"
+alias sx="nsxiv -b -a"
 alias rcp="rsync -avzhP"
 alias z="zathura --fork"
+alias xc="xclip -sel clipboard -i"
+alias xp="xclip -sel clipboard -o"
 which exa > /dev/null 2>&1 && alias ls="exa -F" || alias ls="ls --color -F"
 
 ########################################
@@ -70,8 +71,6 @@ zle -N edit-command-line
 # make ls pretty
 LS_COLORS='rs=0:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=30;41:sg=30;43:tw=30;42:ow=30;42:st=30;44:ex=01;32:';
 export LS_COLORS
-
-
 
 # open command in vim
 bindkey '\ev' edit-command-line

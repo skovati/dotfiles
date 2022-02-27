@@ -143,7 +143,7 @@ vim.g.indent_blankline_show_trailing_blankline_indent = false
 vim.opt.cursorline = true
 vim.opt.termguicolors = true
 
--- let terminal determine background
+-- let terminal determine background (except a sane grey visual hi)
 vim.cmd [[
     au ColorScheme * hi Normal ctermbg=none guibg=none
     au ColorScheme * hi LineNr ctermbg=none ctermfg=9 guibg=none
@@ -157,7 +157,7 @@ vim.cmd [[ colorscheme base16-tomorrow-night ]]
 vim.cmd [[
     augroup YankHighlight
         autocmd!
-        autocmd TextYankPost * silent! lua vim.highlight.on_yank()
+        autocmd TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual"})
     augroup end
 ]]
 
@@ -176,6 +176,16 @@ vim.opt.ignorecase = true                       -- ignore case in searches
 vim.opt.smartcase = true                        -- unless capital query
 vim.opt.guicursor = ""                          -- fixes alacritty changing cursor
 vim.opt.signcolumn = "number"                   -- combines the signcolumn and number columns
+vim.opt.timeoutlen = 250                        -- decrease timeout length for keymaps
+vim.opt.showmode = false                        -- hide current mode
+vim.opt.updatetime = 250                        -- decrease update time
+vim.opt.lazyredraw = true                       -- dont redraw screen when exec macros
+vim.opt.nrformats:append("alpha")               -- let <Ctrl-a> do letters as well
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.completeopt = { "menuone", "noselect" } -- set for cmp
+vim.opt.shortmess:append("c")                   -- dont show eg "1 out of 20 matches"
+
 -- better backups (~/.local/share/nvim/undo)
 vim.opt.swapfile = false                        -- disable swapfiles
 vim.opt.backup = false                          -- and auto backps, to instead use
@@ -189,15 +199,6 @@ vim.opt.foldenable = false
 -- spell check
 vim.opt.spelllang = "en_us"
 vim.opt.complete:append("kspell")
-
--- for custom statusline
-vim.opt.showmode = false                        -- hide current mode
-
-vim.opt.updatetime = 250                        -- decrease update time
-vim.opt.lazyredraw = true                       -- dont redraw screen when exec macros
-vim.opt.nrformats:append("alpha")               -- let <Ctrl-a> do letters as well
-vim.opt.splitbelow = true
-vim.opt.splitright = true
 
 ----------------------------------------
 -- maps

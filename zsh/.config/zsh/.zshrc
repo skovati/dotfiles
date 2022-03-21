@@ -59,6 +59,7 @@ which exa > /dev/null 2>&1 && alias ls="exa -F" || alias ls="ls --color -F"
 HISTFILE="$XDG_DATA_HOME/zsh/.zsh_history"
 HISTSIZE=1000000
 SAVEHIST=$HISTSIZE
+setopt HIST_IGNORE_SPACE
 unsetopt beep
 # enable comments in interactive shell
 setopt interactivecomments 

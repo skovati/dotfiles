@@ -15,20 +15,20 @@ riverctl set-repeat 50 300
 
 riverctl default-layout rivertile
 
-TRACKPAD="2:7:SynPS/2_Synaptics_TouchPad"
-
-riverctl input "$TRACKPAD" events enabled
-riverctl input "$TRACKPAD" accel-profile none
-riverctl input "$TRACKPAD" click-method clickfinger
-riverctl input "$TRACKPAD" drag enabled
-riverctl input "$TRACKPAD" drag-lock disabled
-riverctl input "$TRACKPAD" disable-while-typing enabled
-riverctl input "$TRACKPAD" middle-emulation enabled
-riverctl input "$TRACKPAD" natural-scroll enabled
-riverctl input "$TRACKPAD" left-handed disabled
-riverctl input "$TRACKPAD" tap enabled
-riverctl input "$TRACKPAD" tap-button-map left-right-middle
-riverctl input "$TRACKPAD" scroll-method two-finger
+# TRACKPAD="2:7:SynPS/2_Synaptics_TouchPad"
+#
+# riverctl input "$TRACKPAD" events enabled
+# riverctl input "$TRACKPAD" accel-profile none
+# riverctl input "$TRACKPAD" click-method clickfinger
+# riverctl input "$TRACKPAD" drag enabled
+# riverctl input "$TRACKPAD" drag-lock disabled
+# riverctl input "$TRACKPAD" disable-while-typing enabled
+# riverctl input "$TRACKPAD" middle-emulation enabled
+# riverctl input "$TRACKPAD" natural-scroll enabled
+# riverctl input "$TRACKPAD" left-handed disabled
+# riverctl input "$TRACKPAD" tap enabled
+# riverctl input "$TRACKPAD" tap-button-map left-right-middle
+# riverctl input "$TRACKPAD" scroll-method two-finger
 
 ########################################
 # KEYBINDS

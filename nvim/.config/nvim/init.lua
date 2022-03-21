@@ -127,6 +127,7 @@ vim.g.vimwiki_list = { {
 
 vim.g.vimwiki_global_ext = 0                    -- and not treat every markdown as vimwiki
 vim.g.vimwiki_markdown_link_ext = 1             -- makes markdown linkes like [text](text.md) instead of [text](text)
+vim.g.vimwiki_conceallevel = 0
 
 -- vimtex
 vim.g.vimtex_quickfix_mode = 0
@@ -176,7 +177,7 @@ vim.opt.ignorecase = true                       -- ignore case in searches
 vim.opt.smartcase = true                        -- unless capital query
 vim.opt.guicursor = ""                          -- fixes alacritty changing cursor
 vim.opt.signcolumn = "number"                   -- combines the signcolumn and number columns
-vim.opt.timeoutlen = 250                        -- decrease timeout length for keymaps
+vim.opt.timeoutlen = 400                        -- decrease timeout length for keymaps
 vim.opt.showmode = false                        -- hide current mode
 vim.opt.updatetime = 250                        -- decrease update time
 vim.opt.lazyredraw = true                       -- dont redraw screen when exec macros
@@ -185,6 +186,7 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.completeopt = { "menuone", "noselect" } -- set for cmp
 vim.opt.shortmess:append("c")                   -- dont show eg "1 out of 20 matches"
+vim.opt.conceallevel = 0
 
 -- better backups (~/.local/share/nvim/undo)
 vim.opt.swapfile = false                        -- disable swapfiles
@@ -236,7 +238,7 @@ remap("n", "<C-l>", "<C-w>l")
 remap("n", "<leader>ff", "<cmd>Telescope find_files <cr>")
 remap("n", "<leader>fg", "<cmd>Telescope git_files<cr>")
 remap("n", "<leader>fb", "<cmd>Telescope buffers<cr>")
-remap("n", "<leader><leader>", "<cmd>Telescope frecency<cr>")
+remap("n", "<leader><leader>", "<cmd>Telescope live_grep<cr>")
 
 remap("n", "<leader>gg", ":Goyo<CR>")           -- Goyo
 remap("n", "<leader>gs", ":Git status<CR>")     -- git

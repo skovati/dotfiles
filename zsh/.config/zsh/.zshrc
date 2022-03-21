@@ -22,6 +22,9 @@ export XDG_DOWNLOAD_DIR="$HOME/downs/"
 export XDG_PICTURES_DIR="$HOME/docs/pics/"
 export XDG_RUNTIME_DIR="/run/user/$UID"
 
+export GBM_BACKEND=nvidia-drm
+export __GLX_VENDOR_LIBRARY_NAME=nvidia
+
 # fixes matlab lol
 export _JAVA_AWT_WM_NONREPARENTING=1
 # fixes gpg-ncurses

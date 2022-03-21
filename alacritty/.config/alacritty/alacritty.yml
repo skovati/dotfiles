@@ -9,6 +9,7 @@ window:
   padding:
     x: 10
     y: 10
+  title: alacritty
 font:
   normal:
     family: TamzenForPowerline

@@ -12,12 +12,12 @@ window:
   title: alacritty
 font:
   normal:
-    family: TamzenForPowerline
+    family: JetBrainsMono Nerd Font
     style: Regular
   bold:
-    family: TamzenForPowerline
+    family: JetBrainsMono Nerd Font
     style: Bold
-  size: 9
+  size: 8
 cursor:
   style: Underline
   unfocused_hollow: false

@@ -2,17 +2,10 @@ require("impatient") -- gotta go fast
 ----------------------------------------
 -- install packer
 ----------------------------------------
-local install_path = vim.fn.stdpath("data")
-    .. "/site/pack/packer/start/packer.nvim"
+local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--depth",
-        "1",
-        "https://github.com/wbthomason/packer.nvim",
-        install_path,
-    })
+    vim.fn.system({ "git", "clone", "--depth", "1",
+    "https://github.com/wbthomason/packer.nvim", install_path, })
 end
 
 vim.api.nvim_exec(
@@ -252,12 +245,6 @@ remap("c", "wQ", "wq")
 
 remap("i", "{<CR>", "{<CR>}<Esc>O") -- autoclose {}
 
--- Split Navigation shortcuts
-remap("n", "<C-h>", "<C-w>h")
-remap("n", "<C-j>", "<C-w>j")
-remap("n", "<C-k>", "<C-w>k")
-remap("n", "<C-l>", "<C-w>l")
-
 -- telescope
 remap("n", "<leader>ff", "<cmd>Telescope find_files <cr>")
 remap("n", "<leader>fg", "<cmd>Telescope git_files<cr>")
@@ -269,8 +256,6 @@ remap("n", "<leader>gs", ":Git status<CR>") -- git
 remap("n", "<leader>n", ":Vexplore<CR>") -- netrw
 remap("n", "<leader>s", ":setlocal spell!<CR>") -- toggle spellcheck quickly
 remap("n", "<leader>u", ":UndotreeToggle<CR>") -- undotree
-
-remap("n", "<C-L>", "<Cmd>nohlsearch<Bar>diffupdate<CR><C-L>") -- clear prev search results
 
 ----------------------------------------
 -- treesitter
@@ -357,6 +342,7 @@ local servers = {
     "tsserver",
     "svls",
     "texlab",
+    "jdtls",
 }
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup({

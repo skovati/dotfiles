@@ -197,6 +197,7 @@ vim.opt.splitright = true
 vim.opt.completeopt = { "menuone", "noselect" } -- set for cmp
 vim.opt.shortmess:append("c") -- dont show eg "1 out of 20 matches"
 vim.opt.conceallevel = 0
+vim.opt.mouse = "a" -- only used when pair programming dont judge
 
 -- better backups (~/.local/share/nvim/undo)
 vim.opt.swapfile = false -- disable swapfiles
@@ -212,6 +213,7 @@ vim.opt.foldenable = false
 vim.opt.spelllang = "en_us"
 vim.opt.complete:append("kspell")
 
+-- inspired by helix editor
 vim.cmd([[
     augroup ToggleRelNum
         autocmd InsertEnter * :set norelativenumber
@@ -261,7 +263,7 @@ remap("n", "<leader>u", ":UndotreeToggle<CR>") -- undotree
 -- treesitter
 ----------------------------------------
 require("nvim-treesitter.configs").setup({
-    ensure_installed = "maintained",
+    ensure_installed = "all",
     sync_install = false,
     highlight = {
         enable = true,
@@ -344,8 +346,11 @@ local servers = {
     "texlab",
     "jdtls",
 }
+
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup({
+        capabilities = capabilities,
         on_attach = on_attach,
         flags = {
             debounce_text_changes = 150,
@@ -356,7 +361,7 @@ end
 -- auto-completion setup
 local cmp = require("cmp")
 local ls = require("luasnip")
-cmp.setup({
+cmp.setup {
     mapping = {
         ["<c-d>"] = cmp.mapping.scroll_docs(-4),
         ["<c-u>"] = cmp.mapping.scroll_docs(4),
@@ -366,11 +371,14 @@ cmp.setup({
             behavior = cmp.ConfirmBehavior.Insert,
             select = true,
         }),
-        ["<c-k>"] = cmp.mapping(function()
-            if ls.expand_or_jumpable() then
-                ls.expand_or_jump()
-            end
-        end, { "i" }),
+        ["<c-k>"] = cmp.mapping(
+            function()
+                if ls.expand_or_jumpable() then
+                    ls.expand_or_jump()
+                end
+            end,
+            { "i" }
+        ),
     },
     sources = {
         { name = "nvim_lua" },
@@ -383,19 +391,16 @@ cmp.setup({
     snippet = {
         expand = function(args)
             ls.lsp_expand(args.body)
-        end,
-    },
-})
+        end
+    }
+}
 
 ----------------------------------------
 -- luasnip
 ----------------------------------------
-ls.snippets = {
+ls.add_snippets(nil, {
     tex = {
-        ls.parser.parse_snippet(
-            "be",
-            "\\begin{equation}\n\t$0\n\\end{equation}"
-        ),
+        ls.parser.parse_snippet("be", "\\begin{equation}\n\t$0\n\\end{equation}"),
         ls.parser.parse_snippet("bm", "\\($0\\)"),
     },
-}
+})

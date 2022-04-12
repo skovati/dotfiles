@@ -11,7 +11,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 export JDTLS_HOME=/usr/share/java/jdtls
 
 # actually important
-export PATH=/home/skovati/.local/bin:$GOPATH/bin:$PATH
+export PATH=/home/skovati/.local/bin:$GOPATH/bin:/home/skovati/.cargo/bin:$PATH
 export EDITOR="nvim"
 export VISUAL="nvim"
 export READER="zathura"
@@ -29,6 +29,10 @@ export XDG_DOCUMENTS_DIR="$HOME/docs/"
 export XDG_DOWNLOAD_DIR="$HOME/downs/"
 export XDG_PICTURES_DIR="$HOME/docs/pics/"
 export XDG_RUNTIME_DIR="/run/user/$UID"
+
+# other config
+export TASKDATA=$XDG_DATA_HOME/task
+export TASKRC=$XDG_CONFIG_HOME/taskwarrior/.taskrc
 
 # rice
 export BAT_THEME="ansi"

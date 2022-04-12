@@ -1,0 +1,27 @@
+#!/bin/sh
+# TODO implement other options
+
+usage() {
+    printf "%s\n" "
+    usage:
+        rec -m file_name    - records audio from mic into file_name
+        rec -a file_name    - records audio from desktop into file_name
+        rec -s file_name    - records video from screen into file_name
+        rec -v file_name    - records video from camera into file_name
+    "
+}
+
+mic() {
+    ffmpeg -f pulse -i alsa_input.usb-BLUE_MICROPHONE_Blue_Snowball_201305-00.analog-stereo -y ./$1.mp3
+}
+
+while getopts 'masv' opt; do
+    case "$opt" in
+        m)
+            mic $2
+        ;;
+        *)
+            usage
+        ;;
+    esac
+done

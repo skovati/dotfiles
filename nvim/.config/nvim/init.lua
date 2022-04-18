@@ -4,19 +4,14 @@ require("impatient") -- gotta go fast
 ----------------------------------------
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    vim.fn.system({ "git", "clone", "--depth", "1",
-    "https://github.com/wbthomason/packer.nvim", install_path, })
+    vim.fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
 end
 
-vim.api.nvim_exec(
-    [[
-        augroup Packer
-        autocmd!
-        autocmd BufWritePost init.lua PackerCompile
-        augroup end
-    ]],
-    false
-)
+vim.api.nvim_create_autocmd("BufWritePost", {
+    command = "PackerCompile",
+    pattern = "init.lua",
+    group = vim.api.nvim_create_augroup("Packer", {}),
+})
 
 ----------------------------------------
 -- plugin declaration
@@ -32,43 +27,28 @@ require("packer").startup(function()
         "numToStr/Comment.nvim",
         config = require("Comment").setup(),
     })
-
     -- meta
     use("wbthomason/packer.nvim") -- packer manages itself
-    use("nathom/filetype.nvim") -- faster filetype parsing
     use("rktjmp/lush.nvim") -- colorscheme
     use("lewis6991/impatient.nvim") -- faster nvim loading
-
     -- language specific
     use({ "hashivim/vim-terraform", ft = "hcl" }) -- pretty terraform
     use({ "vimwiki/vimwiki", ft = "markdown" }) -- notes/wiki plugin
     use({ "lervag/vimtex", ft = "tex" }) -- latex integration
-
-    -- nvim specific
-    use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-    use("nvim-lualine/lualine.nvim") -- statusline
-
     -- lsp/completion
     use("neovim/nvim-lspconfig")
     use("hrsh7th/nvim-cmp")
     use("hrsh7th/cmp-buffer")
     use("hrsh7th/cmp-path")
     use("hrsh7th/cmp-nvim-lsp")
-    use({
-        "hrsh7th/cmp-calc",
-        ft = { "tex", "markdown" },
-    })
+    use({ "hrsh7th/cmp-calc", ft = { "tex", "markdown" }, })
     use("L3MON4D3/LuaSnip") -- snippets
     use("saadparwaiz1/cmp_luasnip")
-
     -- rice
+    use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+    use("nvim-lualine/lualine.nvim") -- statusline
     use("lukas-reineke/indent-blankline.nvim") -- show indents w/ virtual text
     use("chriskempson/base16-vim") -- base16 colorschemes
-    use({
-        "mbbill/undotree", -- undo tree visualization
-        opt = true,
-        cmd = "UndotreeToggle",
-    })
     use("skovati/cybrpnk.vim")
     use({
         "junegunn/goyo.vim", -- distraction free writing
@@ -79,99 +59,6 @@ require("packer").startup(function()
         compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua",
     }
 end)
-
-----------------------------------------
--- plugin config
-----------------------------------------
-require("lualine").setup({
-    options = {
-        icons_enabled = false,
-        theme = "cybrpnk",
-        component_separators = "|",
-        section_separators = "",
-    },
-    sections = {
-        lualine_x = { "encoding", "filetype" },
-    },
-})
-
-require("telescope").setup({
-    defaults = {
-        prompt_title = false,
-        results_title = false,
-        preview_title = false,
-        layout_strategy = "horizontal",
-        layout_config = {
-            width = 0.80,
-        },
-        borderchars = {
-            "─",
-            "│",
-            "─",
-            "│",
-            "┌",
-            "┐",
-            "┘",
-            "└",
-        },
-        mappings = {
-            i = { ["<esc>"] = require("telescope.actions").close },
-        },
-    },
-})
-
-vim.g.netrw_banner = 0 -- disable annoying banner
-vim.g.netrw_browse_split = 3 -- open in prior window
-vim.g.netrw_altv = 1 -- open splits to the right
-vim.g.netrw_liststyle = 3 -- tree view
-vim.g.netrw_winsize = 20 -- limit split size
-
--- vimwiki
-vim.g.vimwiki_list = {
-    {
-        path = "/tmp/notes/", -- make it use markdown syntax
-        syntax = "markdown",
-        ext = ".md",
-    },
-}
-
-vim.g.vimwiki_global_ext = 0 -- and not treat every markdown as vimwiki
-vim.g.vimwiki_markdown_link_ext = 1 -- makes markdown linkes like [text](text.md) instead of [text](text)
-vim.g.vimwiki_conceallevel = 0
-
--- vimtex
-vim.g.vimtex_quickfix_mode = 0
-vim.g.tex_flavor = "latex"
-vim.g.vimtex_view_method = "zathura"
-
--- indent
-vim.g.indent_blankline_char = "¦"
-vim.g.indent_blankline_show_trailing_blankline_indent = false
-
-----------------------------------------
--- color
-----------------------------------------
-vim.opt.cursorline = true
-vim.opt.termguicolors = true
-
--- let terminal determine background (except a sane grey visual hi)
-vim.cmd([[
-    au ColorScheme * hi Normal ctermbg=none guibg=none
-    au ColorScheme * hi LineNr ctermbg=none ctermfg=9 guibg=none
-    au ColorScheme * hi Visual ctermbg=237 ctermfg=none guibg=Grey23
-]])
-
--- set colorscheme
-vim.cmd([[ colorscheme base16-tomorrow-night ]])
-
--- highlight selection on yank
-vim.cmd([[
-    augroup YankHighlight
-        autocmd!
-        autocmd TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual"})
-    augroup end
-]])
-
 ----------------------------------------
 -- sets
 ----------------------------------------
@@ -198,66 +85,149 @@ vim.opt.completeopt = { "menuone", "noselect" } -- set for cmp
 vim.opt.shortmess:append("c") -- dont show eg "1 out of 20 matches"
 vim.opt.conceallevel = 0
 vim.opt.mouse = "a" -- only used when pair programming dont judge
-
 -- better backups (~/.local/share/nvim/undo)
 vim.opt.swapfile = false -- disable swapfiles
 vim.opt.backup = false -- and auto backps, to instead use
 vim.opt.undofile = true -- enable auto save of undos
-
 -- syntax folding: zc, zo, zr, zR
 vim.opt.foldmethod = "syntax"
 vim.opt.foldnestmax = 10
 vim.opt.foldenable = false
-
 -- spell check
 vim.opt.spelllang = "en_us"
 vim.opt.complete:append("kspell")
-
 -- inspired by helix editor
-vim.cmd([[
-    augroup ToggleRelNum
-        autocmd InsertEnter * :set norelativenumber
-        autocmd InsertLeave * :set relativenumber 
-    augroup end
-]])
+local toggle_rel_num = vim.api.nvim_create_augroup("ToggleRelNum", {})
+vim.api.nvim_create_autocmd("InsertEnter", {
+    command = "set norelativenumber",
+    group = toggle_rel_num,
+})
+vim.api.nvim_create_autocmd("InsertLeave", {
+    command = "set relativenumber",
+    group = toggle_rel_num,
+})
+-- use new filetype.lua
+vim.g.do_filetype_lua = 1
+vim.g.did_load_filetypes = 0
 
 ----------------------------------------
 -- maps
 ----------------------------------------
--- local func to set keybinds
-local remap = function(type, key, value)
-    vim.api.nvim_set_keymap(type, key, value, { noremap = true, silent = true })
-end
-
 -- set leader as space
-remap("", "<Space>", "<Nop>")
+vim.keymap.set({"n", "v"}, "<space>", "<nop>", { silent = true })
 vim.g.mapleader = " "
 
 -- add wq esc remap
-remap("i", "wq", "<esc>")
-remap("v", "wq", "<esc>")
-remap("t", "wq", "<C-\\><C-n>")
+vim.keymap.set({"i", "v"}, "wq", "<esc>", { silent = true })
+vim.keymap.set("t", "wq", "<C-\\><C-n>", { silent = true })
 
 -- fix sticky shift
-remap("c", "W", "w")
-remap("c", "Q", "q")
-remap("c", "Wq", "wq")
-remap("c", "WQ", "wq")
-remap("c", "wQ", "wq")
+vim.keymap.set("c", "W", "w", { silent = true })
+vim.keymap.set("c", "Q", "q", { silent = true })
+vim.keymap.set("c", "Wq", "wq", { silent = true })
+vim.keymap.set("c", "WQ", "wq", { silent = true })
+vim.keymap.set("c", "wQ", "wq", { silent = true })
 
-remap("i", "{<CR>", "{<CR>}<Esc>O") -- autoclose {}
+vim.keymap.set("i", "{<CR>", "{<CR>}<Esc>O", { silent = true }) -- autoclose
 
 -- telescope
-remap("n", "<leader>ff", "<cmd>Telescope find_files <cr>")
-remap("n", "<leader>fg", "<cmd>Telescope git_files<cr>")
-remap("n", "<leader>fb", "<cmd>Telescope buffers<cr>")
-remap("n", "<leader><leader>", "<cmd>Telescope live_grep<cr>")
+local tele = require("telescope.builtin")
+vim.keymap.set("n", "<leader>ff", tele.find_files)
+vim.keymap.set("n", "<leader>fi", tele.current_buffer_fuzzy_find)
+vim.keymap.set("n", "<leader>fg", tele.git_files)
+vim.keymap.set("n", "<leader>f<space>", tele.buffers)
+vim.keymap.set("n", "<leader>fa", tele.live_grep)
+vim.keymap.set("n", "<leader>?", tele.oldfiles)
+vim.keymap.set("n", "<leader>gg", ":Goyo<CR>", { silent = true })
+vim.keymap.set("n", "<leader>gs", ":Git status<CR>", { silent = true })
+vim.keymap.set("n", "<leader>s", ":setlocal spell!<CR>", { silent = true })
 
-remap("n", "<leader>gg", ":Goyo<CR>") -- Goyo
-remap("n", "<leader>gs", ":Git status<CR>") -- git
-remap("n", "<leader>n", ":Vexplore<CR>") -- netrw
-remap("n", "<leader>s", ":setlocal spell!<CR>") -- toggle spellcheck quickly
-remap("n", "<leader>u", ":UndotreeToggle<CR>") -- undotree
+----------------------------------------
+-- color
+----------------------------------------
+vim.opt.cursorline = true
+vim.opt.termguicolors = true
+
+-- let terminal determine background (except a sane grey visual hi)
+local color_fixes = vim.api.nvim_create_augroup("ColorFixes", {})
+vim.api.nvim_create_autocmd("ColorScheme", {
+    command = "hi Normal ctermbg=none guibg=none",
+    group = color_fixes,
+})
+vim.api.nvim_create_autocmd("ColorScheme", {
+    command = "hi LineNr ctermbg=none ctermfg=9 guibg=none",
+    group = color_fixes,
+})
+vim.api.nvim_create_autocmd("ColorScheme", {
+    command = "hi Visual ctermbg=237 ctermfg=none guibg=Grey23",
+    group = color_fixes,
+})
+vim.api.nvim_create_autocmd("ColorScheme", {
+    command = "hi DiagnosticError ctermfg=grey guifg=Grey",
+    group = color_fixes,
+})
+
+-- set colorscheme
+vim.cmd([[ colorscheme base16-tomorrow-night ]])
+
+-- highlight selection on yank
+vim.api.nvim_create_autocmd("TextYankPost", {
+    callback = function()
+        vim.highlight.on_yank({ higroup = "Visual" })
+    end,
+    group = vim.api.nvim_create_augroup("YankHighlight", {})
+})
+
+----------------------------------------
+-- plugin config
+----------------------------------------
+require("lualine").setup({
+    options = {
+        icons_enabled = false,
+        theme = "cybrpnk",
+        component_separators = "|",
+        section_separators = "",
+        globalstatus = true,
+    },
+})
+
+require("telescope").setup({
+    defaults = {
+        prompt_title = false,
+        results_title = false,
+        preview_title = false,
+        layout_strategy = "horizontal",
+        layout_config = {
+            width = 0.80,
+        },
+        borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└", },
+        mappings = {
+            i = { ["<esc>"] = require("telescope.actions").close },
+        },
+    },
+})
+
+-- vimwiki
+vim.g.vimwiki_list = {
+    {
+        path = "/tmp/notes/", -- make it use markdown syntax
+        syntax = "markdown",
+        ext = ".md",
+    },
+}
+
+vim.g.vimwiki_global_ext = 0 -- and not treat every markdown as vimwiki
+vim.g.vimwiki_markdown_link_ext = 1 -- makes markdown linkes like [text](text.md) instead of [text](text)
+vim.g.vimwiki_conceallevel = 0
+
+-- vimtex
+vim.g.vimtex_quickfix_mode = 0
+vim.g.tex_flavor = "latex"
+vim.g.vimtex_view_method = "zathura"
+
+-- indent
+vim.g.indent_blankline_char = "¦"
+vim.g.indent_blankline_show_trailing_blankline_indent = false
 
 ----------------------------------------
 -- treesitter
@@ -269,57 +239,29 @@ require("nvim-treesitter.configs").setup({
         enable = true,
         additional_vim_regex_highlighting = false,
     },
-    indent = { -- still kinda broken for me
-        enable = false,
+    indent = {
+        enable = true,
     },
 })
 
 ----------------------------------------
 -- lsp
 ----------------------------------------
-local nvim_lsp = require("lspconfig")
+local lspconfig = require("lspconfig")
 
-local on_attach = function(client, bufnr)
-    local function buf_set_keymap(...)
-        vim.api.nvim_buf_set_keymap(bufnr, ...)
-    end
-    local function buf_set_option(...)
-        vim.api.nvim_buf_set_option(bufnr, ...)
-    end
-    local opts = { noremap = true, silent = true }
-
-    buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-    buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-    buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-    buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-    buf_set_keymap(
-        "n",
-        "<leader>D",
-        "<cmd>lua vim.lsp.buf.type_definition()<CR>",
-        opts
-    )
-    buf_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-    buf_set_keymap(
-        "n",
-        "<leader>ca",
-        "<cmd>lua vim.lsp.buf.code_action()<CR>",
-        opts
-    )
-    buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-    buf_set_keymap(
-        "n",
-        "<leader>e",
-        "<cmd>lua vim.diagnostic.open_float()<CR>",
-        opts
-    )
-    buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-    buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
-    buf_set_keymap(
-        "n",
-        "<leader>fm",
-        "<cmd>lua vim.lsp.buf.formatting()<CR>",
-        opts
-    )
+local on_attach = function(client , bufnr)
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr })
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
+    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = bufnr })
+    vim.keymap.set( "n", "<leader>D", vim.lsp.buf.type_definition, { buffer = bufnr })
+    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr })
+    vim.keymap.set( "n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr })
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr })
+    vim.keymap.set( "n", "<leader>e", vim.diagnostic.open_float, { buffer = bufnr })
+    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { buffer = bufnr })
+    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { buffer = bufnr })
+    vim.api.nvim_create_user_command("Format", vim.lsp.buf.formatting, {})
 
     -- configure how lsp diagnostics are shown
     vim.diagnostic.config({
@@ -330,26 +272,14 @@ local on_attach = function(client, bufnr)
     })
 end
 
--- other
-vim.cmd([[
-    highlight DiagnosticError ctermfg=grey guifg=Grey
-]])
-
 -- setup specific LSPs
 local servers = {
-    "pyright",
-    "rust_analyzer",
-    "gopls",
-    "clangd",
-    "tsserver",
-    "svls",
-    "texlab",
-    "jdtls",
+    "pyright", "rust_analyzer", "gopls", "clangd",
+    "tsserver", "svls", "texlab",
 }
-
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup({
+    lspconfig[lsp].setup({
         capabilities = capabilities,
         on_attach = on_attach,
         flags = {
@@ -361,11 +291,10 @@ end
 -- auto-completion setup
 local cmp = require("cmp")
 local ls = require("luasnip")
-cmp.setup {
-    mapping = {
+cmp.setup({
+    mapping = cmp.mapping.preset.insert({
         ["<c-d>"] = cmp.mapping.scroll_docs(-4),
         ["<c-u>"] = cmp.mapping.scroll_docs(4),
-        ["<c-e>"] = cmp.mapping.close(),
         ["<c-y>"] = cmp.mapping.complete(),
         ["<c-space>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Insert,
@@ -379,11 +308,10 @@ cmp.setup {
             end,
             { "i" }
         ),
-    },
+    }),
     sources = {
-        { name = "nvim_lua" },
-        { name = "luasnip" },
         { name = "nvim_lsp" },
+        { name = "luasnip" },
         { name = "path" },
         { name = "calc" },
         { name = "buffer" },
@@ -393,7 +321,7 @@ cmp.setup {
             ls.lsp_expand(args.body)
         end
     }
-}
+})
 
 ----------------------------------------
 -- luasnip

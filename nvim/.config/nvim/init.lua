@@ -23,10 +23,7 @@ require("packer").startup(function()
     use({ "tpope/vim-fugitive", opt = true, cmd = "Git" }) -- !Git integration
     use("nvim-lua/plenary.nvim")
     use("nvim-telescope/telescope.nvim") -- fuzzy finder
-    use({ -- gcc Vgc
-        "numToStr/Comment.nvim",
-        config = require("Comment").setup(),
-    })
+    use({ "numToStr/Comment.nvim", config = require("Comment").setup() }) -- gcc Vgc
     -- meta
     use("wbthomason/packer.nvim") -- packer manages itself
     use("rktjmp/lush.nvim") -- colorscheme
@@ -50,14 +47,8 @@ require("packer").startup(function()
     use("lukas-reineke/indent-blankline.nvim") -- show indents w/ virtual text
     use("chriskempson/base16-vim") -- base16 colorschemes
     use("skovati/cybrpnk.vim")
-    use({
-        "junegunn/goyo.vim", -- distraction free writing
-        opt = true,
-        cmd = "Goyo",
-    })
-    config = {
-        compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua",
-    }
+    use({ "junegunn/goyo.vim", opt = true, cmd = "Goyo", }) -- distraction free writing
+    config = { compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua" }
 end)
 ----------------------------------------
 -- sets
@@ -85,6 +76,8 @@ vim.opt.completeopt = { "menuone", "noselect" } -- set for cmp
 vim.opt.shortmess:append("c") -- dont show eg "1 out of 20 matches"
 vim.opt.conceallevel = 0
 vim.opt.mouse = "a" -- only used when pair programming dont judge
+vim.opt.cursorline = true
+vim.opt.termguicolors = true
 -- better backups (~/.local/share/nvim/undo)
 vim.opt.swapfile = false -- disable swapfiles
 vim.opt.backup = false -- and auto backps, to instead use
@@ -135,7 +128,7 @@ local tele = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", tele.find_files)
 vim.keymap.set("n", "<leader>fi", tele.current_buffer_fuzzy_find)
 vim.keymap.set("n", "<leader>fg", tele.git_files)
-vim.keymap.set("n", "<leader>f<space>", tele.buffers)
+vim.keymap.set("n", "<leader><space>", tele.buffers)
 vim.keymap.set("n", "<leader>fa", tele.live_grep)
 vim.keymap.set("n", "<leader>?", tele.oldfiles)
 vim.keymap.set("n", "<leader>gg", ":Goyo<CR>", { silent = true })
@@ -145,10 +138,7 @@ vim.keymap.set("n", "<leader>s", ":setlocal spell!<CR>", { silent = true })
 ----------------------------------------
 -- color
 ----------------------------------------
-vim.opt.cursorline = true
-vim.opt.termguicolors = true
-
--- let terminal determine background (except a sane grey visual hi)
+-- small highlight fixes regardless of colorscheme
 local color_fixes = vim.api.nvim_create_augroup("ColorFixes", {})
 vim.api.nvim_create_autocmd("ColorScheme", {
     command = "hi Normal ctermbg=none guibg=none",
@@ -208,13 +198,11 @@ require("telescope").setup({
 })
 
 -- vimwiki
-vim.g.vimwiki_list = {
-    {
+vim.g.vimwiki_list = {{
         path = "/tmp/notes/", -- make it use markdown syntax
         syntax = "markdown",
         ext = ".md",
-    },
-}
+    }}
 
 vim.g.vimwiki_global_ext = 0 -- and not treat every markdown as vimwiki
 vim.g.vimwiki_markdown_link_ext = 1 -- makes markdown linkes like [text](text.md) instead of [text](text)
@@ -240,7 +228,7 @@ require("nvim-treesitter.configs").setup({
         additional_vim_regex_highlighting = false,
     },
     indent = {
-        enable = true,
+        enable = false,
     },
 })
 
@@ -248,7 +236,6 @@ require("nvim-treesitter.configs").setup({
 -- lsp
 ----------------------------------------
 local lspconfig = require("lspconfig")
-
 local on_attach = function(client , bufnr)
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr })
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })

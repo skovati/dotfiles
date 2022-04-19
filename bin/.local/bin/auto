@@ -18,7 +18,6 @@ echo 0 | sudo tee /sys/class/leds/platform::micmute/brightness &
 # if running void
 # pipewire &
 # pipewire-pulse &
-
 # dwm specific
 dbar &
 while true; do

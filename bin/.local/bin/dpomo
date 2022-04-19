@@ -1,0 +1,3 @@
+#!/bin/sh
+
+[ -f /tmp/pomo.doro ] && pomo show

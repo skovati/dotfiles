@@ -5,13 +5,13 @@ SEP=" | "
 
 status() {
     if [ -d /sys/class/power_supply/BAT0 ]; then
-        printf " %s$SEP%s$SEP%s$SEP%s$SEP%s$SEP%s$SEP%s" "$(pomo show)" "cpu: $(dcpu)" "bat: $(dbat)" "vol: $(dvol)" "wg: $(dwg)" "mem: $(dmem)" "$(dtime)"
+        printf " %s$SEP%s$SEP%s$SEP%s$SEP%s$SEP%s$SEP%s" "$(dpomo)" "cpu: $(dcpu)" "bat: $(dbat)" "vol: $(dvol)" "wg: $(dwg)" "mem: $(dmem)" "$(dtime)"
     else
-        printf " %s$SEP%s$SEP%s$SEP%s$SEP%s$SEP%s" "$(pomo show)" "cpu: $(dcpu)" "vol: $(dvol)" "wg: $(dwg)" "mem: $(dmem)" "$(dtime)"
+        printf " %s$SEP%s$SEP%s$SEP%s$SEP%s$SEP%s" "$(dpomo)" "cpu: $(dcpu)" "vol: $(dvol)" "wg: $(dwg)" "mem: $(dmem)" "$(dtime)"
     fi
 }
 
 while true; do
-    xsetroot -name "$(status)"
+    xsetroot -name "$(status)" -bg \#121212 -mod 3 3
     sleep 1
 done

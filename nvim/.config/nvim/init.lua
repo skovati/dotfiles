@@ -42,6 +42,7 @@ require("packer").startup(function()
     use("L3MON4D3/LuaSnip") -- snippets
     use("saadparwaiz1/cmp_luasnip")
     -- rice
+    use("lewis6991/gitsigns.nvim")
     use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
     use("nvim-lualine/lualine.nvim") -- statusline
     use("lukas-reineke/indent-blankline.nvim") -- show indents w/ virtual text
@@ -138,25 +139,19 @@ vim.keymap.set("n", "<leader>s", ":setlocal spell!<CR>", { silent = true })
 ----------------------------------------
 -- color
 ----------------------------------------
--- small highlight fixes regardless of colorscheme
-local color_fixes = vim.api.nvim_create_augroup("ColorFixes", {})
+-- small highlight fixes, autocmd to load after colorscheme so we overwrite
 vim.api.nvim_create_autocmd("ColorScheme", {
-    command = "hi Normal ctermbg=none guibg=none",
-    group = color_fixes,
+    command = [[
+        hi Normal ctermbg=none guibg=none
+        hi Visual ctermbg=237 ctermfg=none guibg=Grey23
+        hi LineNr ctermbg=none ctermfg=9 guibg=none
+        hi DiagnosticError ctermfg=grey guifg=Grey
+        hi GitGutterAdd    ctermbg=none guibg=none
+        hi GitGutterChange ctermbg=none guibg=none
+        hi GitGutterDelete ctermbg=none guibg=none
+    ]],
+    group = vim.api.nvim_create_augroup("ColorFixes", {}),
 })
-vim.api.nvim_create_autocmd("ColorScheme", {
-    command = "hi LineNr ctermbg=none ctermfg=9 guibg=none",
-    group = color_fixes,
-})
-vim.api.nvim_create_autocmd("ColorScheme", {
-    command = "hi Visual ctermbg=237 ctermfg=none guibg=Grey23",
-    group = color_fixes,
-})
-vim.api.nvim_create_autocmd("ColorScheme", {
-    command = "hi DiagnosticError ctermfg=grey guifg=Grey",
-    group = color_fixes,
-})
-
 -- set colorscheme
 vim.cmd([[ colorscheme base16-tomorrow-night ]])
 
@@ -179,6 +174,11 @@ require("lualine").setup({
         section_separators = "",
         globalstatus = true,
     },
+})
+
+require("gitsigns").setup({
+    signcolumn = false,
+    numhl      = true,
 })
 
 require("telescope").setup({
@@ -269,9 +269,7 @@ for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup({
         capabilities = capabilities,
         on_attach = on_attach,
-        flags = {
-            debounce_text_changes = 150,
-        },
+        flags = { debounce_text_changes = 150 },
     })
 end
 

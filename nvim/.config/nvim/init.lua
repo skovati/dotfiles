@@ -18,36 +18,32 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 ----------------------------------------
 local use = require("packer").use
 require("packer").startup(function()
-    -- actually useful
+    use("wbthomason/packer.nvim") -- packer manages itself
     use("tpope/vim-surround") -- cs"" ysiw)
     use({ "tpope/vim-fugitive", opt = true, cmd = "Git" }) -- !Git integration
-    use("nvim-lua/plenary.nvim")
+    use("nvim-lua/plenary.nvim") -- nvim lua stdlib
     use("nvim-telescope/telescope.nvim") -- fuzzy finder
     use({ "numToStr/Comment.nvim", config = require("Comment").setup() }) -- gcc Vgc
-    -- meta
-    use("wbthomason/packer.nvim") -- packer manages itself
     use("rktjmp/lush.nvim") -- colorscheme
     use("lewis6991/impatient.nvim") -- faster nvim loading
-    -- language specific
-    use({ "hashivim/vim-terraform", ft = "hcl" }) -- pretty terraform
+    use({ "hashivim/vim-terraform", ft = "hcl" })
     use({ "vimwiki/vimwiki", ft = "markdown" }) -- notes/wiki plugin
     use({ "lervag/vimtex", ft = "tex" }) -- latex integration
-    -- lsp/completion
     use("neovim/nvim-lspconfig")
     use("hrsh7th/nvim-cmp")
     use("hrsh7th/cmp-buffer")
     use("hrsh7th/cmp-path")
     use("hrsh7th/cmp-nvim-lsp")
     use({ "hrsh7th/cmp-calc", ft = { "tex", "markdown" }, })
-    use("L3MON4D3/LuaSnip") -- snippets
+    use("L3MON4D3/LuaSnip")
     use("saadparwaiz1/cmp_luasnip")
-    -- rice
     use("lewis6991/gitsigns.nvim")
     use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-    use("nvim-lualine/lualine.nvim") -- statusline
+    use("nvim-lualine/lualine.nvim")
     use("lukas-reineke/indent-blankline.nvim") -- show indents w/ virtual text
-    use("chriskempson/base16-vim") -- base16 colorschemes
+    use("chriskempson/base16-vim")
     use("skovati/cybrpnk.vim")
+    use({"ggandor/leap.nvim", config = require('leap').set_default_keymaps() })
     use({ "junegunn/goyo.vim", opt = true, cmd = "Goyo", }) -- distraction free writing
     config = { compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua" }
 end)
@@ -66,31 +62,27 @@ vim.opt.ignorecase = true -- ignore case in searches
 vim.opt.smartcase = true -- unless capital query
 vim.opt.guicursor = "" -- fixes alacritty changing cursor
 vim.opt.signcolumn = "number" -- combines the signcolumn and number columns
-vim.opt.timeoutlen = 400 -- decrease timeout length for keymaps
+vim.opt.timeoutlen = 600 -- decrease timeout length for keymaps
 vim.opt.showmode = false -- hide current mode
 vim.opt.updatetime = 250 -- decrease update time
 vim.opt.lazyredraw = true -- dont redraw screen when exec macros
 vim.opt.nrformats:append("alpha") -- let <Ctrl-a> do letters as well
 vim.opt.splitbelow = true
 vim.opt.splitright = true
-vim.opt.completeopt = { "menuone", "noselect" } -- set for cmp
+vim.opt.completeopt = { "menuone", "noselect", "preview" } -- set for cmp
 vim.opt.shortmess:append("c") -- dont show eg "1 out of 20 matches"
 vim.opt.conceallevel = 0
 vim.opt.mouse = "a" -- only used when pair programming dont judge
 vim.opt.cursorline = true
 vim.opt.termguicolors = true
--- better backups (~/.local/share/nvim/undo)
 vim.opt.swapfile = false -- disable swapfiles
 vim.opt.backup = false -- and auto backps, to instead use
 vim.opt.undofile = true -- enable auto save of undos
--- syntax folding: zc, zo, zr, zR
-vim.opt.foldmethod = "syntax"
+vim.opt.foldmethod = "syntax" -- syntax folding: zc, zo, zr, zR
 vim.opt.foldnestmax = 10
 vim.opt.foldenable = false
--- spell check
-vim.opt.spelllang = "en_us"
+vim.opt.spelllang = "en_us" -- spell check
 vim.opt.complete:append("kspell")
--- inspired by helix editor
 local toggle_rel_num = vim.api.nvim_create_augroup("ToggleRelNum", {})
 vim.api.nvim_create_autocmd("InsertEnter", {
     command = "set norelativenumber",
@@ -99,6 +91,10 @@ vim.api.nvim_create_autocmd("InsertEnter", {
 vim.api.nvim_create_autocmd("InsertLeave", {
     command = "set relativenumber",
     group = toggle_rel_num,
+})
+vim.api.nvim_create_autocmd("BufWritePre", {
+    command = [[ %s/\s\+$//e ]],
+    group = vim.api.nvim_create_augroup("TrimTrailingWhitespace", {}),
 })
 -- use new filetype.lua
 vim.g.do_filetype_lua = 1
@@ -166,6 +162,12 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 ----------------------------------------
 -- plugin config
 ----------------------------------------
+-- disable builtins
+vim.g.loaded_fzf = 1
+vim.g.loaded_gzip = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_tarPlugin = 1
+vim.g.loaded_zipPlugin = 1
 require("lualine").setup({
     options = {
         icons_enabled = false,
@@ -176,10 +178,7 @@ require("lualine").setup({
     },
 })
 
-require("gitsigns").setup({
-    signcolumn = false,
-    numhl      = true,
-})
+require("gitsigns").setup({ signcolumn = false, numhl = true, })
 
 require("telescope").setup({
     defaults = {
@@ -290,8 +289,7 @@ cmp.setup({
                 if ls.expand_or_jumpable() then
                     ls.expand_or_jump()
                 end
-            end,
-            { "i" }
+            end, { "i" }
         ),
     }),
     sources = {

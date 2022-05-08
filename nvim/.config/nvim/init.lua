@@ -16,8 +16,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 ----------------------------------------
 -- plugin declaration
 ----------------------------------------
-local use = require("packer").use
-require("packer").startup(function()
+require("packer").startup(function(use)
     use("wbthomason/packer.nvim") -- packer manages itself
     use("tpope/vim-surround") -- cs"" ysiw)
     use({ "tpope/vim-fugitive", opt = true, cmd = "Git" }) -- !Git integration
@@ -299,11 +298,12 @@ cmp.setup({
         { name = "calc" },
         { name = "buffer" },
     },
+    view = { entries = "native", },
     snippet = {
         expand = function(args)
             ls.lsp_expand(args.body)
         end
-    }
+    },
 })
 
 ----------------------------------------

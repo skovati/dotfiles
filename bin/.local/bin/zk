@@ -1,37 +1,38 @@
 #!/bin/sh
 # zk - script to manage a minimal encrypted zettlekasten note repository
 
+TMPDIR=/tmp/zk
+
 encrypt() {
+    # if we're still encrypted, just return
+    if [ ! -d $TMPDIR ]; then
+        return
+    fi
     # tar up zk notes
-    if [ ! tar cf /tmp/zk.tar --directory /tmp zk ]; then
+    if ! tar cf $TMPDIR.tar --directory /tmp zk; then
         printf "%s\n" "unable to tar zk..."
         exit 1
     fi
     # and encrypt them
-    if [ ! gpg
-        --quiet
-        --output $ZK_DIR/zk.tar.asc
-        --encrypt
-        --armor
-        --symmetric /tmp/zk.tar ]; then
+    if ! gpg --quiet --output $ZK_DIR/zk.tar.asc --yes --armor --sign --encrypt $TMPDIR.tar; then
         printf "%s\n" "unable to encrypt zk... try manually"
         exit 1
     fi
-    shred -u /tmp/zk.tar
-    rm -rf /tmp/zk
+    shred -u $TMPDIR.tar
+    rm -rf $TMPDIR
 }
 
 decrypt() {
     # if we already have the tmp dir, we're already decrypted
-    if [ -d /tmp/zk ]; then
+    if [ -d $TMPDIR ]; then
         return
     fi
     # otherwise, try to decrypt
-    if [ ! gpg --quiet --output /tmp/zk.tar --decrypt $ZK_DIR/zk.tar.asc ]; then
-        printf "%s\n" "unable to decrypt zk... try manually"
+    if ! gpg --quiet --output $TMPDIR.tar --decrypt $ZK_DIR/zk.tar.asc; then
+        printf "%s\n" "unable to decrypt or verify zk... try manually"
         exit 1
     fi
-    tar xf /tmp/zk.tar --directory /tmp && shred -u /tmp/zk.tar
+    tar xf $TMPDIR.tar --directory /tmp && shred -u $TMPDIR.tar
 }
 
 # make sure user has valid zk repo
@@ -40,23 +41,36 @@ if [ -z "${ZK_DIR:-}" ]; then
     exit 1
 fi
 
+# refresh zk repo
+cd $ZK_DIR
+git pull
+cd - > /dev/null
+
 # handle different user commands
 case "$1" in
     "" | new)
         decrypt
         UUID=$(date --iso-8601=minutes)
-        cd $ZK_DIR
-        cp ./zk.template $UUID.md
-        $EDITOR
-        cd -
+        cd $TMPDIR
+        cp ./zk.template "$UUID.md"
+        (ZK_DIR=$TMPDIR $EDITOR "$UUID.md")
+        cd - > /dev/null
         encrypt
         ;;
     journal)
+        decrypt
         DAILY_TIMESTAMP=$(date --iso-8601=date)
-        PRETTY_DATE=$(date +"%A, %B %d, %Y")
+        PRETTY_DATE=$(date +"%I:%M %P, %A, %B %d, %Y")
+        cd $TMPDIR/journal
+        printf "%s\n" "$PRETTY_DATE" >> "./$DAILY_TIMESTAMP.md"
+        $EDITOR "./$DAILY_TIMESTAMP.md"
+        cd - > /dev/null
+        encrypt
         ;;
     push)
         encrypt
+        cd $ZK_DIR
+        git add zk.tar.asc && git commit -S -am "add zk" && git push origin main
         ;;
     enc)
         encrypt

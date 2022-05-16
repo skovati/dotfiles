@@ -176,6 +176,20 @@ require("lualine").setup({
     },
 })
 
+-- custom zettlekasten / notes config
+local zk_dir = vim.env.ZK_DIR
+if zk_dir ~= nil then
+    vim.api.nvim_create_autocmd(
+        { "BufEnter", "BufWinEnter" }, {
+        pattern = zk_dir .. "*.md",
+        callback = function() 
+            vim.cmd[[setfiletype zk]]
+            vim.cmd[[runtime! syntax/markdown.vim syntax/markdown/*.vim]]
+        end,
+        group = vim.api.nvim_create_augroup("ZKFileType", {})
+    })
+end
+
 require("gitsigns").setup({ signcolumn = false, numhl = true, })
 
 require("telescope").setup({
@@ -317,10 +331,4 @@ ls.add_snippets(nil, {
     },
 })
 
-vim.api.nvim_create_autocmd(
-    { "BufEnter", "BufWinEnter" }, {
-    pattern = "/home/skovati/docs/test_zk/*",
-    command = "setfiletype zk",
-    group = vim.api.nvim_create_augroup("ZKFileType", {})
-})
 

@@ -33,6 +33,7 @@ export XDG_RUNTIME_DIR="/run/user/$UID"
 # other config
 export TASKDATA=$XDG_DATA_HOME/task
 export TASKRC=$XDG_CONFIG_HOME/taskwarrior/.taskrc
+export ZK_DIR=/home/skovati/dev/git/vault/zk
 
 # rice
 export BAT_THEME="ansi"

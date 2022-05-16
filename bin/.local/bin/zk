@@ -1,0 +1,76 @@
+#!/bin/sh
+# zk - script to manage a minimal encrypted zettlekasten note repository
+
+encrypt() {
+    # tar up zk notes
+    if [ ! tar cf /tmp/zk.tar --directory /tmp zk ]; then
+        printf "%s\n" "unable to tar zk..."
+        exit 1
+    fi
+    # and encrypt them
+    if [ ! gpg
+        --quiet
+        --output $ZK_DIR/zk.tar.asc
+        --encrypt
+        --armor
+        --symmetric /tmp/zk.tar ]; then
+        printf "%s\n" "unable to encrypt zk... try manually"
+        exit 1
+    fi
+    shred -u /tmp/zk.tar
+    rm -rf /tmp/zk
+}
+
+decrypt() {
+    # if we already have the tmp dir, we're already decrypted
+    if [ -d /tmp/zk ]; then
+        return
+    fi
+    # otherwise, try to decrypt
+    if [ ! gpg --quiet --output /tmp/zk.tar --decrypt $ZK_DIR/zk.tar.asc ]; then
+        printf "%s\n" "unable to decrypt zk... try manually"
+        exit 1
+    fi
+    tar xf /tmp/zk.tar --directory /tmp && shred -u /tmp/zk.tar
+}
+
+# make sure user has valid zk repo
+if [ -z "${ZK_DIR:-}" ]; then
+    printf "%s\n" "ZK_DIR env variable not set, zettlekasten repo location unknown"
+    exit 1
+fi
+
+# handle different user commands
+case "$1" in
+    "" | new)
+        decrypt
+        UUID=$(date --iso-8601=minutes)
+        cd $ZK_DIR
+        cp ./zk.template $UUID.md
+        $EDITOR
+        cd -
+        encrypt
+        ;;
+    journal)
+        DAILY_TIMESTAMP=$(date --iso-8601=date)
+        PRETTY_DATE=$(date +"%A, %B %d, %Y")
+        ;;
+    push)
+        encrypt
+        ;;
+    enc)
+        encrypt
+        ;;
+    dec)
+        decrypt
+        ;;
+    *)
+        printf "%s\n" \
+            "usage: zk [cmd] (default new)" \
+            "new - decrypt vault and create new zk" \
+            "journal - create new (daily) timestamped journal entry" \
+            "push - encrypt and push vault to remote" \
+            "enc - encrypt vault" \
+            "dec - decrypt vault"
+        ;;
+esac

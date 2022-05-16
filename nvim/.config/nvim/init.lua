@@ -42,7 +42,8 @@ require("packer").startup(function(use)
     use("lukas-reineke/indent-blankline.nvim") -- show indents w/ virtual text
     use("chriskempson/base16-vim")
     use("skovati/cybrpnk.vim")
-    use({"ggandor/leap.nvim", config = require('leap').set_default_keymaps() })
+    use("skovati/cmp-zk")
+    use({"ggandor/leap.nvim", config = require("leap").set_default_keymaps() })
     use({ "junegunn/goyo.vim", opt = true, cmd = "Goyo", }) -- distraction free writing
     config = { compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua" }
 end)
@@ -82,6 +83,8 @@ vim.opt.foldnestmax = 10
 vim.opt.foldenable = false
 vim.opt.spelllang = "en_us" -- spell check
 vim.opt.complete:append("kspell")
+vim.opt.listchars:append("trail:·")     -- show trailing spaces
+vim.opt.list = true -- show things in listchars
 local toggle_rel_num = vim.api.nvim_create_augroup("ToggleRelNum", {})
 vim.api.nvim_create_autocmd("InsertEnter", {
     command = "set norelativenumber",
@@ -90,10 +93,6 @@ vim.api.nvim_create_autocmd("InsertEnter", {
 vim.api.nvim_create_autocmd("InsertLeave", {
     command = "set relativenumber",
     group = toggle_rel_num,
-})
-vim.api.nvim_create_autocmd("BufWritePre", {
-    command = [[ %s/\s\+$//e ]],
-    group = vim.api.nvim_create_augroup("TrimTrailingWhitespace", {}),
 })
 -- use new filetype.lua
 vim.g.do_filetype_lua = 1
@@ -214,6 +213,7 @@ vim.g.vimtex_view_method = "zathura"
 -- indent
 vim.g.indent_blankline_char = "¦"
 vim.g.indent_blankline_show_trailing_blankline_indent = false
+vim.g.indent_blankline_use_treesitter = true
 
 ----------------------------------------
 -- treesitter
@@ -297,8 +297,9 @@ cmp.setup({
         { name = "path" },
         { name = "calc" },
         { name = "buffer" },
+        { name = "zk" },
     },
-    view = { entries = "native", },
+    experimental = { native_menu = false },
     snippet = {
         expand = function(args)
             ls.lsp_expand(args.body)
@@ -315,3 +316,11 @@ ls.add_snippets(nil, {
         ls.parser.parse_snippet("bm", "\\($0\\)"),
     },
 })
+
+vim.api.nvim_create_autocmd(
+    { "BufEnter", "BufWinEnter" }, {
+    pattern = "/home/skovati/docs/test_zk/*",
+    command = "setfiletype zk",
+    group = vim.api.nvim_create_augroup("ZKFileType", {})
+})
+

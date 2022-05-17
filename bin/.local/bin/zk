@@ -41,20 +41,26 @@ if [ -z "${ZK_DIR:-}" ]; then
     exit 1
 fi
 
-# refresh zk repo
-cd $ZK_DIR
-git pull
-cd - > /dev/null
+# refresh zk repo in subshell
+(
+    cd $ZK_DIR
+    git pull
+)
 
 # handle different user commands
 case "$1" in
     "" | new)
         decrypt
         UUID=$(date --iso-8601=minutes)
-        cd $TMPDIR
-        cp ./zk.template "$UUID.md"
-        (ZK_DIR=$TMPDIR $EDITOR "$UUID.md")
-        cd - > /dev/null
+        # enter subshell for pwd and env changes
+        (
+            cd $TMPDIR
+            cp ./zk.template "$UUID.md"
+            # if we exit with 1, we don't want to actually keep this zk
+            if ! ZK_DIR=$TMPDIR $EDITOR "$UUID.md"; then
+                rm "$UUID.md"
+            fi
+        )
         encrypt
         ;;
     journal)
@@ -69,8 +75,10 @@ case "$1" in
         ;;
     push)
         encrypt
-        cd $ZK_DIR
-        git add zk.tar.asc && git commit -S -am "add zk" && git push origin main
+        (
+            cd $ZK_DIR
+            git add zk.tar.asc && git commit -S -am "add zk" && git push origin main
+        )
         ;;
     enc)
         encrypt

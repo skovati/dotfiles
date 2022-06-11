@@ -5,7 +5,7 @@ connect() {
         status
         exit 1
     }
-    SERVER=$(doas find /etc/wireguard -name "*mullvad*.conf" -execdir basename {} ';' | shuf -n 1 | cut -d '.' -f 1)
+    SERVER=$(doas find /etc/wireguard -name "*mullvad-us*.conf" -execdir basename {} ';' | shuf -n 1 | cut -d '.' -f 1)
     printf "%s%s\n" "connecting to: " "$SERVER"
     doas wg-quick up "$SERVER" > /dev/null 2>&1 && printf "%s\n" "connection established"
     status

@@ -17,7 +17,7 @@ export VISUAL="nvim"
 export READER="zathura"
 export IMAGE="nsxiv"
 export TERMINAL="alacritty"
-export TZ='America/Chicago'
+export TZ='America/Los_Angeles'
 export MANPAGER='nvim +Man!'
 
 # xdg dirs

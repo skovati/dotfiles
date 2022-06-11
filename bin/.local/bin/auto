@@ -13,7 +13,7 @@ xset r rate 300 35 &
 xset b off &
 xss-lock -l -- xsecurelock &
 sxhkd &
-echo 0 | sudo tee /sys/class/leds/platform::micmute/brightness &
+echo 0 | doas tee /sys/class/leds/platform::micmute/brightness &
 
 # if running void
 # pipewire &

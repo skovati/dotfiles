@@ -26,7 +26,6 @@ require("packer").startup(function(use)
     use("rktjmp/lush.nvim") -- colorscheme
     use("lewis6991/impatient.nvim") -- faster nvim loading
     use({ "hashivim/vim-terraform", ft = "hcl" })
-    use({ "vimwiki/vimwiki", ft = "markdown" }) -- notes/wiki plugin
     use({ "lervag/vimtex", ft = "tex" }) -- latex integration
     use("neovim/nvim-lspconfig")
     use("hrsh7th/nvim-cmp")
@@ -43,7 +42,6 @@ require("packer").startup(function(use)
     use("chriskempson/base16-vim")
     use("skovati/cybrpnk.vim")
     use("skovati/cmp-zk")
-    use({"ggandor/leap.nvim", config = require("leap").set_default_keymaps() })
     use({ "junegunn/goyo.vim", opt = true, cmd = "Goyo", }) -- distraction free writing
     config = { compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua" }
 end)
@@ -78,7 +76,8 @@ vim.opt.termguicolors = true
 vim.opt.swapfile = false -- disable swapfiles
 vim.opt.backup = false -- and auto backps, to instead use
 vim.opt.undofile = true -- enable auto save of undos
-vim.opt.foldmethod = "syntax" -- syntax folding: zc, zo, zr, zR
+vim.opt.foldmethod = "expr" -- syntax folding: zc, zo, zr, zR
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldnestmax = 10
 vim.opt.foldenable = false
 vim.opt.spelllang = "en_us" -- spell check
@@ -139,7 +138,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         hi Normal ctermbg=none guibg=none
         hi Visual ctermbg=237 ctermfg=none guibg=Grey23
         hi LineNr ctermbg=none ctermfg=9 guibg=none
-        hi DiagnosticError ctermfg=grey guifg=Grey
+        hi MatchParen gui=bold guifg=white guibg=Grey23
+        hi DiagnosticError ctermfg=grey guifg=grey
         hi GitGutterAdd    ctermbg=none guibg=none
         hi GitGutterChange ctermbg=none guibg=none
         hi GitGutterDelete ctermbg=none guibg=none
@@ -226,7 +226,7 @@ require("nvim-treesitter.configs").setup({
         additional_vim_regex_highlighting = false,
     },
     indent = {
-        enable = false,
+        enable = true,
     },
 })
 
@@ -260,7 +260,7 @@ end
 -- setup specific LSPs
 local servers = {
     "pyright", "rust_analyzer", "gopls", "clangd",
-    "tsserver", "svls", "texlab",
+    "tsserver", "svls", "texlab", "jdtls"
 }
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 for _, lsp in ipairs(servers) do
@@ -299,7 +299,6 @@ cmp.setup({
         { name = "buffer" },
         { name = "zk" },
     },
-    experimental = { native_menu = false },
     snippet = {
         expand = function(args)
             ls.lsp_expand(args.body)

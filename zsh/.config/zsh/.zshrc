@@ -56,6 +56,7 @@ alias rcp="rsync -avzhP"
 alias z="zathura --fork"
 alias xc="xclip -sel clipboard -i"
 alias xp="xclip -sel clipboard -o"
+alias em="emacsclient -c"
 
 # fancy cli tools
 which exa > /dev/null 2>&1 && alias ls="exa -F" || {

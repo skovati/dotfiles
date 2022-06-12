@@ -21,10 +21,15 @@
   :ensure t
   :init
   (setq evil-want-C-u-scroll t)
-  (setq evil-want-keybinding nil)
+  (setq evil-undo-system 'undo-redo)
+  (evil-mode t)
   :config
-  (define-key evil-insert-state-map "wq" 'evil-normal-state))
-  (evil-mode 1)
+  (use-package evil-escape
+    :ensure t
+    :config
+    (evil-escape-mode)
+    (add-to-list `evil-escape-excluded-major-modes `
+    (setq-default evil-escape-key-sequence "wq")))
 
 ;; rice
 (setq custom-file "~/.config/emacs/custom.el")
@@ -34,7 +39,9 @@
   :init
   (load-theme 'gruvbox t))
 
+;; other config
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (setq display-line-numbers-type 'relative)
+(setq vc-follow-symlinks nil)

@@ -3,15 +3,8 @@
 ########################################
 # EXPORTS
 ########################################
-# programming language stuff
-export GOPATH="/home/skovati/dev/go"
-# fixes matlab lol
-export _JAVA_AWT_WM_NONREPARENTING=1
-# java language server env thing for nvim
-export JDTLS_HOME=/usr/share/java/jdtls
-
 # actually important
-export PATH=/home/skovati/.local/bin:$GOPATH/bin:/home/skovati/.cargo/bin:$PATH
+export PATH=$PATH:$HOME/.local/bin
 export EDITOR="nvim"
 export VISUAL="nvim"
 export READER="zathura"
@@ -19,8 +12,13 @@ export IMAGE="nsxiv"
 export TERMINAL="alacritty"
 export TZ='America/Los_Angeles'
 export MANPAGER='nvim +Man!'
+export ZK_DIR=/home/skovati/dev/git/vault
 
-# xdg dirs
+export GOPATH="/home/skovati/dev/go"
+export JDTLS_HOME=/usr/share/java/jdtls
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$HOME/.cargo/bin:$PATH
+
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -30,15 +28,10 @@ export XDG_DOWNLOAD_DIR="$HOME/downs/"
 export XDG_PICTURES_DIR="$HOME/docs/pics/"
 export XDG_RUNTIME_DIR="/run/user/$UID"
 
-# other config
-export TASKDATA=$XDG_DATA_HOME/task
-export TASKRC=$XDG_CONFIG_HOME/taskwarrior/.taskrc
-export ZK_DIR=/home/skovati/dev/git/vault
-
-# rice
+# purely rice
 export BAT_THEME="ansi"
-# fixes gpg-ncurses
 export GPG_TTY=$(tty)
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#707070'
 
 ########################################
 # ALIASES
@@ -61,54 +54,42 @@ alias em="emacsclient -c"
 # fancy cli tools
 which exa > /dev/null 2>&1 && alias ls="exa -F" || {
     alias ls="ls --color -F"
-    # make ls pretty
-    LS_COLORS='rs=0:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=30;41:sg=30;43:tw=30;42:ow=30;42:st=30;44:ex=01;32:';
-    export LS_COLORS
+    export LS_COLORS='rs=0:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=30;41:sg=30;43:tw=30;42:ow=30;42:st=30;44:ex=01;32:'
 }
 which zoxide > /dev/null 2>&1 && eval "$(zoxide init --cmd cd zsh)"
 
 ########################################
 # CONFIG
 ########################################
-# some sane defaults
 HISTFILE="$XDG_DATA_HOME/zsh/.zsh_history"
 HISTSIZE=1000000
 SAVEHIST=$HISTSIZE
-# dont add commands that start with space to history
 setopt hist_ignore_space
 setopt hist_ignore_all_dups
-unsetopt beep
-# enable comments in interactive shell
 setopt interactivecomments
-# set vim mode
-bindkey -v
+unsetopt beep   # why
+bindkey -v  # set vim mode
 
-# random zsh compat
-autoload -Uz compinit promptinit edit-command-line
+autoload -Uz compinit promptinit edit-command-line vcs_info
 compinit
 promptinit
 zle -N edit-command-line
+precmd() { vcs_info }
+zstyle ':vcs_info:git:*' formats '(%b)'
 
-# open command in vim
-bindkey '\ev' edit-command-line
+bindkey '\ev' edit-command-line     # open command in vim with alt-v
 
-# show git branch if in repo
-function git_branch() {
-    BRANCH=$(git symbolic-ref --short HEAD 2> /dev/null) \
-        && printf "(%s)" "$BRANCH"
-}
-
-# set prompt
 setopt prompt_subst
-PROMPT=' %F{green}%~%f%F{yellow}$(git_branch) '
+PROMPT=' %F{green}%~%f%F{yellow}$vcs_info_msg_0_ '
 
 ########################################
-# ADDONS
+# PLUGINS
 ########################################
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
-
-# addons config
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#707070'
+[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ] \
+    && source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] \
+    && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[ -f /usr/share/fzf/key-bindings.zsh ] \
+    && source /usr/share/fzf/key-bindings.zsh
+[ -f /usr/share/fzf/completion.zsh ] \
+    && source /usr/share/fzf/completion.zsh

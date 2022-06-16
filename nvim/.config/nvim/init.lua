@@ -41,6 +41,7 @@ require("packer").startup(function(use)
     use("lukas-reineke/indent-blankline.nvim") -- show indents w/ virtual text
     use("chriskempson/base16-vim")
     use("skovati/cybrpnk.vim")
+    use({ "TimUntersberger/neogit", opt = true, cmd = "Neogit" })
     use("skovati/cmp-zk")
     use({ "junegunn/goyo.vim", opt = true, cmd = "Goyo", }) -- distraction free writing
     config = { compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua" }
@@ -116,6 +117,7 @@ vim.keymap.set("c", "WQ", "wq", { silent = true })
 vim.keymap.set("c", "wQ", "wq", { silent = true })
 
 vim.keymap.set("i", "{<CR>", "{<CR>}<Esc>O", { silent = true }) -- autoclose
+vim.keymap.set("n", "<leader>ng", ":Neogit<cr>")
 
 -- telescope
 local tele = require("telescope.builtin")

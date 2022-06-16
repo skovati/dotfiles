@@ -75,10 +75,11 @@ HISTFILE="$XDG_DATA_HOME/zsh/.zsh_history"
 HISTSIZE=1000000
 SAVEHIST=$HISTSIZE
 # dont add commands that start with space to history
-setopt HIST_IGNORE_SPACE
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
 unsetopt beep
 # enable comments in interactive shell
-setopt interactivecomments 
+setopt interactivecomments
 # set vim mode
 bindkey -v
 
@@ -93,12 +94,8 @@ bindkey '\ev' edit-command-line
 
 # show git branch if in repo
 function git_branch() {
-    branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
-    if [[ $branch == "" ]]; then
-        :
-    else
-        echo '('$branch')'
-    fi
+    BRANCH=$(git symbolic-ref --short HEAD 2> /dev/null) \
+        && printf "(%s)" "$BRANCH"
 }
 
 # set prompt

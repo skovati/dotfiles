@@ -66,7 +66,8 @@ case "$1" in
         PRETTY_DATE=$(date +"%I:%M %P, %A, %B %d, %Y")
         (
             cd $TMPDIR/journal
-            printf "%s\n" "# $PRETTY_DATE" >> "./$DAILY_TIMESTAMP.md"
+            printf "%s\n\n" "# $PRETTY_DATE" >> "./$DAILY_TIMESTAMP.md"
+            printf "%s\n" "# gratitude" >> "./$DAILY_TIMESTAMP.md"
             $EDITOR "./$DAILY_TIMESTAMP.md"
         )
         encrypt

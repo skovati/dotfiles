@@ -1,10 +1,67 @@
-pcall(require("impatient")) -- gotta go fast
+pcall(require("impatient"))
 ----------------------------------------
--- install packer
+-- bootstrap packer
 ----------------------------------------
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+local bootstrap = false
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    vim.fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
+    bootstrap = true
+    vim.fn.system({
+        "git", "clone",
+        "https://github.com/wbthomason/packer.nvim",
+        install_path,
+    })
+    vim.cmd("packadd packer.nvim")
+end
+
+----------------------------------------
+-- plugin declaration
+----------------------------------------
+require("packer").startup(function(use)
+    use("wbthomason/packer.nvim")
+    use("tpope/vim-surround")
+    use({
+        "nvim-telescope/telescope.nvim",
+        requires = "nvim-lua/plenary.nvim"
+    })
+    use({
+        "numToStr/Comment.nvim",
+    })
+    use("neovim/nvim-lspconfig")
+    use("nvim-treesitter/nvim-treesitter")
+    use({
+        "hrsh7th/nvim-cmp",
+        requires = {
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-nvim-lsp"
+    }})
+    use({
+        "L3MON4D3/LuaSnip",
+        requires = "saadparwaiz1/cmp_luasnip"
+    })
+    use("nvim-lualine/lualine.nvim")
+    use("lewis6991/gitsigns.nvim")
+    use("lukas-reineke/indent-blankline.nvim")
+    use({
+        "TimUntersberger/neogit",
+        opt = true,
+        cmd = "Neogit"
+    })
+    use("lewis6991/impatient.nvim")
+    use("skovati/cmp-zk")
+    use("sainnhe/gruvbox-material")
+    config = {
+        compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua"
+    }
+    if bootstrap then
+        require("packer").sync()
+    end
+end)
+
+if bootstrap then
+    print("Installing plugins, restart nvim after packer sync completes")
+    return
 end
 
 vim.api.nvim_create_autocmd("BufWritePost", {
@@ -12,45 +69,11 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     pattern = "init.lua",
     group = vim.api.nvim_create_augroup("Packer", {}),
 })
-
-----------------------------------------
--- plugin declaration
-----------------------------------------
-require("packer").startup(function(use)
-    use("wbthomason/packer.nvim") -- packer manages itself
-    use("tpope/vim-surround") -- cs"" ysiw)
-    use({ "tpope/vim-fugitive", opt = true, cmd = "Git" }) -- !Git integration
-    use("nvim-lua/plenary.nvim") -- nvim lua stdlib
-    use("nvim-telescope/telescope.nvim") -- fuzzy finder
-    use({ "numToStr/Comment.nvim", config = require("Comment").setup() }) -- gcc Vgc
-    use("rktjmp/lush.nvim") -- colorscheme
-    use("lewis6991/impatient.nvim") -- faster nvim loading
-    use({ "hashivim/vim-terraform", ft = "hcl" })
-    use({ "lervag/vimtex", ft = "tex" }) -- latex integration
-    use("neovim/nvim-lspconfig")
-    use("hrsh7th/nvim-cmp")
-    use("hrsh7th/cmp-buffer")
-    use("hrsh7th/cmp-path")
-    use("hrsh7th/cmp-nvim-lsp")
-    use({ "hrsh7th/cmp-calc", ft = { "tex", "markdown" }, })
-    use("L3MON4D3/LuaSnip")
-    use("saadparwaiz1/cmp_luasnip")
-    use("lewis6991/gitsigns.nvim")
-    use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-    use("nvim-lualine/lualine.nvim")
-    use("lukas-reineke/indent-blankline.nvim") -- show indents w/ virtual text
-    use("chriskempson/base16-vim")
-    use("skovati/cybrpnk.vim")
-    use({ "TimUntersberger/neogit", opt = true, cmd = "Neogit" })
-    use("skovati/cmp-zk")
-    use({ "junegunn/goyo.vim", opt = true, cmd = "Goyo", }) -- distraction free writing
-    config = { compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua" }
-end)
 ----------------------------------------
 -- sets
 ----------------------------------------
 vim.opt.relativenumber = true -- number line shows relative
-vim.opt.number = true -- and current line shows actual line nrl
+vim.opt.number = true -- and current line shows actual line nr
 vim.opt.smartindent = true -- indent according to lang
 vim.opt.tabstop = 4 -- 4 space tabs
 vim.opt.shiftwidth = 0 -- >> shifts by tabstop amount
@@ -83,7 +106,7 @@ vim.opt.foldnestmax = 10
 vim.opt.foldenable = false
 vim.opt.spelllang = "en_us" -- spell check
 vim.opt.complete:append("kspell")
-vim.opt.listchars:append("trail:·")     -- show trailing spaces
+vim.opt.listchars:append("trail:·") -- show trailing spaces
 vim.opt.list = true -- show things in listchars
 local toggle_rel_num = vim.api.nvim_create_augroup("ToggleRelNum", {})
 vim.api.nvim_create_autocmd("InsertEnter", {
@@ -102,11 +125,11 @@ vim.g.did_load_filetypes = 0
 -- maps
 ----------------------------------------
 -- set leader as space
-vim.keymap.set({"n", "v"}, "<space>", "<nop>", { silent = true })
+vim.keymap.set({ "n", "v" }, "<space>", "<nop>", { silent = true })
 vim.g.mapleader = " "
 
 -- add wq esc remap
-vim.keymap.set({"i", "v"}, "wq", "<esc>", { silent = true })
+vim.keymap.set({ "i", "v" }, "wq", "<esc>", { silent = true })
 vim.keymap.set("t", "wq", "<C-\\><C-n>", { silent = true })
 
 -- fix sticky shift
@@ -117,19 +140,16 @@ vim.keymap.set("c", "WQ", "wq", { silent = true })
 vim.keymap.set("c", "wQ", "wq", { silent = true })
 
 vim.keymap.set("i", "{<CR>", "{<CR>}<Esc>O", { silent = true }) -- autoclose
-vim.keymap.set("n", "<leader>ng", ":Neogit<cr>")
+vim.keymap.set("n", "<leader>ng", ":Neogit<cr>", { silent = true })
+vim.keymap.set("n", "<leader>s", ":setlocal spell!<CR>", { silent = true })
 
 -- telescope
-local tele = require("telescope.builtin")
-vim.keymap.set("n", "<leader>ff", tele.find_files)
-vim.keymap.set("n", "<leader>fi", tele.current_buffer_fuzzy_find)
-vim.keymap.set("n", "<leader>fg", tele.git_files)
-vim.keymap.set("n", "<leader><space>", tele.buffers)
-vim.keymap.set("n", "<leader>fa", tele.live_grep)
-vim.keymap.set("n", "<leader>?", tele.oldfiles)
-vim.keymap.set("n", "<leader>gg", ":Goyo<CR>", { silent = true })
-vim.keymap.set("n", "<leader>gs", ":Git status<CR>", { silent = true })
-vim.keymap.set("n", "<leader>s", ":setlocal spell!<CR>", { silent = true })
+local telescope = require("telescope.builtin")
+vim.keymap.set("n", "<leader>ff", telescope.find_files)
+vim.keymap.set("n", "<leader>fi", telescope.current_buffer_fuzzy_find)
+vim.keymap.set("n", "<leader>fg", telescope.git_files)
+vim.keymap.set("n", "<leader><space>", telescope.buffers)
+vim.keymap.set("n", "<leader>fa", telescope.live_grep)
 
 ----------------------------------------
 -- color
@@ -138,10 +158,7 @@ vim.keymap.set("n", "<leader>s", ":setlocal spell!<CR>", { silent = true })
 vim.api.nvim_create_autocmd("ColorScheme", {
     command = [[
         hi Normal ctermbg=none guibg=none
-        hi Visual ctermbg=237 ctermfg=none guibg=Grey23
         hi LineNr ctermbg=none ctermfg=9 guibg=none
-        hi MatchParen gui=bold guifg=white guibg=Grey23
-        hi DiagnosticError ctermfg=grey guifg=grey
         hi GitGutterAdd    ctermbg=none guibg=none
         hi GitGutterChange ctermbg=none guibg=none
         hi GitGutterDelete ctermbg=none guibg=none
@@ -149,14 +166,16 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     group = vim.api.nvim_create_augroup("ColorFixes", {}),
 })
 -- set colorscheme
-vim.cmd([[ colorscheme base16-tomorrow-night ]])
+vim.g.gruvbox_material_better_performance = 1
+vim.g.gruvbox_material_foreground = "mix"
+vim.cmd([[ colorscheme gruvbox-material ]])
 
 -- highlight selection on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
     callback = function()
         vim.highlight.on_yank({ higroup = "Visual" })
     end,
-    group = vim.api.nvim_create_augroup("YankHighlight", {})
+    group = vim.api.nvim_create_augroup("YankHighlight", {}),
 })
 
 ----------------------------------------
@@ -168,10 +187,11 @@ vim.g.loaded_gzip = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_tarPlugin = 1
 vim.g.loaded_zipPlugin = 1
+
 require("lualine").setup({
     options = {
         icons_enabled = false,
-        theme = "cybrpnk",
+        theme = "gruvbox-material",
         component_separators = "|",
         section_separators = "",
         globalstatus = true,
@@ -186,31 +206,13 @@ require("telescope").setup({
         results_title = false,
         preview_title = false,
         layout_strategy = "horizontal",
-        layout_config = {
-            width = 0.80,
-        },
+        layout_config = { width = 0.80, },
         borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└", },
         mappings = {
             i = { ["<esc>"] = require("telescope.actions").close },
         },
     },
 })
-
--- vimwiki
-vim.g.vimwiki_list = {{
-        path = "/tmp/notes/", -- make it use markdown syntax
-        syntax = "markdown",
-        ext = ".md",
-    }}
-
-vim.g.vimwiki_global_ext = 0 -- and not treat every markdown as vimwiki
-vim.g.vimwiki_markdown_link_ext = 1 -- makes markdown linkes like [text](text.md) instead of [text](text)
-vim.g.vimwiki_conceallevel = 0
-
--- vimtex
-vim.g.vimtex_quickfix_mode = 0
-vim.g.tex_flavor = "latex"
-vim.g.vimtex_view_method = "zathura"
 
 -- indent
 vim.g.indent_blankline_char = "¦"
@@ -222,21 +224,20 @@ vim.g.indent_blankline_use_treesitter = true
 ----------------------------------------
 require("nvim-treesitter.configs").setup({
     ensure_installed = "all",
+    ignore_install = { "phpdoc" },
     sync_install = false,
     highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
     },
-    indent = {
-        enable = true,
-    },
+    indent = { enable = true, },
 })
 
 ----------------------------------------
 -- lsp
 ----------------------------------------
 local lspconfig = require("lspconfig")
-local on_attach = function(client , bufnr)
+local on_attach = function(_, bufnr)
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr })
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
     vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
@@ -262,9 +263,11 @@ end
 -- setup specific LSPs
 local servers = {
     "pyright", "rust_analyzer", "gopls", "clangd",
-    "tsserver", "svls", "texlab", "jdtls"
+    "tsserver", "svls", "jdtls", "bashls"
 }
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("cmp_nvim_lsp").update_capabilities(
+    vim.lsp.protocol.make_client_capabilities()
+)
 for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup({
         capabilities = capabilities,
@@ -272,6 +275,19 @@ for _, lsp in ipairs(servers) do
         flags = { debounce_text_changes = 150 },
     })
 end
+
+require("lspconfig").sumneko_lua.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    flags = { debounce_text_changes = 150 },
+    settings = {
+        Lua = {
+            runtime = { version = "LuaJIT", },
+            diagnostics = { globals = { "vim" }, },
+            workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+        },
+    },
+}
 
 -- auto-completion setup
 local cmp = require("cmp")
@@ -285,13 +301,11 @@ cmp.setup({
             behavior = cmp.ConfirmBehavior.Insert,
             select = true,
         }),
-        ["<c-k>"] = cmp.mapping(
-            function()
-                if ls.expand_or_jumpable() then
-                    ls.expand_or_jump()
-                end
-            end, { "i" }
-        ),
+        ["<c-k>"] = cmp.mapping(function()
+            if ls.expand_or_jumpable() then
+                ls.expand_or_jump()
+            end
+        end, { "i" }),
     }),
     sources = {
         { name = "nvim_lsp" },
@@ -304,7 +318,7 @@ cmp.setup({
     snippet = {
         expand = function(args)
             ls.lsp_expand(args.body)
-        end
+        end,
     },
 })
 
@@ -313,7 +327,10 @@ cmp.setup({
 ----------------------------------------
 ls.add_snippets(nil, {
     tex = {
-        ls.parser.parse_snippet("be", "\\begin{equation}\n\t$0\n\\end{equation}"),
+        ls.parser.parse_snippet(
+            "be",
+            "\\begin{equation}\n\t$0\n\\end{equation}"
+        ),
         ls.parser.parse_snippet("bm", "\\($0\\)"),
     },
 })

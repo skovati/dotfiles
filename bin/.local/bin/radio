@@ -1,0 +1,3 @@
+#!/bin/sh
+
+mpv --no-resume-playback --no-save-position-on-quit https://radio.skovati.dev

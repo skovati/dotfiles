@@ -43,6 +43,7 @@ require("packer").startup(function(use)
     use("nvim-lualine/lualine.nvim")
     use("lewis6991/gitsigns.nvim")
     use("lukas-reineke/indent-blankline.nvim")
+    use("akinsho/toggleterm.nvim")
     use({
         "TimUntersberger/neogit",
         opt = true,
@@ -159,6 +160,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     command = [[
         hi Normal ctermbg=none guibg=none
         hi LineNr ctermbg=none ctermfg=9 guibg=none
+        hi EndOfBuffer guibg=none
         hi GitGutterAdd    ctermbg=none guibg=none
         hi GitGutterChange ctermbg=none guibg=none
         hi GitGutterDelete ctermbg=none guibg=none
@@ -200,6 +202,10 @@ require("lualine").setup({
 
 require("gitsigns").setup({ signcolumn = false, numhl = true, })
 
+require("toggleterm").setup({
+    open_mapping = [[<c-\>]]
+})
+
 require("telescope").setup({
     defaults = {
         prompt_title = false,
@@ -230,7 +236,6 @@ require("nvim-treesitter.configs").setup({
         enable = true,
         additional_vim_regex_highlighting = false,
     },
-    indent = { enable = true, },
 })
 
 ----------------------------------------
@@ -263,31 +268,30 @@ end
 -- setup specific LSPs
 local servers = {
     "pyright", "rust_analyzer", "gopls", "clangd",
-    "tsserver", "svls", "jdtls", "bashls"
+    "tsserver", "svls", "jdtls", "bashls", "hls", "sumneko_lua"
 }
-local capabilities = require("cmp_nvim_lsp").update_capabilities(
-    vim.lsp.protocol.make_client_capabilities()
-)
+
+local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 for _, lsp in ipairs(servers) do
-    lspconfig[lsp].setup({
+    local opts = {
         capabilities = capabilities,
         on_attach = on_attach,
         flags = { debounce_text_changes = 150 },
-    })
+    }
+    local lua_settings = {
+        settings = {
+            Lua = {
+                runtime = { version = "LuaJIT", },
+                diagnostics = { globals = { "vim" }, },
+                workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+            },
+        }
+    }
+    if lsp == "sumneko_lua" then
+        opts = vim.tbl_extend("error", lua_settings, opts)
+    end
+    lspconfig[lsp].setup(opts)
 end
-
-require("lspconfig").sumneko_lua.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = { debounce_text_changes = 150 },
-    settings = {
-        Lua = {
-            runtime = { version = "LuaJIT", },
-            diagnostics = { globals = { "vim" }, },
-            workspace = { library = vim.api.nvim_get_runtime_file("", true) },
-        },
-    },
-}
 
 -- auto-completion setup
 local cmp = require("cmp")

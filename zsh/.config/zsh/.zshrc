@@ -16,6 +16,7 @@ export ZK_DIR=/home/skovati/dev/git/vault
 
 export GOPATH="/home/skovati/dev/go"
 export JDTLS_HOME=/usr/share/java/jdtls
+export GHCUP_USE_XDG_DIRS=yes
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/.cargo/bin:$PATH
 

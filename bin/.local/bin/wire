@@ -21,7 +21,7 @@ disconnect() {
 status() {
     printf "%s\n" "wg status:"
     doas wg | grep interface | cut -d ' ' -f 2 || printf "%s" "not connected to wireguard"
-    printf "%s%s\n" "with public ip: " $(curl -s ifconfig.io)
+    printf "%s%s\n" "with public ip: " "$(curl -s ifconfig.io)"
 }
 
 usage() {

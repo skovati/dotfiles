@@ -1,0 +1,104 @@
+fg: &fg e8e4d9ff
+bg: &bg 171717ff
+font-main: &font-main JetBrainsMono Nerd Font:pixelsize=14
+
+bar:
+  height: 20
+  location: top
+  monitor: '*'
+  font: *font-main
+  background: *bg
+  foreground: *fg
+  spacing: 10
+  margin: 10
+  border:
+    bottom-width: 2
+    color: *fg
+
+  left:
+    - river:
+        content:
+          map:
+            tag: id
+            values:
+              32: {empty: {}} # sticky tag
+            default:
+              map:
+                tag: occupied
+                values:
+                  true:
+                    map:
+                      on-click: sh -c 'riverctl set-focused-tags $((1 << ({id} - 1)))'
+                      tag: state
+                      values:
+                        focused: &focused {string: &river_tag {text: ' {id} '}}
+                        urgent: {string: {<<: *river_tag, foreground: *fg}}
+                        invisible: &invisible {string: {<<: *river_tag, foreground: *fg}}
+                        unfocused: *invisible
+                  false:
+                    map:
+                      tag: focused
+                      values:
+                        true: *focused
+                        false: {empty: {}}
+  center:
+    - river:
+        title: {string: {text: '{title}', max: 80}}
+        content: {empty: {}}
+  right:
+    - script:
+        path: /home/skovati/.local/bin/dmem
+        args: []
+        content: { string: { text: "{mem}mb" }}
+    - network:
+        name: wlp3s0
+        content:
+          map:
+            tag: state
+            default: {string: {text: '', font: *font-main, foreground: *fg}}
+            values:
+              down: {string: {text: '', font: *font-main, foreground: *fg}}
+              up:
+                map:
+                  tag: ipv4
+                  default: &ip_assigned {string: {text: '', font: *font-main}}
+                  values:
+                    '':
+                      map:
+                        tag: ipv6
+                        default: *ip_assigned
+                        values:
+                          '': {string: {text: '', font: *font-main}}
+    - battery:
+        name: BAT0
+        poll-interval: 30
+        content:
+          list:
+            spacing: 4
+            items:
+              - map:
+                  tag: state
+                  values:
+                    discharging:
+                      ramp:
+                        tag: capacity
+                        items:
+                          - string: {text: '', font: *font-main, foreground: *fg}
+                          - string: {text: '', font: *font-main}
+                          - string: {text: '', font: *font-main}
+                          - string: {text: '', font: *font-main}
+                          - string: {text: '', font: *font-main}
+                    charging:
+                      string: &charging {text: '🗲', font: *font-main}
+                    full:
+                      string: {<<: *charging, foreground: *fg}
+              - string: {text: ' {capacity}%'}
+    - clock:
+        time-format: '%H:%M:%S'
+        date-format: '%a %d %b'
+        content:
+          list:
+            spacing: 5
+            items:
+            - string: {text: '{date}'}
+            - string: {text: '{time}'}

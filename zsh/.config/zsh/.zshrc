@@ -13,6 +13,7 @@ export TERMINAL="alacritty"
 export TZ='America/Los_Angeles'
 export MANPAGER='nvim +Man!'
 export ZK_DIR=/home/skovati/dev/git/vault
+export MOZ_ENABLE_WAYLAND=1
 
 export GOPATH="/home/skovati/dev/go"
 export JDTLS_HOME=/usr/share/java/jdtls

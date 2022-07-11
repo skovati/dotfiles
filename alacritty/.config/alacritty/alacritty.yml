@@ -17,7 +17,7 @@ font:
   bold:
     family: JetBrainsMono Nerd Font
     style: Bold
-  size: 13
+  size: 12
 cursor:
   style: Underline
   unfocused_hollow: false

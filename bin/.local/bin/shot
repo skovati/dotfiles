@@ -1,4 +1,6 @@
 #!/bin/sh
-# takes a screenshot using imagemagick
-
-import /tmp/shot.png && xclip -sel clipboard -t image/png /tmp/shot.png
+if [ -z ${WAYLAND_DISPLAY+x} ]; then
+    import /tmp/shot.png && xclip -sel clipboard -t image/png /tmp/shot.png
+else
+    grim -t png -l 9 - | tee /tmp/shot.png | wl-copy -t image/png
+fi

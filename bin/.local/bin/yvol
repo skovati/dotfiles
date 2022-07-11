@@ -1,0 +1,6 @@
+#!/bin/sh
+
+while true; do
+    printf "vol|string|%s\n\n" "$(pamixer --get-volume-human)"
+    sleep 1
+done

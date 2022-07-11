@@ -42,7 +42,7 @@ riverctl map normal $mod Return spawn alacritty
 
 riverctl map normal $mod W spawn librewolf
 
-riverctl map normal $mod D spawn bemenu-run
+riverctl map normal $mod D spawn 'bemenu-run --hb "#e8e4d9" --hf "#161616" --nb "#171717" --tf "#e8e4d9" --fn "JetBrainsMono Nerd Font 10" -H 20'
 
 # Mod+Q to close the focused view
 riverctl map normal $mod Q close
@@ -145,8 +145,8 @@ for mode in normal locked; do
     riverctl map $mode None XF86AudioMute         spawn 'pactl set-sink-mute @DEFAULT_SINK@ toggle'
 
     # Control screen backlight brighness
-    riverctl map $mode None XF86MonBrightnessUp   spawn 'brightnessctl -c backlight s +2%'
-    riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl -c backlight s 2%-'
+    riverctl map $mode None XF86MonBrightnessUp   spawn 'brightnessctl -c backlight s +1%'
+    riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl -c backlight s 1%-'
 done
 
 ########################################

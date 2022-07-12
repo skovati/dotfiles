@@ -22,7 +22,7 @@ require("packer").startup({function(use)
             "nvim-telescope/telescope.nvim",
             requires = "nvim-lua/plenary.nvim"
         })
-        use({ "numToStr/Comment.nvim", config = function() require("Comment").setup() end })
+        use("numToStr/Comment.nvim")
         use("neovim/nvim-lspconfig")
         use("nvim-treesitter/nvim-treesitter")
         use({
@@ -110,11 +110,15 @@ vim.opt.list = true                    -- show things in listchars
 -- turn off relativenumber when in insert mode
 local toggle_rel_num = vim.api.nvim_create_augroup("ToggleRelNum", {})
 vim.api.nvim_create_autocmd("InsertEnter", {
-    command = "set norelativenumber",
+    callback = function()
+        vim.opt.relativenumber = false
+    end,
     group = toggle_rel_num,
 })
 vim.api.nvim_create_autocmd("InsertLeave", {
-    command = "set relativenumber",
+    callback = function()
+        vim.opt.relativenumber = true
+    end,
     group = toggle_rel_num,
 })
 -- use new filetype.lua
@@ -207,6 +211,8 @@ require("gitsigns").setup({ signcolumn = false, numhl = true, })
 
 require("toggleterm").setup({ open_mapping = [[<c-\>]] })
 
+require("Comment").setup()
+
 require("telescope").setup({
     defaults = {
         prompt_title = false,
@@ -237,16 +243,18 @@ require("nvim-treesitter.configs").setup({
 local lspconfig = require("lspconfig")
 local on_attach = function(_, bufnr)
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr })
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
+    vim.keymap.set("n", "gd", telescope.lsp_definitions, { buffer = bufnr })
     vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
-    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = bufnr })
-    vim.keymap.set( "n", "<leader>D", vim.lsp.buf.type_definition, { buffer = bufnr })
+    vim.keymap.set("n", "gi", telescope.lsp_implementations, { buffer = bufnr })
+    vim.keymap.set( "n", "<leader>D", telescope.lsp_type_definitions, { buffer = bufnr })
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr })
     vim.keymap.set( "n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr })
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr })
+    vim.keymap.set("n", "gr", telescope.lsp_references, { buffer = bufnr })
     vim.keymap.set( "n", "<leader>e", vim.diagnostic.open_float, { buffer = bufnr })
     vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { buffer = bufnr })
     vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { buffer = bufnr })
+    vim.keymap.set("n", "<leader>fd", telescope.lsp_document_symbols, { buffer = bufnr })
+    vim.keymap.set("n", "<leader>fD", telescope.lsp_workspace_symbols, { buffer = bufnr })
     vim.api.nvim_create_user_command("Format", vim.lsp.buf.formatting, {})
 
     -- configure how lsp diagnostics are shown

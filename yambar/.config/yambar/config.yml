@@ -18,7 +18,7 @@ bar:
   background: *bg
   spacing: 10
   margin: 10
-  left-margin: 2
+  left-margin: 0
 
   left:
     - river:
@@ -52,13 +52,13 @@ bar:
         content: { empty: {} }
   right:
     - script:
-        path: /home/skovati/.local/bin/dmem
+        path: /home/skovati/.local/bin/ymem
         args: []
         content:
           - string: { text: " ", font: *icon }
           - string: { text: "{mem}mb" }
     - script:
-        path: /home/skovati/.local/bin/dvol
+        path: /home/skovati/.local/bin/yvol
         args: []
         content:
           map:
@@ -121,6 +121,8 @@ bar:
             spacing: 3
             items:
             - string: {text: " " }
-            - string: {text: '{date}'}
+            - string:
+                text: '{date}'
+                on-click: riverctl spawn 'alacritty -e "cal -3"'
             - string: {text: '-'}
             - string: {text: '{time}'}

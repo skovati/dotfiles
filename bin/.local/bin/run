@@ -1,0 +1,3 @@
+#!/bin/sh
+
+bemenu-run --hb "#e8e4d9" --hf "#161616" --nb "#171717" --tf "#e8e4d9" --fn "JetBrainsMono Nerd Font 10" -H 20 -p "run:"

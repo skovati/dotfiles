@@ -22,7 +22,7 @@ require("packer").startup({function(use)
             "nvim-telescope/telescope.nvim",
             requires = "nvim-lua/plenary.nvim"
         })
-        use({ "numToStr/Comment.nvim", config = require("Comment").setup() })
+        use({ "numToStr/Comment.nvim", config = function() require("Comment").setup() end })
         use("neovim/nvim-lspconfig")
         use("nvim-treesitter/nvim-treesitter")
         use({

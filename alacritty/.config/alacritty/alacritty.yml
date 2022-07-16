@@ -21,6 +21,7 @@ font:
 cursor:
   style: Underline
   unfocused_hollow: false
+  thickness: 0.3
 mouse:
   hints:
     launcher:

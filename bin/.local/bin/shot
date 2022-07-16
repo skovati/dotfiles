@@ -1,6 +1,6 @@
 #!/bin/sh
-if [ -z ${WAYLAND_DISPLAY+x} ]; then
-    import /tmp/shot.png && xclip -sel clipboard -t image/png /tmp/shot.png
+if GEO="$(slurp 2> /dev/null)"; then
+    grim -t png -l 8 -g "$GEO" -
 else
-    grim -t png -l 9 - | tee /tmp/shot.png | wl-copy -t image/png
-fi
+    grim -t png -l 8 -
+fi | tee /tmp/shot.png | wl-copy -t image/png

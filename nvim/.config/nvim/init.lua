@@ -268,6 +268,7 @@ end
 local servers = {
     "pyright", "rust_analyzer", "gopls", "clangd",
     "tsserver", "svls", "jdtls", "bashls", "hls",
+    "zls", "sumneko_lua"
 }
 
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())

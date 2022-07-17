@@ -2,3 +2,5 @@
 *.tar
 watch_later
 packer_compiled.lua
+*.png
+*.jpg

@@ -37,4 +37,4 @@ RUN stow -d dev/git/dotfiles -t /home/skovati -S tmux nvim zsh bin
 RUN nvim --headless -c 'autocmd User PackerComplete quitall'
 RUN nvim --headless -c ':TSInstallSync all | qall'
 
-ENTRYPOINT ["tmux"]
+ENTRYPOINT ["zsh"]

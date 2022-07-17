@@ -4,7 +4,7 @@
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 local bootstrap = vim.fn.empty(vim.fn.glob(install_path)) > 0
 if bootstrap then
-    vim.opt.guicursor = ""      -- don't change cursor on first boot
+    vim.opt.guicursor = ""      -- don"t change cursor on first boot
     vim.fn.system({
         "git", "clone",
         "https://github.com/wbthomason/packer.nvim",
@@ -13,22 +13,27 @@ if bootstrap then
     vim.cmd[[packadd packer.nvim]]
 end
 
-local ok, packer = pcall(require, "packer")
-if not ok then return end
-
 ----------------------------------------
 -- plugin declaration
 ----------------------------------------
-packer.startup({function(use)
+require("packer").startup(function(use)
         use("wbthomason/packer.nvim")
-        use("tpope/vim-surround")
+        use("kylechui/nvim-surround")
         use({
             "nvim-telescope/telescope.nvim",
-            requires = "nvim-lua/plenary.nvim"
+            requires = {
+                "nvim-lua/plenary.nvim", {
+                    "nvim-telescope/telescope-fzf-native.nvim",
+                    run = "make", cond = vim.fn.executable "make" == 1
+                }
+            },
         })
         use("numToStr/Comment.nvim")
         use("neovim/nvim-lspconfig")
-        use("nvim-treesitter/nvim-treesitter")
+        use({
+            "nvim-treesitter/nvim-treesitter",
+            requires = "nvim-treesitter/nvim-treesitter-textobjects"
+        })
         use({
             "hrsh7th/nvim-cmp",
             requires = {
@@ -54,16 +59,15 @@ packer.startup({function(use)
         if bootstrap then
             require("packer").sync()
         end
-    end,
-    config = {
-        compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua",
-    }
-})
+    end
+)
 
 if bootstrap then
     print("Installing plugins, restart nvim after packer sync completes")
     return
 end
+
+pcall(require("impatient"))
 
 vim.api.nvim_create_autocmd("BufWritePost", {
     command = "PackerCompile",
@@ -71,7 +75,6 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     group = vim.api.nvim_create_augroup("Packer", {}),
 })
 
-pcall(require("impatient"))
 ----------------------------------------
 -- sets
 ----------------------------------------
@@ -88,7 +91,7 @@ vim.opt.smartcase = true               -- ^ unless capital query
 vim.opt.guicursor = ""                 -- fixes alacritty changing cursor
 vim.opt.signcolumn = "number"          -- combines the signcolumn and number columns
 vim.opt.timeoutlen = 600               -- decrease timeout length for keymaps
-vim.opt.showmode = false               -- hide current mode, it's in statusline
+vim.opt.showmode = false               -- hide current mode, it"s in statusline
 vim.opt.updatetime = 250               -- decrease update time
 vim.opt.lazyredraw = true              -- dont redraw screen when exec macros
 vim.opt.nrformats:append("alpha")      -- let <Ctrl-a> do letters as well
@@ -231,6 +234,8 @@ require("telescope").setup({
     },
 })
 
+pcall(require("telescope").load_extension, "fzf")
+
 require("nvim-treesitter.configs").setup({
     ensure_installed = "all",
     ignore_install = { "phpdoc" },
@@ -238,6 +243,25 @@ require("nvim-treesitter.configs").setup({
     highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
+    },
+    textobjects = {
+        select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+                ["af"] = "@function.outer",
+                ["if"] = "@function.inner",
+            },
+        },
+        swap = {
+            enable = true,
+            swap_next = {
+                ['<leader>a'] = '@parameter.inner',
+            },
+            swap_previous = {
+                ['<leader>A'] = '@parameter.inner',
+            },
+        },
     },
 })
 
@@ -275,13 +299,32 @@ local servers = {
     "zls", "sumneko_lua"
 }
 
+local get_lua_settings = function()
+    local runtime_path = vim.split(package.path, ";")
+    table.insert(runtime_path, "lua/?.lua")
+    table.insert(runtime_path, "lua/?/init.lua")
+    return {
+        settings = {
+            Lua = {
+                runtime = { version = "LuaJIT", path = runtime_path, },
+                diagnostics = { globals = { "vim" }, },
+                workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+                telemetry = { enable = false, },
+            },
+        },
+    }
+end
+
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 for _, lsp in ipairs(servers) do
-    lspconfig[lsp].setup({
+    local opts =  {
         capabilities = capabilities,
         on_attach = on_attach,
-        flags = { debounce_text_changes = 150 },
-    })
+    }
+    if lsp == "sumneko_lua" then
+        opts = vim.tbl_extend("error", opts, get_lua_settings())
+    end
+    lspconfig[lsp].setup(opts)
 end
 
 -- auto-completion setup

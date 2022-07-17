@@ -4,7 +4,7 @@
 # EXPORTS
 ########################################
 # actually important
-export PATH=$PATH:$HOME/.local/bin
+export PATH="$PATH:$HOME/.local/bin"
 export EDITOR="nvim"
 export VISUAL="nvim"
 export READER="zathura"
@@ -12,14 +12,14 @@ export IMAGE="nsxiv"
 export TERMINAL="alacritty"
 export TZ='America/Los_Angeles'
 export MANPAGER='nvim +Man!'
-export ZK_DIR=/home/skovati/dev/git/vault
+export ZK_DIR="$HOME/dev/git/vault"
 export MOZ_ENABLE_WAYLAND=1
 
-export GOPATH="/home/skovati/dev/go"
+export GOPATH="$HOME/dev/go"
 export JDTLS_HOME=/usr/share/java/jdtls
 export GHCUP_USE_XDG_DIRS=yes
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$HOME/.cargo/bin:$PATH
+export PATH="$PATH:$GOPATH/bin"
+export PATH="$PATH:$HOME/.cargo/bin:$PATH"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"

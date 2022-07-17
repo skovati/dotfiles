@@ -13,6 +13,7 @@ RUN apk update &&       \
     neovim  \
     stow    \
     build-base \
+    ncurses \
     doas
 
 RUN adduser -s /bin/zsh -D -h /home/skovati skovati && \

@@ -1,32 +1,30 @@
 # dotfiles
 
-### personal dotfiles for void/arch, dwm, nvim, zsh, etc.
+## personal dotfiles for arch, riverwm, nvim, zsh, etc.
 
-#### screenshot
-![scrot](https://user-images.githubusercontent.com/49844593/153116571-89edb50a-5863-42ab-b348-e457f67d71ad.png)
+### screenshot
+![scrot](https://user-images.githubusercontent.com/49844593/179421461-bac76855-e48e-48cc-bc0f-ca1ec35c770b.png)
 
-#### software
+### software
 | program                               | name                                                                              |
 | :---                                  | :---                                                                              |
-| distro                                | [void](https://voidlinux.org/)                                                |
-| wm                                    | [dwm](https://dwm.suckless.org/)                                                  |    
-| bar                                   | [dbar](https://github.com/skovati/dotfiles/tree/master/bin/.local/bin/dbar)                   |
-| launcher                              | [dmenu](https://tools.suckless.org/dmenu/)                                        |
-| pape                                  | [feh](https://github.com/derf/feh)                                                |
-| browser                               | [librewolf](https://librewolf.net/)                                  |
-| editor                                | [neovim](https://neovim.io/)                                                      |
-| font                                  | [tamzen](https://github.com/sunaku/tamzen-font)                                   |
+| distro                                | [arch](https://archlinux.org/)                                                    |
+| wm                                    | [river](https://github.com/riverwm/river)                                         |
+| bar                                   | [yambar](https://codeberg.org/dnkl/yambar)                                        |
+| launcher                              | [bemenu](https://github.com/Cloudef/bemenu)                                       |
+| browser                               | [librewolf](https://librewolf.net/)                                               |
+| editor                                | [nvim](https://neovim.io/)                                                        |
+| font                                  | [jetbrains mono](https://github.com/JetBrains/JetBrainsMono)                      |
 | shell                                 | [zsh](https://www.zsh.org/)                                                       |
 | term                                  | [alacritty](https://github.com/alacritty/alacritty)                               |
 | doc viewer                            | [zathura](https://pwmt.org/projects/zathura/)                                     |
-| file manager                          | [lf](https://github.com/gokcehan/lf)                                              |
-| colorscheme                           | [cybrpnk](https://github.com/skovati/cybrpnk.nvim)          |
+| colorscheme                           | [cybrpnk](https://github.com/skovati/cybrpnk.nvim)                                |
 
 ### installation
 
-```
-install a minimal linux distro (arch, void)
+```sh
+# install a minimal linux distro (arch, void)
 git clone https://github.com/skovati/dotfiles
 cd dotfiles
-stow */
+stow -v 2 -t $HOME */
 ```

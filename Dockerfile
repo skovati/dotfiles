@@ -12,7 +12,7 @@ RUN apk update &&       \
     curl    \
     neovim  \
     stow    \
-    clang   \
+    build-base \
     doas
 
 RUN adduser -s /bin/zsh -D -h /home/skovati skovati && \

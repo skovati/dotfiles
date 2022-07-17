@@ -10,12 +10,16 @@ if bootstrap then
         "https://github.com/wbthomason/packer.nvim",
         install_path,
     })
+    vim.cmd[[packadd packer.nvim]]
 end
+
+local ok, packer = pcall(require, "packer")
+if not ok then return end
 
 ----------------------------------------
 -- plugin declaration
 ----------------------------------------
-require("packer").startup({function(use)
+packer.startup({function(use)
         use("wbthomason/packer.nvim")
         use("tpope/vim-surround")
         use({

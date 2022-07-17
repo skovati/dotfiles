@@ -33,4 +33,7 @@ RUN git clone https://github.com/skovati/dotfiles dev/git/dotfiles
 
 RUN stow -d dev/git/dotfiles -t /home/skovati -S tmux nvim zsh bin
 
-ENTRYPOINT ["zsh"]
+RUN nvim --headless -c 'autocmd User PackerComplete quitall'
+RUN nvim --headless -c ':TSInstallSync all | qall'
+
+ENTRYPOINT ["tmux"]

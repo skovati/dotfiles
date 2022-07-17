@@ -1,4 +1,0 @@
-#!/bin/sh
-
-ffmpeg -an -f video4linux2 -s 1280x720 -vcodec mjpeg -i /dev/video0 -codec copy -r 10 -f matroska - | nc -l 1234 &
-nc 127.0.0.1 1234 | mpv --untimed --profile=low-latency -

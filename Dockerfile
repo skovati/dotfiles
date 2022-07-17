@@ -1,4 +1,4 @@
-FROM docker.io/alpine:latest
+FROM docker.io/alpine:edge
 
 RUN apk update &&       \
     apk add --no-cache  \

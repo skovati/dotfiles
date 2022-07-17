@@ -12,10 +12,13 @@ if bootstrap then
     })
 end
 
+local ok, packer = pcall(require, "packer")
+if not ok then return end
+
 ----------------------------------------
 -- plugin declaration
 ----------------------------------------
-require("packer").startup({function(use)
+packer.startup({function(use)
         use("wbthomason/packer.nvim")
         use("tpope/vim-surround")
         use({

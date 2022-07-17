@@ -26,7 +26,8 @@ WORKDIR /home/skovati
 RUN mkdir -p /home/skovati/dev/git \
     /home/skovati/.config \
     /home/skovati/.local/bin \
-    /home/skovati/.local/share/zsh
+    /home/skovati/.local/share/zsh \
+    /home/skovati/.local/share/nvim
 
 RUN git clone https://github.com/skovati/dotfiles dev/git/dotfiles
 

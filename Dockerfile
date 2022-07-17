@@ -1,5 +1,7 @@
 FROM docker.io/alpine:edge
 
+RUN printf "%s\n" "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+
 RUN apk update &&       \
     apk add --no-cache  \
     build-base \
@@ -22,7 +24,7 @@ RUN apk update &&       \
 
 RUN adduser -s /bin/zsh -D -h /home/skovati skovati && \
     adduser skovati wheel && \
-    echo "permit nopass :wheel" > /etc/doas.d/doas.conf
+    printf "%s\n" "permit nopass :wheel" > /etc/doas.d/doas.conf
 
 USER skovati
 

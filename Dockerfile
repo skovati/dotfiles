@@ -2,19 +2,23 @@ FROM docker.io/alpine:latest
 
 RUN apk update &&       \
     apk add --no-cache  \
-    git     \
-    zsh     \
-    zsh-vcs \
-    zsh-autosuggestions \
-    zsh-syntax-highlighting \
-    tmux    \
-    fzf     \
-    curl    \
-    neovim  \
-    stow    \
     build-base \
     ncurses \
-    doas
+    git     \
+    doas    \
+    curl    \
+    stow    \
+    neovim  \
+    fzf     \
+    tmux    \
+    zsh     \
+    zsh-vcs \
+    zsh-autosuggestions     \
+    zsh-syntax-highlighting \
+    lua-language-server     \
+    rust-analyzer           \
+    gopls                   \
+    pyright
 
 RUN adduser -s /bin/zsh -D -h /home/skovati skovati && \
     adduser skovati wheel && \
@@ -37,4 +41,6 @@ RUN stow -d dev/git/dotfiles -t /home/skovati -S tmux nvim zsh bin
 RUN nvim --headless -c 'autocmd User PackerComplete quitall'
 RUN nvim --headless -c ':TSInstallSync all | qall'
 
-ENTRYPOINT ["zsh"]
+ENV TERM=xterm-256color
+
+ENTRYPOINT ["tmux"]

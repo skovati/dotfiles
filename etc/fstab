@@ -1,1 +1,0 @@
-10.6.0.1:/middle-earth/moria   /home/skovati/middle-earth/moria    nfs vers=4,rw,_netdev,noauto,x-systemd.automount,x-systemd.requires=wg-quick@wg1.service

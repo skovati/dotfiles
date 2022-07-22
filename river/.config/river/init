@@ -5,7 +5,7 @@
 ########################################
 
 # Set background and border color
-riverctl background-color 0x002b36
+riverctl background-color 0x0d686b
 riverctl border-color-focused 0xe8e4d9
 riverctl border-color-unfocused 0x6e6e6e
 riverctl border-width 3
@@ -13,21 +13,24 @@ riverctl border-width 3
 # Set keyboard repeat rate
 riverctl set-repeat 50 300
 
-TRACKPAD="pointer-2-7-SynPS/2_Synaptics_TouchPad"
-riverctl input "$TRACKPAD" events enabled
-riverctl input "$TRACKPAD" accel-profile flat
-riverctl input "$TRACKPAD" pointer-accel 0.1
-riverctl input "$TRACKPAD" click-method clickfinger
-riverctl input "$TRACKPAD" drag enabled
-riverctl input "$TRACKPAD" drag-lock disabled
-riverctl input "$TRACKPAD" disable-while-typing enabled
-riverctl input "$TRACKPAD" middle-emulation enabled
-riverctl input "$TRACKPAD" natural-scroll enabled
-riverctl input "$TRACKPAD" left-handed disabled
-riverctl input "$TRACKPAD" tap enabled
-riverctl input "$TRACKPAD" tap-button-map left-right-middle
-riverctl input "$TRACKPAD" scroll-method two-finger
-riverctl input "$TRACKPAD" scroll-factor 0.01
+trackpad="pointer-2-7-SynPS/2_Synaptics_TouchPad"
+riverctl input "$trackpad" events enabled
+riverctl input "$trackpad" accel-profile flat
+riverctl input "$trackpad" pointer-accel 0.1
+riverctl input "$trackpad" click-method clickfinger
+riverctl input "$trackpad" drag enabled
+riverctl input "$trackpad" drag-lock disabled
+riverctl input "$trackpad" disable-while-typing enabled
+riverctl input "$trackpad" middle-emulation enabled
+riverctl input "$trackpad" natural-scroll enabled
+riverctl input "$trackpad" left-handed disabled
+riverctl input "$trackpad" tap enabled
+riverctl input "$trackpad" tap-button-map left-right-middle
+riverctl input "$trackpad" scroll-method two-finger
+riverctl input "$trackpad" scroll-factor 0.01
+
+touchscreen="touch-1267-11594-ELAN_Touchscreen"
+riverctl input "$touchscreen" events disabled
 
 riverctl attach-mode bottom
 
@@ -163,8 +166,9 @@ done
 # AUTO
 ########################################
 wl-paste -t text --watch clipman store --no-persist &
-swaybg -i /home/skovati/docs/pics/pape -m fill &
+# swaybg -i /home/skovati/docs/pics/pape -m fill &
 yambar &
+swayidle -w timeout 600 'lock' before-sleep 'lock' lock 'lock' &
 
 riverctl default-layout rivertile
 rivertile -view-padding 4 -outer-padding 8 -main-ratio 0.5

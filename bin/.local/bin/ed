@@ -1,4 +1,4 @@
 #!/bin/sh
 # small script to easily open important code/config/docs in editor
 
-find $HOME/dev $HOME/docs $HOME/downs -type f | fzf | xargs -ro "$EDITOR"
+fd . -H --one-file-system "$HOME"/dev --type file | fzf | xargs -ro "$EDITOR"

@@ -229,7 +229,10 @@ require("telescope").setup({
         layout_config = { width = 0.80, },
         borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└", },
         mappings = {
-            i = { ["<esc>"] = require("telescope.actions").close },
+            i = {
+                ["<esc>"] = require("telescope.actions").close,
+                ['<C-p>'] = require('telescope.actions.layout').toggle_preview,
+            },
         },
     },
 })

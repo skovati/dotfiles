@@ -1,3 +1,4 @@
 #!/bin/sh
 
-waylock --init-color "#6e6e6e" --input-color "#658fa0" --fail-color "#ba423f"
+# waylock --init-color "#6e6e6e" --input-color "#658fa0" --fail-color "#ba423f"
+swaylock --daemonize --no-unlock-indicator --color "#0d686b"

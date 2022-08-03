@@ -1,8 +1,8 @@
 #!/bin/sh
 
 LATEST=$(doas wg show | grep -E "lab|mullvad" | cut -d ' ' -f 2 | tail -n1)
-if [ ! -z LATEST ]; then
-    printf "%s\n" $LATEST
+if [ -n "$LATEST" ]; then
+    printf "%s\n" "$LATEST"
 else
     printf "none\n"
 fi

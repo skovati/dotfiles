@@ -1,0 +1,11 @@
+#!/bin/sh
+
+while true; do
+    LATEST=$(doas wg show | grep -E "lab|mullvad" | cut -d ' ' -f 2 | tail -n1)
+    if [ -n "$LATEST" ]; then
+        printf "wg|string|%s\n\n" "$LATEST"
+    else
+        printf "wg|string|n/a\n\n"
+    fi
+    sleep 5
+done

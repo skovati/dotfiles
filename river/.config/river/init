@@ -169,6 +169,7 @@ wl-paste -t text --watch clipman store --no-persist &
 # swaybg -i /home/skovati/docs/pics/pape -m fill &
 yambar &
 swayidle -w timeout 600 'lock' before-sleep 'lock' lock 'lock' &
+gammastep -l 43:-89 -t 5500:3600 &
 
 riverctl default-layout rivertile
 rivertile -view-padding 4 -outer-padding 8 -main-ratio 0.5

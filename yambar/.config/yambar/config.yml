@@ -89,6 +89,12 @@ bar:
                   tag: ipv4
                   values: # if we don't have an ip, treat as down
                     "": *down
+    - script:
+        path: /home/skovati/.local/bin/ywg
+        args: []
+        content:
+          - string: { text: " ", font: *icon }
+          - string: { text: "{wg}" }
     - battery:
         name: BAT0
         poll-interval: 30

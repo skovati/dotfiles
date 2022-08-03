@@ -10,7 +10,7 @@ export VISUAL="nvim"
 export READER="zathura"
 export IMAGE="nsxiv"
 export TERMINAL="alacritty"
-export TZ='America/Los_Angeles'
+export TZ='America/Chicago'
 export MANPAGER='nvim +Man!'
 export ZK_DIR="$HOME/dev/git/vault"
 export MOZ_ENABLE_WAYLAND=1
@@ -33,7 +33,6 @@ export XDG_RUNTIME_DIR="/run/user/$UID"
 # purely rice
 export BAT_THEME="ansi"
 export GPG_TTY=$(tty)
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#707070'
 
 ########################################
 # ALIASES
@@ -83,6 +82,10 @@ bindkey '\ev' edit-command-line     # open command in vim with alt-v
 
 setopt prompt_subst
 PROMPT=' %F{green}%~%f%F{yellow}$vcs_info_msg_0_ '
+
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#707070'
+typeset -A ZSH_HIGHLIGHT_STYLES
+export ZSH_HIGHLIGHT_STYLES[comment]='fg=#707070'
 
 ########################################
 # PLUGINS

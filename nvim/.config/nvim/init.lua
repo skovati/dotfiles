@@ -10,7 +10,7 @@ if bootstrap then
         "https://github.com/wbthomason/packer.nvim",
         install_path,
     })
-    vim.cmd[[packadd packer.nvim]]
+    vim.cmd("packadd packer.nvim")
 end
 
 ----------------------------------------
@@ -100,7 +100,7 @@ vim.opt.splitright = true
 vim.opt.completeopt = { "menuone", "noselect", "preview" } -- set for cmp
 vim.opt.shortmess:append("c")          -- dont show eg "1 out of 20 matches"
 vim.opt.conceallevel = 0
-vim.opt.mouse = "a"                    -- only used when pair programming dont judge
+vim.opt.mouse = "nvch"                  -- only used when pair programming dont judge
 vim.opt.cursorline = true
 vim.opt.termguicolors = true
 vim.opt.swapfile = false               -- disable swapfiles
@@ -180,7 +180,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 -- set colorscheme
 vim.g.gruvbox_material_better_performance = 1
 vim.g.gruvbox_material_foreground = "mix"
-vim.cmd([[ colorscheme gruvbox-material ]])
+vim.cmd("colorscheme gruvbox-material")
 
 -- highlight selection on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -274,18 +274,18 @@ require("nvim-treesitter.configs").setup({
 local lspconfig = require("lspconfig")
 local on_attach = function(_, bufnr)
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr })
-    vim.keymap.set("n", "gd", telescope.lsp_definitions, { buffer = bufnr })
     vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
-    vim.keymap.set("n", "gi", telescope.lsp_implementations, { buffer = bufnr })
-    vim.keymap.set( "n", "<leader>D", telescope.lsp_type_definitions, { buffer = bufnr })
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr })
     vim.keymap.set( "n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr })
-    vim.keymap.set("n", "gr", telescope.lsp_references, { buffer = bufnr })
     vim.keymap.set( "n", "<leader>e", vim.diagnostic.open_float, { buffer = bufnr })
     vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { buffer = bufnr })
     vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { buffer = bufnr })
+    vim.keymap.set("n", "gd", telescope.lsp_definitions, { buffer = bufnr })
+    vim.keymap.set("n", "gi", telescope.lsp_implementations, { buffer = bufnr })
+    vim.keymap.set("n", "gr", telescope.lsp_references, { buffer = bufnr })
+    vim.keymap.set( "n", "<leader>D", telescope.lsp_type_definitions, { buffer = bufnr })
     vim.keymap.set("n", "<leader>fd", telescope.lsp_document_symbols, { buffer = bufnr })
-    vim.keymap.set("n", "<leader>fD", telescope.lsp_workspace_symbols, { buffer = bufnr })
+    vim.keymap.set("n", "<leader>fD", telescope.lsp_dynamic_workspace_symbols, { buffer = bufnr })
     vim.api.nvim_create_user_command("Format", vim.lsp.buf.formatting, {})
 
     -- configure how lsp diagnostics are shown
@@ -298,35 +298,31 @@ end
 -- setup specific LSPs
 local servers = {
     "pyright", "rust_analyzer", "gopls", "clangd",
-    "tsserver", "svls", "jdtls", "bashls", "hls",
-    "zls", "sumneko_lua"
+    "tsserver", "jdtls", "bashls", "sumneko_lua"
 }
 
-local get_lua_settings = function()
-    local runtime_path = vim.split(package.path, ";")
-    table.insert(runtime_path, "lua/?.lua")
-    table.insert(runtime_path, "lua/?/init.lua")
-    return {
-        settings = {
-            Lua = {
-                runtime = { version = "LuaJIT", path = runtime_path, },
-                diagnostics = { globals = { "vim" }, },
-                workspace = { library = vim.api.nvim_get_runtime_file("", true) },
-                telemetry = { enable = false, },
-            },
-        },
-    }
-end
+local runtime_path = vim.split(package.path, ";")
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
+local settings = {
+    Lua = {
+        runtime = { version = "LuaJIT", path = runtime_path, },
+        diagnostics = { globals = { "vim" }, },
+        workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+        telemetry = { enable = false, },
+    },
+    ["rust-analyzer"] = {
+        checkOnSave = { command = "clippy" },
+    },
+}
 
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 for _, lsp in ipairs(servers) do
     local opts =  {
         capabilities = capabilities,
         on_attach = on_attach,
+        settings = settings,
     }
-    if lsp == "sumneko_lua" then
-        opts = vim.tbl_extend("error", opts, get_lua_settings())
-    end
     lspconfig[lsp].setup(opts)
 end
 
@@ -337,7 +333,7 @@ cmp.setup({
     mapping = cmp.mapping.preset.insert({
         ["<c-d>"] = cmp.mapping.scroll_docs(-4),
         ["<c-u>"] = cmp.mapping.scroll_docs(4),
-        ["<c-y>"] = cmp.mapping.complete(),
+        ["<c-y>"] = cmp.mapping.complete({}),
         ["<c-space>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Insert,
             select = true,
@@ -350,8 +346,7 @@ cmp.setup({
     }),
     sources = {
         { name = "nvim_lsp" },  { name = "luasnip" },
-        { name = "path" },      { name = "calc" },
-        { name = "buffer" },    { name = "zk" },
+        { name = "path" }, { name = "buffer" }, { name = "zk" },
     },
     snippet = {
         expand = function(args)

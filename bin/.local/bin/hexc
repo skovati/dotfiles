@@ -1,3 +1,2 @@
 #!/bin/sh
-
-convert /tmp/shot.png -scale 1x1\! -format '%[pixel:s]\n' info:- | awk -F '[(,)]' '{printf("#%x%x%x\n",$2,$3,$4)}'
+grim -g "$(slurp -b '#00000000' -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | awk 'END{print $3}'

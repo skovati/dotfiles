@@ -4,7 +4,7 @@
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 local bootstrap = vim.fn.empty(vim.fn.glob(install_path)) > 0
 if bootstrap then
-    vim.opt.guicursor = ""      -- don"t change cursor on first boot
+    vim.o.guicursor = ""      -- don"t change cursor on first boot
     vim.fn.system({
         "git", "clone",
         "https://github.com/wbthomason/packer.nvim",
@@ -34,6 +34,7 @@ require("packer").startup(function(use)
             "nvim-treesitter/nvim-treesitter",
             requires = "nvim-treesitter/nvim-treesitter-textobjects"
         })
+        use("lervag/vimtex")
         use({
             "hrsh7th/nvim-cmp",
             requires = {
@@ -43,8 +44,10 @@ require("packer").startup(function(use)
         }})
         use({
             "L3MON4D3/LuaSnip",
-            requires = "saadparwaiz1/cmp_luasnip"
-        })
+            requires = {
+                "saadparwaiz1/cmp_luasnip",
+                "rafamadriz/friendly-snippets",
+        }})
         use("nvim-lualine/lualine.nvim")
         use("lewis6991/gitsigns.nvim")
         use("lukas-reineke/indent-blankline.nvim")
@@ -78,59 +81,57 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 ----------------------------------------
 -- sets
 ----------------------------------------
-vim.opt.relativenumber = true          -- number line shows relative
-vim.opt.number = true                  -- and current line shows actual line nr
-vim.opt.smartindent = true             -- indent according to lang
-vim.opt.tabstop = 4                    -- 4 space tabs
-vim.opt.shiftwidth = 0                 -- >> shifts by tabstop amount
-vim.opt.softtabstop = -1               -- backspace removes $tabstop spaces
-vim.opt.expandtab = true               -- insert tabs as spaces
-vim.opt.clipboard = "unnamedplus"      -- use system clipboard
-vim.opt.ignorecase = true              -- ignore case in searches
-vim.opt.smartcase = true               -- ^ unless capital query
-vim.opt.guicursor = ""                 -- fixes alacritty changing cursor
-vim.opt.signcolumn = "number"          -- combines the signcolumn and number columns
-vim.opt.timeoutlen = 600               -- decrease timeout length for keymaps
-vim.opt.showmode = false               -- hide current mode, it"s in statusline
-vim.opt.updatetime = 250               -- decrease update time
-vim.opt.lazyredraw = true              -- dont redraw screen when exec macros
+vim.o.relativenumber = true          -- number line shows relative
+vim.o.number = true                  -- and current line shows actual line nr
+vim.o.smartindent = true             -- indent according to lang
+vim.o.tabstop = 4                    -- 4 space tabs
+vim.o.shiftwidth = 0                 -- >> shifts by tabstop amount
+vim.o.softtabstop = -1               -- backspace removes $tabstop spaces
+vim.o.expandtab = true               -- insert tabs as spaces
+vim.o.clipboard = "unnamedplus"      -- use system clipboard
+vim.o.ignorecase = true              -- ignore case in searches
+vim.o.smartcase = true               -- ^ unless capital query
+vim.o.guicursor = ""                 -- fixes alacritty changing cursor
+vim.o.signcolumn = "number"          -- combines the signcolumn and number columns
+vim.o.timeoutlen = 600               -- decrease timeout length for keymaps
+vim.o.showmode = false               -- hide current mode, it"s in statusline
+vim.o.updatetime = 250               -- decrease update time
+vim.o.lazyredraw = true              -- dont redraw screen when exec macros
 vim.opt.nrformats:append("alpha")      -- let <Ctrl-a> do letters as well
-vim.opt.splitbelow = true
-vim.opt.splitright = true
+vim.o.splitbelow = true
+vim.o.splitright = true
 vim.opt.completeopt = { "menuone", "noselect", "preview" } -- set for cmp
 vim.opt.shortmess:append("c")          -- dont show eg "1 out of 20 matches"
-vim.opt.conceallevel = 0
-vim.opt.mouse = "nvch"                  -- only used when pair programming dont judge
-vim.opt.cursorline = true
-vim.opt.termguicolors = true
-vim.opt.swapfile = false               -- disable swapfiles
-vim.opt.backup = false                 -- and auto backps, to instead use
-vim.opt.undofile = true                -- enable auto save of undos
-vim.opt.foldmethod = "expr"            -- syntax folding: zc, zo, zr, zR
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldnestmax = 10
-vim.opt.foldenable = false
-vim.opt.spelllang = "en_us"            -- spell check
+vim.o.conceallevel = 0
+vim.o.mouse = "nvch"                  -- only used when pair programming dont judge
+vim.o.mousemodel = "extend"
+vim.o.cursorline = true
+vim.o.termguicolors = true
+vim.o.swapfile = false               -- disable swapfiles
+vim.o.backup = false                 -- and auto backps, to instead use
+vim.o.undofile = true                -- enable auto save of undos
+vim.o.foldmethod = "expr"            -- syntax folding: zc, zo, zr, zR
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+vim.o.foldnestmax = 10
+vim.o.foldenable = false
+vim.o.spelllang = "en_us"            -- spell check
 vim.opt.complete:append("kspell")
 vim.opt.listchars:append("trail:·")    -- show trailing spaces
-vim.opt.list = true                    -- show things in listchars
+vim.o.list = true                    -- show things in listchars
 -- turn off relativenumber when in insert mode
 local toggle_rel_num = vim.api.nvim_create_augroup("ToggleRelNum", {})
 vim.api.nvim_create_autocmd("InsertEnter", {
     callback = function()
-        vim.opt.relativenumber = false
+        vim.o.relativenumber = false
     end,
     group = toggle_rel_num,
 })
 vim.api.nvim_create_autocmd("InsertLeave", {
     callback = function()
-        vim.opt.relativenumber = true
+        vim.o.relativenumber = true
     end,
     group = toggle_rel_num,
 })
--- use new filetype.lua
-vim.g.do_filetype_lua = 1
-vim.g.did_load_filetypes = 0
 
 ----------------------------------------
 -- maps
@@ -153,6 +154,7 @@ vim.keymap.set("c", "wQ", "wq", { silent = true })
 vim.keymap.set("i", "{<CR>", "{<CR>}<Esc>O", { silent = true }) -- autoclose
 vim.keymap.set("n", "<leader>ng", ":Neogit<cr>", { silent = true })
 vim.keymap.set("n", "<leader>s", ":setlocal spell!<CR>", { silent = true })
+vim.keymap.set("x", "<leader>p", "\"_dP", { silent = true })
 
 -- telescope
 local telescope = require("telescope.builtin")
@@ -204,6 +206,10 @@ vim.g.indent_blankline_char = "¦"
 vim.g.indent_blankline_show_trailing_blankline_indent = false
 vim.g.indent_blankline_use_treesitter = true
 
+vim.g.vimtex_quickfix_mode = 0
+vim.g.tex_flavor = "latex"
+vim.g.vimtex_view_method = "zathura"
+
 require("lualine").setup({
     options = {
         icons_enabled = false,
@@ -219,6 +225,10 @@ require("gitsigns").setup({ signcolumn = false, numhl = true, })
 require("toggleterm").setup({ open_mapping = [[<c-\>]] })
 
 require("Comment").setup()
+
+require('luasnip.loaders.from_vscode').lazy_load()
+
+require("nvim-surround").setup()
 
 require("telescope").setup({
     defaults = {
@@ -286,7 +296,7 @@ local on_attach = function(_, bufnr)
     vim.keymap.set( "n", "<leader>D", telescope.lsp_type_definitions, { buffer = bufnr })
     vim.keymap.set("n", "<leader>fd", telescope.lsp_document_symbols, { buffer = bufnr })
     vim.keymap.set("n", "<leader>fD", telescope.lsp_dynamic_workspace_symbols, { buffer = bufnr })
-    vim.api.nvim_create_user_command("Format", vim.lsp.buf.formatting, {})
+    vim.api.nvim_create_user_command("Format", vim.lsp.buf.format, {})
 
     -- configure how lsp diagnostics are shown
     vim.diagnostic.config({
@@ -298,7 +308,8 @@ end
 -- setup specific LSPs
 local servers = {
     "pyright", "rust_analyzer", "gopls", "clangd",
-    "tsserver", "jdtls", "bashls", "sumneko_lua"
+    "tsserver", "jdtls", "bashls", "sumneko_lua",
+    "texlab",
 }
 
 local runtime_path = vim.split(package.path, ";")
@@ -316,7 +327,7 @@ local settings = {
     },
 }
 
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 for _, lsp in ipairs(servers) do
     local opts =  {
         capabilities = capabilities,

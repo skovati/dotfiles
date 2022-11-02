@@ -12,7 +12,7 @@ red: &red ba423fff
 bar:
   height: 20
   location: top
-  monitor: '*'
+  monitor: 'DP-1'
   font: *font-main
   foreground: *fg
   background: *bg

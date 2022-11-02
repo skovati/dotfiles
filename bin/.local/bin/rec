@@ -12,16 +12,14 @@ usage() {
 }
 
 mic() {
-    ffmpeg -f pulse -i alsa_input.usb-BLUE_MICROPHONE_Blue_Snowball_201305-00.analog-stereo -y ./$1.mp3
+    ffmpeg -f pulse -i alsa_input.usb-BLUE_MICROPHONE_Blue_Snowball_201305-00.analog-stereo -y ./$1
 }
 
-while getopts 'masv' opt; do
-    case "$opt" in
-        m)
-            mic $2
-        ;;
-        *)
-            usage
-        ;;
-    esac
-done
+case "$1" in
+    m*)
+        mic $2
+    ;;
+    *)
+        usage
+    ;;
+esac

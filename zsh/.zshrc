@@ -17,7 +17,6 @@ export MOZ_ENABLE_WAYLAND=1
 
 export GOPATH="$HOME/dev/go"
 export JDTLS_HOME=/usr/share/java/jdtls
-export GHCUP_USE_XDG_DIRS=yes
 export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:$HOME/.cargo/bin:$PATH"
 
@@ -52,6 +51,7 @@ alias z="zathura --fork"
 alias xc="xclip -sel clipboard -i"
 alias xp="xclip -sel clipboard -o"
 alias em="emacsclient -c"
+alias trans="transmission-cli"
 
 # fancy cli tools
 which exa > /dev/null 2>&1 && alias ls="exa -F" || {
@@ -75,10 +75,12 @@ bindkey -v  # set vim mode
 autoload -Uz compinit promptinit edit-command-line vcs_info
 compinit
 promptinit
-zle -N edit-command-line
+
+# git branch in prompt
 precmd() { vcs_info }
 zstyle ':vcs_info:git:*' formats '(%b)'
 
+zle -N edit-command-line
 bindkey '\ev' edit-command-line     # open command in vim with alt-v
 
 setopt prompt_subst

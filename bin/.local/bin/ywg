@@ -1,7 +1,7 @@
 #!/bin/sh
 
 while true; do
-    LATEST=$(doas wg show | grep -E "lab|mullvad" | cut -d ' ' -f 2 | tail -n1)
+    LATEST=$(doas wg show | grep -E "lab|wireguard" | cut -d ' ' -f 2 | tail -n1)
     if [ -n "$LATEST" ]; then
         printf "wg|string|%s\n\n" "$LATEST"
     else

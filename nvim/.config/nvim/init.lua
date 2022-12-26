@@ -4,7 +4,7 @@
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 local bootstrap = vim.fn.empty(vim.fn.glob(install_path)) > 0
 if bootstrap then
-    vim.o.guicursor = ""      -- don"t change cursor on first boot
+    vim.o.guicursor = ""      -- don't change cursor on first boot
     vim.fn.system({
         "git", "clone",
         "https://github.com/wbthomason/packer.nvim",
@@ -143,13 +143,6 @@ vim.g.mapleader = " "
 -- add wq esc remap
 vim.keymap.set({ "i", "v" }, "wq", "<esc>", { silent = true })
 vim.keymap.set("t", "wq", "<C-\\><C-n>", { silent = true })
-
--- fix sticky shift
-vim.keymap.set("c", "W", "w", { silent = true })
-vim.keymap.set("c", "Q", "q", { silent = true })
-vim.keymap.set("c", "Wq", "wq", { silent = true })
-vim.keymap.set("c", "WQ", "wq", { silent = true })
-vim.keymap.set("c", "wQ", "wq", { silent = true })
 
 vim.keymap.set("i", "{<CR>", "{<CR>}<Esc>O", { silent = true }) -- autoclose
 vim.keymap.set("n", "<leader>ng", ":Neogit<cr>", { silent = true })

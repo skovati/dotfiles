@@ -5,6 +5,7 @@
 ########################################
 # actually important
 export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.nix-profile/bin"
 export EDITOR="nvim"
 export VISUAL="nvim"
 export READER="zathura"
@@ -51,7 +52,7 @@ alias z="zathura --fork"
 alias xc="xclip -sel clipboard -i"
 alias xp="xclip -sel clipboard -o"
 alias em="emacsclient -c"
-alias trans="transmission-cli"
+alias k="kubectl"
 
 # fancy cli tools
 which exa > /dev/null 2>&1 && alias ls="exa -F" || {

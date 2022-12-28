@@ -7,3 +7,4 @@ yambar &
 swayidle -w timeout 600 'lock' before-sleep 'lock' lock 'lock' &
 gammastep -l 43:-89 -t 5500:3600 &
 easyeffects --gapplication-service &
+sudo sh -c "echo 0 > /sys/devices/platform/thinkpad_acpi/leds/platform::micmute/brightness"

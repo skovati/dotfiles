@@ -13,7 +13,8 @@ riverctl border-width 3
 # Set keyboard repeat rate
 riverctl set-repeat 50 300
 
-trackpad="pointer-2-7-SynPS/2_Synaptics_TouchPad"
+trackpad="2:7:SynPS/2_Synaptics_TouchPad"
+
 riverctl input "$trackpad" events enabled
 riverctl input "$trackpad" accel-profile flat
 riverctl input "$trackpad" pointer-accel 0.1
@@ -29,7 +30,7 @@ riverctl input "$trackpad" tap-button-map left-right-middle
 riverctl input "$trackpad" scroll-method two-finger
 riverctl input "$trackpad" scroll-factor 0.01
 
-touchscreen="touch-1267-11594-ELAN_Touchscreen"
+touchscreen="1267:11594:ELAN_Touchscreen"
 riverctl input "$touchscreen" events disabled
 
 riverctl attach-mode bottom

@@ -109,19 +109,6 @@ vim.api.nvim_create_autocmd("InsertLeave", {
     group = toggle_rel_num,
 })
 
--- small highlight fixes, autocmd to load after colorscheme so we overwrite
-vim.api.nvim_create_autocmd("BufReadPost", {
-    command = [[
-        hi Normal ctermbg=none guibg=none
-        hi LineNr ctermbg=none ctermfg=9 guibg=none
-        hi EndOfBuffer guibg=none
-        hi GitGutterAdd    ctermbg=none guibg=none
-        hi GitGutterChange ctermbg=none guibg=none
-        hi GitGutterDelete ctermbg=none guibg=none
-    ]],
-    group = vim.api.nvim_create_augroup("ColorFixes", {}),
-})
-
 -- highlight selection on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
     callback = function()

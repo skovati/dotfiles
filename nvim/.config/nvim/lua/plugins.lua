@@ -12,6 +12,9 @@ return {
         config = function()
             vim.g.gruvbox_material_better_performance = 1
             vim.g.gruvbox_material_foreground = "mix"
+            vim.g.gruvbox_material_colors_override = {
+                bg0 = { "none", "none" }
+            }
             vim.cmd( [[ colorscheme gruvbox-material ]])
         end
     },

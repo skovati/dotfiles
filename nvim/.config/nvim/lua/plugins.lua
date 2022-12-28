@@ -35,7 +35,7 @@ return {
             vim.g.gruvbox_material_colors_override = {
                 bg0 = { "none", "none" }
             }
-            vim.cmd( [[ colorscheme gruvbox-material ]])
+            vim.cmd([[ colorscheme gruvbox-material ]])
         end
     },
 
@@ -201,15 +201,6 @@ return {
                         keymaps = {
                             ["af"] = "@function.outer",
                             ["if"] = "@function.inner",
-                        },
-                    },
-                    swap = {
-                        enable = true,
-                        swap_next = {
-                            ['<leader>a'] = '@parameter.inner',
-                        },
-                        swap_previous = {
-                            ['<leader>A'] = '@parameter.inner',
                         },
                     },
                 },

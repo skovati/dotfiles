@@ -4,6 +4,11 @@ return {
         config = true,
         keys = "ys",
     },
+    {
+        "windwp/nvim-autopairs",
+        config = true,
+        event = "InsertEnter",
+    },
     { "skovati/cmp-zk", ft = "zk" },
     {
         "sainnhe/gruvbox-material",
@@ -51,7 +56,7 @@ return {
     },
     {
         "akinsho/toggleterm.nvim",
-        keys = [[c-\]],
+        keys = "<C-\\>",
         config = function()
             require("toggleterm").setup({ open_mapping = [[<c-\>]] })
         end,
@@ -59,7 +64,7 @@ return {
     {
         "numToStr/Comment.nvim",
         config = true,
-        event = "VeryLazy",
+        keys = "gc",
     },
     {
         "neovim/nvim-lspconfig",

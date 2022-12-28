@@ -2,6 +2,7 @@
 vim.keymap.set({ "n", "v" }, "<space>", "<nop>", { silent = true })
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+vim.o.guicursor = ""    -- fixes alacritty changing cursor
 
 ----------------------------------------
 -- bootstrap
@@ -51,7 +52,6 @@ vim.o.expandtab = true                  -- insert tabs as spaces
 vim.o.clipboard = "unnamedplus"         -- use system clipboard
 vim.o.ignorecase = true                 -- ignore case in searches
 vim.o.smartcase = true                  -- ^ unless capital query
-vim.o.guicursor = ""                    -- fixes alacritty changing cursor
 vim.o.signcolumn = "number"             -- combines the signcolumn and number columns
 vim.o.timeoutlen = 600                  -- decrease timeout length for keymaps
 vim.o.showmode = false                  -- hide current mode, it"s in statusline
@@ -85,8 +85,6 @@ vim.o.list = true                       -- show things in listchars
 
 vim.keymap.set({ "i", "v" }, "wq", "<esc>", { silent = true })
 vim.keymap.set("t", "wq", "<C-\\><C-n>", { silent = true })
-
-vim.keymap.set("i", "{<CR>", "{<CR>}<Esc>O", { silent = true }) -- autoclose
 vim.keymap.set("n", "<leader>s", ":setlocal spell!<CR>", { silent = true })
 vim.keymap.set("x", "<leader>p", "\"_dP", { silent = true })
 

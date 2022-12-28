@@ -8,7 +8,7 @@ window:
     lines: 20
   padding:
     x: 10
-    y: 10
+    y: 9
   title: alacritty
 font:
   normal:

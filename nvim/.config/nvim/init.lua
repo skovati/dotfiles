@@ -34,6 +34,7 @@ require("lazy").setup(require("plugins"), {
                 "zipPlugin",
                 "fzf",
                 "nvim-treesitter-textobjects",
+                "rplugin",
             },
         }
     }
@@ -62,22 +63,20 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 vim.opt.completeopt = { "menuone", "noselect", "preview" } -- set for cmp
 vim.opt.shortmess:append("c")           -- don't show eg "1 out of 20 matches"
-vim.o.conceallevel = 0
 vim.o.mouse = "nvch"                    -- only used when pair programming dont judge
 vim.o.mousemodel = "extend"
 vim.o.cursorline = true
 vim.o.termguicolors = true
 vim.o.swapfile = false                  -- disable swapfiles
-vim.o.backup = false                    -- and auto backps, to instead use
 vim.o.undofile = true                   -- enable auto save of undos
 vim.o.foldmethod = "expr"               -- syntax folding: zc, zo, zr, zR
 vim.o.foldexpr = "nvim_treesitter#foldexpr()"
-vim.o.foldnestmax = 10
 vim.o.foldenable = false
 vim.o.spelllang = "en_us"               -- spell check
 vim.opt.complete:append("kspell")
 vim.opt.listchars:append("trail:·")     -- show trailing spaces
 vim.o.list = true                       -- show things in listchars
+vim.o.cmdheight = 0
 
 ----------------------------------------
 -- maps

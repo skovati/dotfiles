@@ -40,8 +40,7 @@ RUN git clone https://github.com/skovati/dotfiles dev/git/dotfiles
 
 RUN stow -d dev/git/dotfiles -t /home/skovati -S tmux nvim zsh bin
 
-RUN nvim --headless -c 'autocmd User PackerComplete quitall'
-RUN nvim --headless -c ':TSInstallSync all | qall'
+RUN nvim --headless "+Lazy! sync" +qa
 
 ENV TERM=xterm-256color
 

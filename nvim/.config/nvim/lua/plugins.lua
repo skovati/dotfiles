@@ -1,28 +1,44 @@
 return {
+
     {
-        "kylechui/nvim-surround",
-        config = true,
-        keys = "ys",
+        "echasnovski/mini.nvim",
+        event = "VeryLazy",
+        config = function()
+            require("mini.pairs").setup({})
+            require("mini.comment").setup({})
+            require("mini.surround").setup({})
+        end
     },
+
     {
-        "windwp/nvim-autopairs",
-        config = true,
-        event = "InsertEnter",
+        "lukas-reineke/indent-blankline.nvim",
+        event = "BufReadPre",
+        config = function()
+            vim.g.indent_blankline_char = "¦"
+            vim.g.indent_blankline_show_trailing_blankline_indent = false
+            vim.g.indent_blankline_use_treesitter = true
+        end
     },
-    { "skovati/cmp-zk", ft = "zk" },
+
+    {
+        "skovati/cmp-zk",
+        ft = "zk",
+    },
+
     {
         "sainnhe/gruvbox-material",
         priority = 999,
         lazy = false,
         config = function()
             vim.g.gruvbox_material_better_performance = 1
-            vim.g.gruvbox_material_foreground = "mix"
+            vim.g.gruvbox_material_foreground = "default"
             vim.g.gruvbox_material_colors_override = {
                 bg0 = { "none", "none" }
             }
             vim.cmd( [[ colorscheme gruvbox-material ]])
         end
     },
+
     {
         "nvim-lualine/lualine.nvim",
         event = "VeryLazy",
@@ -38,6 +54,7 @@ return {
             })
         end
     },
+
     {
         "lewis6991/gitsigns.nvim",
         event = "BufReadPre",
@@ -45,15 +62,7 @@ return {
             require("gitsigns").setup({ signcolumn = false, numhl = true, })
         end
     },
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        event = "BufReadPre",
-        config = function()
-            vim.g.indent_blankline_char = "¦"
-            vim.g.indent_blankline_show_trailing_blankline_indent = false
-            vim.g.indent_blankline_use_treesitter = true
-        end
-    },
+
     {
         "akinsho/toggleterm.nvim",
         keys = "<C-\\>",
@@ -61,11 +70,7 @@ return {
             require("toggleterm").setup({ open_mapping = [[<c-\>]] })
         end,
     },
-    {
-        "numToStr/Comment.nvim",
-        config = true,
-        keys = "gc",
-    },
+
     {
         "neovim/nvim-lspconfig",
         event = "BufReadPre",
@@ -128,6 +133,7 @@ return {
             end
         end
     },
+
     {
         "lervag/vimtex",
         ft = "tex",
@@ -137,6 +143,7 @@ return {
             vim.g.vimtex_view_method = "zathura"
         end
     },
+
     {
         "nvim-telescope/telescope.nvim",
         cmd = { "Telescope" },
@@ -172,6 +179,7 @@ return {
             telescope.load_extension("fzf")
         end
     },
+
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
@@ -208,6 +216,7 @@ return {
             })
         end
     },
+
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
@@ -248,6 +257,7 @@ return {
             })
         end
     },
+
     {
         "L3MON4D3/LuaSnip",
         dependencies = "rafamadriz/friendly-snippets",
@@ -274,6 +284,7 @@ return {
             })
         end
     },
+
     {
         "TimUntersberger/neogit",
         dependencies = "nvim-lua/plenary.nvim",
@@ -282,4 +293,5 @@ return {
             { "<leader>ng", "<cmd>Neogit<cr>" },
         }
     },
+
 }

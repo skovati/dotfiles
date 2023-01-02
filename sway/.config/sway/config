@@ -31,8 +31,8 @@ bindswitch --reload --locked lid:off output $laptop enable
 # inputs
 ########################################
 input type:keyboard {
-    repeat_delay 300
-    repeat_rate 30
+    repeat_delay 250
+    repeat_rate 50
 }
 
 input type:touchpad {
@@ -51,6 +51,18 @@ input type:touchpad {
     bindsym $mod+q kill
 
     bindsym $mod+d exec $menu
+
+    bindsym $mod+Shift+Control+l exec lock
+
+    bindsym $mod+p exec shot
+
+    bindsym $mod+s exec paswap
+
+    bindsym XF86AudioLowerVolume exec 'pactl set-sink-volume @DEFAULT_SINK@ -5%'
+    bindsym XF86AudioRaiseVolume exec 'pactl set-sink-volume @DEFAULT_SINK@ +5%'
+    bindsym XF86AudioMute exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'
+    bindsym XF86MonBrightnessUp exec 'brightnessctl -c backlight s +1%'
+    bindsym XF86MonBrightnessDown exec 'brightnessctl -c backlight s 1%-'
 
     floating_modifier $mod normal
 
@@ -92,9 +104,6 @@ input type:touchpad {
     bindsym $mod+b splith
     bindsym $mod+v splitv
 
-    bindsym $mod+e layout toggle split
-    bindsym $mod+s layout stacking
-
     bindsym $mod+f fullscreen
 
     bindsym $mod+Shift+space floating toggle
@@ -120,20 +129,22 @@ focus_follows_mouse no
 
 default_orientation auto
 
+workspace_layout default
+
 ########################################
 # rice
 ########################################
 default_border pixel 3
 
-# border, background, text
-client.focused #ffffff #888888 #000000
-client.unfocused #ffffff #333333 #000000
+# border, background, text, indicator
+client.focused #ffffff #999999 #000000 #999999
+client.unfocused #ffffff #333333 #000000 #333333
 
 smart_borders no_gaps
 smart_gaps on
 
 gaps {
-    inner 5
+    inner 4
     outer 8
 }
 

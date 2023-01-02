@@ -234,6 +234,7 @@ return {
                 sources = {
                     { name = "nvim_lsp" },  { name = "luasnip" },
                     { name = "path" }, { name = "buffer" }, { name = "zk" },
+                    { max_item_count = 10 }, { keyword_length = 2 },
                 },
                 snippet = {
                     expand = function(args)
@@ -282,7 +283,6 @@ return {
 
     {
         "skovati/telekasten.nvim",
-        branch = "filename_separator",
         dependencies = "nvim-telescope/telescope.nvim",
         cmd = "Telekasten",
         keys = {
@@ -306,6 +306,7 @@ return {
                 -- uuid_type = os.time(),
                 journal_auto_open = true,
                 uuid_sep = "_",
+                filename_replace_spaces = true,
             })
         end,
     },

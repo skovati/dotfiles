@@ -2,9 +2,12 @@
 # autostart script for wlroots based tiling compositors
 
 wl-paste -t text --watch clipman store --no-persist &
-# swaybg -i /home/skovati/docs/pics/pape -m fill &
-yambar &
-swayidle -w timeout 600 'lock' before-sleep 'lock' lock 'lock' &
+
+swayidle -w \
+    timeout 300 'swaylock -f -c 000000' \
+    timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+    before-sleep 'swaylock -f -c 000000' &
+
 gammastep -l 43:-89 -t 5500:3600 &
 easyeffects --gapplication-service &
 sudo sh -c "echo 0 > /sys/devices/platform/thinkpad_acpi/leds/platform::micmute/brightness"

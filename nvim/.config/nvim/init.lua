@@ -5,7 +5,7 @@ vim.g.maplocalleader = " "
 vim.o.guicursor = ""    -- fixes alacritty changing cursor
 
 ----------------------------------------
--- bootstrap
+-- bootstrap plugins
 ----------------------------------------
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -24,6 +24,10 @@ require("lazy").setup(require("plugins"), {
     defaults = { lazy = true },
     install = { colorscheme = { "gruvbox-material", "slate" } },
     performance = {
+        cache = {
+            enabled = true,
+            disabled_events = {},
+        },
         rtp = {
             disabled_plugins = {
                 "gzip",

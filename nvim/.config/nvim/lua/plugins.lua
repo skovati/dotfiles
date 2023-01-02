@@ -2,7 +2,7 @@ return {
 
     {
         "echasnovski/mini.nvim",
-        event = "VeryLazy",
+        event = "InsertEnter",
         config = function()
             require("mini.pairs").setup({})
             require("mini.comment").setup({})
@@ -12,7 +12,7 @@ return {
 
     {
         "lukas-reineke/indent-blankline.nvim",
-        event = "BufReadPre",
+        event = "BufReadPost",
         config = function()
             vim.g.indent_blankline_char = "¦"
             vim.g.indent_blankline_show_trailing_blankline_indent = false
@@ -21,17 +21,12 @@ return {
     },
 
     {
-        "skovati/cmp-zk",
-        ft = "zk",
-    },
-
-    {
         "sainnhe/gruvbox-material",
         priority = 999,
         lazy = false,
         config = function()
             vim.g.gruvbox_material_better_performance = 1
-            vim.g.gruvbox_material_foreground = "default"
+            vim.g.gruvbox_material_foreground = "original"
             vim.g.gruvbox_material_colors_override = {
                 bg0 = { "none", "none" }
             }
@@ -57,7 +52,7 @@ return {
 
     {
         "lewis6991/gitsigns.nvim",
-        event = "BufReadPre",
+        event = "VeryLazy",
         config = function()
             require("gitsigns").setup({ signcolumn = false, numhl = true, })
         end
@@ -283,6 +278,36 @@ return {
         keys = {
             { "<leader>ng", "<cmd>Neogit<cr>" },
         }
+    },
+
+    {
+        "skovati/telekasten.nvim",
+        branch = "filename_separator",
+        dependencies = "nvim-telescope/telescope.nvim",
+        cmd = "Telekasten",
+        keys = {
+            { "<leader>zj", "<cmd>Telekasten goto_today<cr>"    },
+            { "<leader>zf", "<cmd>Telekasten find_notes<cr>"    },
+            { "<leader>zg", "<cmd>Telekasten search_notes<cr>"  },
+            { "<leader>zn", "<cmd>Telekasten new_note<cr>"      },
+            { "<leader>zt", "<cmd>Telekasten show_tags<cr>"     },
+            { "<leader>z",  "<cmd>Telekasten panel<cr>"         },
+        },
+        config = function()
+            local home = vim.fn.expand("$HOME/dev/git/vault")
+            require("telekasten").setup({
+                home = home .. "/zk",
+                dailies = home .. "/journal",
+                weeklies = home .. "/journal/weekly",
+                template_new_note = home .. "/zk/template.md",
+                template_new_daily = home .. "/journal/template.md",
+                template_new_weekly = home .. "/journal/weekly_template.md",
+                new_note_filename = "uuid-title",
+                -- uuid_type = os.time(),
+                journal_auto_open = true,
+                uuid_sep = "_",
+            })
+        end,
     },
 
 }

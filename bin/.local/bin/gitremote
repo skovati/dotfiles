@@ -2,5 +2,4 @@
 
 repo=$(basename "$(pwd)")
 
-git remote add --mirror=push mirror git@gitlab.com:skovati/"$repo"
-git remote set-url --add --push mirror git@git.sr.ht:~skovati/"$repo"
+git remote add --mirror=push mirror git@git.sr.ht:~skovati/"$repo"

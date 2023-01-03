@@ -1,8 +1,0 @@
-#!/bin/sh
-
-LATEST=$(doas wg show | grep -E "lab|wireguard" | cut -d ' ' -f 2 | tail -n1)
-if [ -n "$LATEST" ]; then
-    printf "%s\n" "$LATEST"
-else
-    printf "none\n"
-fi

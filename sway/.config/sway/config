@@ -148,7 +148,7 @@ smart_borders no_gaps
 smart_gaps on
 
 gaps {
-    inner 4
+    inner 8
     outer 8
 }
 

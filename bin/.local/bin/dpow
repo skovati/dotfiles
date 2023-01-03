@@ -1,3 +1,0 @@
-#!/bin/sh
-
-printf "%sw\n" $(printf "scale=2; %s/1000000\n" $(cat /sys/class/power_supply/BAT0/power_now) | bc)

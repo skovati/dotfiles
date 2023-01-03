@@ -23,6 +23,10 @@ vim.opt.runtimepath:prepend(lazypath)
 require("lazy").setup(require("plugins"), {
     defaults = { lazy = true },
     install = { colorscheme = { "gruvbox-material", "slate" } },
+    dev = {
+        path = "~/dev/git",
+        patterns = { "skovati" }
+    },
     performance = {
         cache = {
             enabled = true,

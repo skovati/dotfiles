@@ -23,7 +23,7 @@ return {
     {
         "sainnhe/gruvbox-material",
         priority = 999,
-        lazy = false,
+        event = "UIEnter",
         config = function()
             vim.g.gruvbox_material_better_performance = 1
             vim.g.gruvbox_material_foreground = "original"
@@ -284,7 +284,9 @@ return {
     {
         "skovati/telekasten.nvim",
         dependencies = "nvim-telescope/telescope.nvim",
+        dev = true,
         cmd = "Telekasten",
+        branch = "more_precise_template_times",
         keys = {
             { "<leader>zj", "<cmd>Telekasten goto_today<cr>"    },
             { "<leader>zf", "<cmd>Telekasten find_notes<cr>"    },
@@ -303,10 +305,11 @@ return {
                 template_new_daily = home .. "/journal/template.md",
                 template_new_weekly = home .. "/journal/weekly_template.md",
                 new_note_filename = "uuid-title",
-                -- uuid_type = os.time(),
                 journal_auto_open = true,
                 uuid_sep = "_",
                 filename_replace_spaces = true,
+                tag_notation = "yaml-bare",
+                insert_after_inserting = false,
             })
         end,
     },

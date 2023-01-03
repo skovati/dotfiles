@@ -1,5 +1,0 @@
-#!/bin/sh
-while true; do
-    printf "mem|string|%s\n\n" "$(free -m | awk '(NR==2){ print $3 }')"
-    sleep 1
-done

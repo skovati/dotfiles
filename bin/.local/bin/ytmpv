@@ -1,10 +1,10 @@
 #!/bin/bash
 # search videos on youtube and play them in mpv, without an API key
-# edited to use dmenu
+# edited to use bemenu
 # credit to github.com/sayan01
 
 if [ -z "$1" ]; then 
-    query=$(echo -n "" | dmenu -p "Youtube Search: ")
+    query=$(echo -n "" | bemenu -p "Youtube Search: ")
 else
 	query="$*"
 fi
@@ -33,7 +33,7 @@ videoids=$(
 while true; do
 	videoid=$(
 		echo -e "$videoids" | \
-		dmenu -p "Video to watch: " | \
+		bemenu -p "Video to watch: " | \
 		cut -d' ' -f1
 	)
 	if [ -z "$videoid" ]; then exit; fi	

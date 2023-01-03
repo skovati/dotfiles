@@ -1,7 +1,0 @@
-#!/bin/sh
-
-if pgrep yambar > /dev/null; then
-    pkill yambar
-else
-    exec yambar
-fi

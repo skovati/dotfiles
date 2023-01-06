@@ -1,0 +1,72 @@
+#!/bin/sh
+
+vault_dir="${VAULT_DIR:-$HOME/dev/git/vault}"
+
+if ! [ -d "$vault_dir" ]; then
+    printf "%s\n" "error, VAULT_DIR does not exist"
+    exit 1
+fi
+
+usage="
+usage: $(basename "$0") [command]
+
+commands:
+  enc       encrypts the VAULT_DIR
+  dec       decrypts the VAULT_DIR
+  push      encypts and pushes to remote git
+  help      show this message
+"
+
+encrypt() {(
+
+    cd "$vault_dir" || exit 1
+
+    tar cf vault.tar journal zk || {
+        printf "%s\n" "unable to tar vault..."
+        exit 1
+    }
+
+    gpg --quiet --output vault.tar.asc --yes --armor --sign --encrypt vault.tar || {
+        printf "%s\n" "unable to encrypt vault..."
+        exit 1
+    }
+
+    shred -u vault.tar
+
+)}
+
+decrypt() {(
+
+    cd "$vault_dir" || exit 1
+
+    gpg --quiet --output vault.tar --decrypt vault.tar.asc || {
+        printf "%s\n" "unable to decrypt vault..."
+        exit 1
+    }
+
+    tar xf vault.tar || {
+        printf "%s\n" "unable to untar vault..."
+        exit 1
+    }
+
+    shred -u vault.tar
+
+)}
+
+case "$1" in
+    enc)
+        encrypt
+    ;;
+    push)
+        encrypt
+        (
+        cd "$vault_dir" || exit 1
+        git add vault.tar.asc \
+            && git commit -m "update vault" \
+            && git push origin main
+        )
+    ;;
+    *)
+        printf "%s\n" "$usage"
+    ;;
+esac

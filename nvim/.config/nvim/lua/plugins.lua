@@ -284,9 +284,8 @@ return {
     {
         "skovati/telekasten.nvim",
         dependencies = "nvim-telescope/telescope.nvim",
-        dev = true,
         cmd = "Telekasten",
-        branch = "more_precise_template_times",
+        branch = "replace_filename_spaces",
         keys = {
             { "<leader>zj", "<cmd>Telekasten goto_today<cr>"    },
             { "<leader>zf", "<cmd>Telekasten find_notes<cr>"    },
@@ -301,13 +300,13 @@ return {
                 home = home .. "/zk",
                 dailies = home .. "/journal",
                 weeklies = home .. "/journal/weekly",
-                template_new_note = home .. "/zk/template.md",
-                template_new_daily = home .. "/journal/template.md",
-                template_new_weekly = home .. "/journal/weekly_template.md",
+                template_new_note = home .. "/templates/zk.md",
+                template_new_daily = home .. "/templates/journal.md",
+                template_new_weekly = home .. "/templates/weekly.md",
                 new_note_filename = "uuid-title",
                 journal_auto_open = true,
                 uuid_sep = "_",
-                filename_replace_spaces = true,
+                filename_space_subst = "_",
                 tag_notation = "yaml-bare",
                 insert_after_inserting = false,
             })

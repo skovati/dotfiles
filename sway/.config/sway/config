@@ -115,9 +115,9 @@ bindsym $mod+f fullscreen
 bindsym $mod+Shift+space floating toggle
 
 bindsym $mod+Control+h resize shrink width 60px
-bindsym $mod+Control+j resize grow width 60px
-bindsym $mod+Control+k resize shrink height 60px
-bindsym $mod+Control+l resize grow height 60px
+bindsym $mod+Control+j resize shrink height 60px
+bindsym $mod+Control+k resize grow height 60px
+bindsym $mod+Control+l resize grow width 60px
 
 ########################################
 # other

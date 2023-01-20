@@ -1,20 +1,18 @@
-https://reddit.com/r/linux.rss "Reddit"
-https://reddit.com/r/coffee.rss "Reddit"
-https://www.reddit.com/r/ethereum.rss "Reddit"
-https://reddit.com/r/homelab.rss "Reddit"
-https://reddit.com/r/hardware.rss "Reddit"
-https://reddit.com/r/unixporn.rss "Reddit"
-https://reddit.com/r/philosophy.rss "Reddit"
-https://reddit.com/r/space.rss "Reddit"
-https://reddit.com/r/physics.rss "Reddit"
-https://reddit.com/r/math.rss "Reddit"
-https://reddit.com/r/kombucha.rss "Reddit"
-https://reddit.com
+http://feeds.bbci.co.uk/news/world/rss.xml
+https://www.nytimes.com/svc/collections/v1/publish/https://www.nytimes.com/section/us/rss.xml
+https://www.npr.org/rss/rss.php?id=1004
+https://lwn.net/headlines/newrss
+https://feeds.arstechnica.com/arstechnica/index/
+https://news.ycombinator.com/rss
+http://rss.sciam.com/ScientificAmerican-Global
+https://hnrss.org/frontpage
 
-https://newsrss.bbc.co.uk/rss/newsonline_world_edition/front_page/rss.xml "News"
-https://www.nytimes.com/svc/collections/v1/publish/https://www.nytimes.com/section/us/rss.xml "News"
-https://feeds.washingtonpost.com/rss/national?itid=lk_inline_manual_40 "News"
-https://www.npr.org/rss/rss.php?id=1004 "News"
-https://rss.cnn.com/rss/cnn_topstories.rss "News"
+https://skovati.dev/articles/index.xml
+https://bt.ht/atom.xml
+https://drewdevault.com/blog/index.xml
+https://100r.co/links/rss.xml
+https://what-if.xkcd.com/feed.atom
+https://fasterthanli.me/index.xml
+https://ciechanow.ski/atom.xml
 
-https://skovati.dev/blog/index.xml
+https://xkcd.com/atom.xml

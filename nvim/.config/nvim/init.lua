@@ -84,7 +84,6 @@ vim.o.spelllang = "en_us"               -- spell check
 vim.opt.complete:append("kspell")
 vim.opt.listchars:append("trail:·")     -- show trailing spaces
 vim.o.list = true                       -- show things in listchars
-vim.o.cmdheight = 0
 
 ----------------------------------------
 -- maps

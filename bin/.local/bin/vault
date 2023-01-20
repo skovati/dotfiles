@@ -63,7 +63,8 @@ case "$1" in
         cd "$vault_dir" || exit 1
         git add vault.tar.asc \
             && git commit -m "update vault" \
-            && git push origin main
+            && git push origin main \
+            && git push mirror
         )
     ;;
     *)

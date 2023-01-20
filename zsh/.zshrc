@@ -13,7 +13,6 @@ export IMAGE="nsxiv"
 export TERMINAL="alacritty"
 export TZ='America/Chicago'
 export MANPAGER='nvim +Man!'
-export ZK_DIR="$HOME/dev/git/vault"
 export MOZ_ENABLE_WAYLAND=1
 
 export GOPATH="$HOME/dev/go"
@@ -30,6 +29,7 @@ export XDG_DOCUMENTS_DIR="$HOME/docs/"
 export XDG_DOWNLOAD_DIR="$HOME/downs/"
 export XDG_PICTURES_DIR="$HOME/docs/pics/"
 export XDG_RUNTIME_DIR="/run/user/$UID"
+export XDG_CURRENT_DESKTOP="sway"
 
 # purely rice
 export BAT_THEME="ansi"

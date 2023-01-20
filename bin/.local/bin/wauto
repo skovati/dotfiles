@@ -11,3 +11,5 @@ swayidle -w \
 gammastep -l 43:-89 -t 5500:3600 &
 easyeffects --gapplication-service &
 doas sh -c "echo 0 > /sys/devices/platform/thinkpad_acpi/leds/platform::micmute/brightness"
+autotiling-rs &
+/usr/lib/xdg-desktop-portal-gtk &

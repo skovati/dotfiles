@@ -225,11 +225,6 @@ return {
                         behavior = cmp.ConfirmBehavior.Insert,
                         select = true,
                     }),
-                    ["<c-k>"] = cmp.mapping(function()
-                        if ls.expand_or_jumpable() then
-                            ls.expand_or_jump()
-                        end
-                    end, { "i" }),
                 }),
                 sources = {
                     { name = "nvim_lsp" },  { name = "luasnip" },
@@ -285,7 +280,7 @@ return {
         "skovati/telekasten.nvim",
         dependencies = "nvim-telescope/telescope.nvim",
         cmd = "Telekasten",
-        branch = "replace_filename_spaces",
+        branch = "refactor_defaults",
         keys = {
             { "<leader>zj", "<cmd>Telekasten goto_today<cr>"    },
             { "<leader>zf", "<cmd>Telekasten find_notes<cr>"    },
@@ -309,6 +304,7 @@ return {
                 filename_space_subst = "_",
                 tag_notation = "yaml-bare",
                 insert_after_inserting = false,
+                plug_into_calendar = false,
             })
         end,
     },

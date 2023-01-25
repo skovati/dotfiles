@@ -19,6 +19,7 @@ export GOPATH="$HOME/dev/go"
 export JDTLS_HOME=/usr/share/java/jdtls
 export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:$HOME/.cargo/bin:$PATH"
+export _JAVA_AWT_WM_NONREPARENTING=1
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -83,6 +84,37 @@ zstyle ':vcs_info:git:*' formats '(%b)'
 
 zle -N edit-command-line
 bindkey '\ev' edit-command-line     # open command in vim with alt-v
+
+zstyle ":completion:*" menu select
+zmodload zsh/complist
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+
+bindkey "^?" backward-delete-char
+
+function zle-keymap-select {
+    if [[ ${KEYMAP} == vicmd ]]; then
+        echo -ne '\e[2 q'
+    elif [[ ${KEYMAP} == main ]] ||
+        [[ ${KEYMAP} == viins ]] ||
+        [[ ${KEYMAP} = '' ]]; then
+        echo -ne '\e[4 q'
+    fi
+}
+zle -N zle-keymap-select
+
+# ci", ci', ci`, di", etc
+autoload -U select-quoted
+zle -N select-quoted
+for m in visual viopp; do
+    for c in {a,i}{\',\",\`}; do
+        bindkey -M $m $c select-quoted
+    done
+done
+
+setopt auto_pushd
 
 setopt prompt_subst
 PROMPT=' %F{green}%~%f%F{yellow}$vcs_info_msg_0_ '

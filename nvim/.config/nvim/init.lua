@@ -94,6 +94,10 @@ vim.keymap.set("t", "wq", "<C-\\><C-n>", { silent = true })
 vim.keymap.set("n", "<leader>s", ":setlocal spell!<CR>", { silent = true })
 vim.keymap.set("x", "<leader>p", "\"_dP", { silent = true })
 
+-- move within wrapped lines if there are any
+vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+
 ----------------------------------------
 -- autocommands
 ----------------------------------------

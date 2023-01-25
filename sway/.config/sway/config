@@ -5,7 +5,7 @@
 set $mod Mod4
 set $term alacritty
 set $menu run
-set $monitor "HDMI-A-1"
+set $monitor "DP-1"
 set $laptop "eDP-1"
 
 ########################################
@@ -18,7 +18,7 @@ output $monitor {
     resolution 2560x1440@59.951Hz position 1920 0
 }
 
-output eDP-1 {
+output $laptop {
     resolution 1920x1080@60.010Hz position 0 0
 }
 

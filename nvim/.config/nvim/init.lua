@@ -98,6 +98,10 @@ vim.keymap.set("x", "<leader>p", "\"_dP", { silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
+vim.keymap.set("n", "<leader>t", function()
+    vim.o.tabstop = vim.o.tabstop == 2 and 4 or 2
+end, { silent = true })
+
 ----------------------------------------
 -- autocommands
 ----------------------------------------

@@ -7,7 +7,7 @@
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.nix-profile/bin"
 export EDITOR="nvim"
-export VISUAL="nvim"
+export VISUAL="alacritty -e 'nvim'"
 export READER="zathura"
 export IMAGE="nsxiv"
 export TERMINAL="alacritty"

@@ -131,7 +131,7 @@ workspace 5 output $monitor $laptop
 workspace 6 output $monitor $laptop
 workspace 7 output $monitor $laptop
 workspace 8 output $monitor $laptop
-workspace 9 output $laptop
+workspace 9 output HDMI-A-1
 
 focus_follows_mouse no
 default_orientation auto

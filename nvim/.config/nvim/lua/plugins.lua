@@ -98,8 +98,8 @@ return {
             -- setup specific LSPs
             local servers = {
                 "pyright", "rust_analyzer", "gopls", "clangd",
-                "tsserver", "jdtls", "bashls", "sumneko_lua",
-                "texlab",
+                "tsserver", "jdtls", "bashls", "lua_ls",
+                "texlab", "elixirls",
             }
 
             local runtime_path = vim.split(package.path, ";")
@@ -208,7 +208,6 @@ return {
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
             "L3MON4D3/LuaSnip",
             "saadparwaiz1/cmp_luasnip",
         },
@@ -218,8 +217,8 @@ return {
             local ls = require("luasnip")
             cmp.setup({
                 mapping = cmp.mapping.preset.insert({
-                    ["<c-d>"] = cmp.mapping.scroll_docs(-4),
-                    ["<c-u>"] = cmp.mapping.scroll_docs(4),
+                    ["<c-u>"] = cmp.mapping.scroll_docs(-4),
+                    ["<c-d>"] = cmp.mapping.scroll_docs(4),
                     ["<c-y>"] = cmp.mapping.complete({}),
                     ["<c-space>"] = cmp.mapping.confirm({
                         behavior = cmp.ConfirmBehavior.Insert,
@@ -228,7 +227,7 @@ return {
                 }),
                 sources = {
                     { name = "nvim_lsp" },  { name = "luasnip" },
-                    { name = "path" }, { name = "buffer" }, { name = "zk" },
+                    { name = "buffer" }, { name = "zk" },
                     { max_item_count = 10 }, { keyword_length = 2 },
                 },
                 snippet = {
@@ -307,6 +306,11 @@ return {
                 plug_into_calendar = false,
             })
         end,
+    },
+
+    {
+        "github/copilot.vim",
+        cmd = "Copilot"
     },
 
 }

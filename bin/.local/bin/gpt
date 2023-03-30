@@ -1,0 +1,73 @@
+#!/usr/bin/env python
+
+import openai
+import os
+import argparse
+import sys
+
+RED   = "\033[31m"
+GREEN = "\033[32m"
+YELLOW = "\033[33m"
+RESET = "\033[0;0m"
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-i', action='store_true')
+
+args = parser.parse_args()
+
+openai.api_key = os.environ["OPENAI_API_KEY"]
+
+messages = [{
+        "role": "system",
+        "content": "you are a kind helpful assistant"
+    }]
+
+def gpt(prompt):
+    messages.append({
+        "role": "user",
+        "content": prompt
+    })
+
+    response = openai.ChatCompletion.create(
+        model = "gpt-3.5-turbo",
+        messages = messages
+    )
+
+    answer = response.choices[0].message.content
+    messages.append({
+        "role": "assistant",
+        "content": answer
+    })
+
+def print_chat():
+    for msg in messages[1:]:
+        match msg["role"]:
+            case "assistant":
+                sys.stdout.write(RED)
+            case "user":
+                sys.stdout.write(YELLOW)
+            case _:
+                sys.stdout.write(RESET)
+        print(f"\n{msg['role']}", end="")
+        sys.stdout.write(RESET)
+        print(f": {msg['content']}")
+
+def prompt():
+    try:
+        sys.stdout.write(GREEN)
+        print("\nprompt: ", end="")
+        sys.stdout.write(RESET)
+        return input()
+    except EOFError:
+        print()
+        exit(0)
+
+def chat():
+    gpt(prompt())
+    print_chat()
+
+if args.i:
+    while True:
+        chat()
+else:
+    chat()

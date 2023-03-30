@@ -4,3 +4,4 @@ watch_later
 *.png
 *.jpg
 .luarc.json
+.env

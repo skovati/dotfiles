@@ -5,14 +5,14 @@ connect() {
         status
         exit 1
     }
-    SERVER=$(doas find /etc/wireguard -name "us*-wireguard.conf" -execdir basename {} ';' | shuf -n 1 | cut -d '.' -f 1)
+    SERVER=$(doas find /etc/wireguard -name "*.conf" -execdir basename {} ';' | shuf -n 1 | cut -d '.' -f 1)
     printf "%s%s\n" "connecting to: " "$SERVER"
     doas wg-quick up "$SERVER" > /dev/null 2>&1 && printf "%s\n" "connection established"
     status
 }
 
 disconnect() {
-    CURRENT=$(doas wg | grep -P "us(.*)-wireguard" | cut -d ' ' -f 2)
+    CURRENT=$(doas wg | grep -P ".*wg.*" | cut -d ' ' -f 2 | head -n 1)
     printf "%s%s\n" "disconnecting from " "$CURRENT"
     doas wg-quick down "$CURRENT" > /dev/null 2>&1 || printf "%s\n" "error disconnecting"
     status

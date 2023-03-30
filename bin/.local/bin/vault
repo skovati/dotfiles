@@ -21,7 +21,7 @@ encrypt() {(
 
     cd "$vault_dir" || exit 1
 
-    tar cf vault.tar journal zk || {
+    tar cf vault.tar journal zk templates task || {
         printf "%s\n" "unable to tar vault..."
         exit 1
     }

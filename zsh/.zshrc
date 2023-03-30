@@ -14,6 +14,7 @@ export TERMINAL="alacritty"
 export TZ='America/Chicago'
 export MANPAGER='nvim +Man!'
 export MOZ_ENABLE_WAYLAND=1
+export GHCUP_USE_XDG_DIRS="y"
 
 export GOPATH="$HOME/dev/go"
 export JDTLS_HOME=/usr/share/java/jdtls
@@ -36,6 +37,8 @@ export XDG_CURRENT_DESKTOP="sway"
 export BAT_THEME="ansi"
 export GPG_TTY=$(tty)
 
+source $HOME/.env
+
 ########################################
 # ALIASES
 ########################################
@@ -54,6 +57,8 @@ alias xc="xclip -sel clipboard -i"
 alias xp="xclip -sel clipboard -o"
 alias em="emacsclient -c"
 alias k="kubectl"
+alias in="task add +in"
+alias todo="task -in"
 
 # fancy cli tools
 which exa > /dev/null 2>&1 && alias ls="exa -F" || {

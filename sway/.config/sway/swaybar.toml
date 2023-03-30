@@ -1,22 +1,22 @@
+[theme]
 theme = "native"
+
+[icons]
 icons = "awesome6"
 
 [[block]]
 block = "focused_window"
-max_width = 50
-show_marks = "visible"
+[block.format]
+full = " $title.str(max_w:25) |"
+short = " $title.str(max_w:15) |"
 
 [[block]]
 block = "memory"
-display_type = "memory"
-format_mem = "{mem_used}"
-interval = 5
+format = " $icon $mem_used.eng(w:3,u:B,p:M) "
 
 [[block]]
 block = "net"
-device = "wlp3s0"
-format = " {ssid} {signal_strength}"
-interval = 10
+format = " $icon { $signal_strength $ssid| wired} "
 
 [[block]]
 block = "sound"
@@ -24,11 +24,11 @@ block = "sound"
 [[block]]
 block = "battery"
 interval = 10
-full_format = " charged"
-format = " {percentage} {time} {power}"
+full_format = " $icon  charged "
+format = " $icon  $percentage "
 if_command = "test -e /sys/class/power_supply/BAT0"
 
 [[block]]
 block = "time"
 interval = 1
-format = "%a %h %d %r"
+format = " $timestamp.datetime(f:'%a %h %d %r') "

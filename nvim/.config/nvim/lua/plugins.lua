@@ -99,7 +99,7 @@ return {
             local servers = {
                 "pyright", "rust_analyzer", "gopls", "clangd",
                 "tsserver", "jdtls", "bashls", "lua_ls",
-                "texlab", "elixirls",
+                "texlab", "elixirls", "hls",
             }
 
             local runtime_path = vim.split(package.path, ";")
@@ -312,5 +312,24 @@ return {
         "github/copilot.vim",
         cmd = "Copilot"
     },
+
+    {
+        "folke/zen-mode.nvim",
+        config = function()
+            require("zen-mode").setup({
+                window = {
+                    width = 0.8,
+                    height = 0.9,
+                },
+                plugins = {
+                    gitsigns = {
+                        enabled = true
+                    }
+                }
+            })
+        end,
+        cmd = "ZenMode"
+    }
+
 
 }

@@ -2,18 +2,25 @@
 
 import openai
 import os
-import argparse
 import sys
+
+try:
+    from rich.console import Console
+    from rich.markdown import Markdown
+    RICH_ENABLED = True
+    console = Console()
+except ImportError:
+    RICH_ENABLED = False
+
 
 RED   = "\033[31m"
 GREEN = "\033[32m"
 YELLOW = "\033[33m"
+BLUE = "\033[34m"
+PURPLE = "\033[35m"
 RESET = "\033[0;0m"
 
-parser = argparse.ArgumentParser()
-parser.add_argument('-i', action='store_true')
-
-args = parser.parse_args()
+COST_PER_1K_TOKENS = 0.002
 
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
@@ -21,6 +28,8 @@ messages = [{
         "role": "system",
         "content": "you are a kind helpful assistant"
     }]
+answer = ""
+tokens = 0
 
 def gpt(prompt):
     messages.append({
@@ -33,41 +42,48 @@ def gpt(prompt):
         messages = messages
     )
 
+    global tokens
+    global answer
+
+    tokens += response.usage.total_tokens
     answer = response.choices[0].message.content
+
     messages.append({
         "role": "assistant",
         "content": answer
     })
 
 def print_chat():
-    for msg in messages[1:]:
-        match msg["role"]:
-            case "assistant":
-                sys.stdout.write(RED)
-            case "user":
-                sys.stdout.write(YELLOW)
-            case _:
-                sys.stdout.write(RESET)
-        print(f"\n{msg['role']}", end="")
-        sys.stdout.write(RESET)
-        print(f": {msg['content']}")
+    if RICH_ENABLED:
+        md = Markdown(answer)
+        print(f"{RED}assistant{RESET}:")
+        console.print(md)
+    else:
+        print(f"{RED}assistant{RESET}: {answer}")
+
+def print_stats():
+    cost = (COST_PER_1K_TOKENS * tokens) / 1000
+    print(f"\n{BLUE}tokens{RESET}: {tokens}, {PURPLE}cost{RESET}: ${cost:.4f}")
 
 def prompt():
     try:
         sys.stdout.write(GREEN)
-        print("\nprompt: ", end="")
+        print("\nuser: ", end="")
         sys.stdout.write(RESET)
         return input()
-    except EOFError:
+    except:
         print()
+        print_stats()
         exit(0)
 
-def chat():
-    gpt(prompt())
-    print_chat()
 
-if args.i:
-    while True:
-        chat()
+# one-shot mode
+if len(sys.argv) > 1:
+    gpt(" ".join(sys.argv[1:]))
+    print_chat()
+    print_stats()
 else:
-    chat()
+# interactive mode
+    while True:
+        gpt(prompt())
+        print_chat()

@@ -47,7 +47,8 @@ source $HOME/.env
 alias cp="cp -v"
 alias mv="mv -iv"
 alias rm="rm -vI"
-alias syu="doas pacman -Syu"
+alias sw="doas nixos-rebuild switch"
+alias su="doas nixos-rebuild switch --upgrade"
 alias vim="nvim"
 alias sudo="doas"
 alias one="ping -c 5 1.1.1.1"
@@ -61,6 +62,7 @@ alias em="emacsclient -c"
 alias k="kubectl"
 alias in="task add +in"
 alias todo="task -in"
+alias nrc="doas nvim /etc/nixos/configuration.nix"
 
 ########################################
 # CONFIG

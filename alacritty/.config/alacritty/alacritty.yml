@@ -12,10 +12,10 @@ window:
   title: alacritty
 font:
   normal:
-    family: JetBrainsMono Nerd Font
+    family: JetBrains Mono
     style: Regular
   bold:
-    family: JetBrainsMono Nerd Font
+    family: JetBrains Mono
     style: Bold
   size: 12
 cursor:

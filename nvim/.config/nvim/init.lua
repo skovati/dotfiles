@@ -1,3 +1,4 @@
+vim.loader.enable()
 -- set leader as space (for some reason this has to be done first)
 vim.keymap.set({ "n", "v" }, "<space>", "<nop>", { silent = true })
 vim.g.mapleader = " "
@@ -23,10 +24,6 @@ vim.opt.runtimepath:prepend(lazypath)
 require("lazy").setup(require("plugins"), {
     defaults = { lazy = true },
     install = { colorscheme = { "gruvbox-material", "slate" } },
-    -- dev = {
-    --     path = "~/dev/git",
-    --     patterns = { "skovati" }
-    -- },
     performance = {
         cache = {
             enabled = true,

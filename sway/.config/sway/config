@@ -50,6 +50,9 @@ input type:touch {
 
 bindsym $mod+Return exec $term
 
+bindsym Prior nop
+bindsym Next nop
+
 bindsym $mod+w exec librewolf
 
 bindsym $mod+q kill

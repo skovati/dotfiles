@@ -78,8 +78,15 @@ def prompt():
 
 
 # one-shot mode
-if len(sys.argv) > 1:
+if len(sys.argv) > 2:
     gpt(" ".join(sys.argv[1:]))
+    print_chat()
+    print_stats()
+elif len(sys.argv) == 2:
+    f = open(sys.argv[1], "r")
+    p = f.read()
+    f.close()
+    gpt(p)
     print_chat()
     print_stats()
 else:

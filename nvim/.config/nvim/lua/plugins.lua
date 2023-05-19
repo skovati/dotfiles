@@ -99,7 +99,7 @@ return {
             local servers = {
                 "pyright", "rust_analyzer", "gopls", "clangd",
                 "tsserver", "jdtls", "bashls", "lua_ls",
-                "texlab", "elixirls", "hls",
+                "texlab", "elixirls", "hls", "astro"
             }
 
             local runtime_path = vim.split(package.path, ";")
@@ -144,12 +144,14 @@ return {
         cmd = { "Telescope" },
         dependencies = {
             "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope-file-browser.nvim",
             { "nvim-telescope/telescope-fzf-native.nvim", build = "make" }
         },
         keys = {
             { "<leader>ff", "<cmd> Telescope find_files<cr>" },
             { "<leader>fi", "<cmd> Telescope current_buffer_fuzzy_find<cr>" },
             { "<leader>fg", "<cmd> Telescope git_files<cr>" },
+            { "<leader>fb", "<cmd> Telescope file_browser<cr>" },
             { "<leader><space>", "<cmd> Telescope buffers<cr>" },
             { "<leader>fa", "<cmd> Telescope live_grep<cr>" },
         },
@@ -166,12 +168,15 @@ return {
                     mappings = {
                         i = {
                             ["<esc>"] = require("telescope.actions").close,
+                        },
+                        n = {
                             ['<C-p>'] = require('telescope.actions.layout').toggle_preview,
                         },
                     },
                 },
             })
             telescope.load_extension("fzf")
+            telescope.load_extension("file_browser")
         end
     },
 
@@ -318,7 +323,7 @@ return {
         config = function()
             require("zen-mode").setup({
                 window = {
-                    width = 0.8,
+                    width = 0.9,
                     height = 0.9,
                 },
                 plugins = {

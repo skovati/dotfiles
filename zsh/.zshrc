@@ -15,7 +15,8 @@ export TZ='America/Chicago'
 export MANPAGER='nvim +Man!'
 export MOZ_ENABLE_WAYLAND=1
 export GHCUP_USE_XDG_DIRS="y"
-
+export PNPM_HOME="$HOME/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
 export GOPATH="$HOME/dev/go"
 export JDTLS_HOME=/usr/share/java/jdtls
 export PATH="$PATH:$GOPATH/bin"
@@ -37,6 +38,7 @@ export XDG_CURRENT_DESKTOP="sway"
 export BAT_THEME="ansi"
 export GPG_TTY=$(tty)
 
+# source secrets
 source $HOME/.env
 
 ########################################
@@ -59,13 +61,6 @@ alias em="emacsclient -c"
 alias k="kubectl"
 alias in="task add +in"
 alias todo="task -in"
-
-# fancy cli tools
-which exa > /dev/null 2>&1 && alias ls="exa -F" || {
-    alias ls="ls --color -F"
-    export LS_COLORS='rs=0:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=30;41:sg=30;43:tw=30;42:ow=30;42:st=30;44:ex=01;32:'
-}
-which zoxide > /dev/null 2>&1 && eval "$(zoxide init --cmd cd zsh)"
 
 ########################################
 # CONFIG
@@ -127,6 +122,20 @@ PROMPT=' %F{green}%~%f%F{yellow}$vcs_info_msg_0_ '
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#707070'
 typeset -A ZSH_HIGHLIGHT_STYLES
 export ZSH_HIGHLIGHT_STYLES[comment]='fg=#707070'
+
+########################################
+# CLI TOOLS
+########################################
+if which zoxide > /dev/null 2>&1; then
+    eval "$(zoxide init --cmd cd zsh)"
+fi
+
+if which exa > /dev/null 2>&1; then
+    alias ls="exa -F"
+else
+    alias ls="ls --color -F"
+    export LS_COLORS='rs=0:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=30;41:sg=30;43:tw=30;42:ow=30;42:st=30;44:ex=01;32:'
+fi
 
 ########################################
 # PLUGINS

@@ -1,6 +1,6 @@
 # dotfiles
 
-## personal dotfiles for arch, sway, nvim, zsh, etc.
+## personal dotfiles for nixos, sway, nvim, zsh, etc.
 
 ### screenshot
 ![scrot](https://user-images.githubusercontent.com/49844593/179421461-bac76855-e48e-48cc-bc0f-ca1ec35c770b.png)
@@ -8,7 +8,7 @@
 ### software
 | program           | name                                                          |
 | :---              | :---                                                          |
-| distro            | [arch](https://archlinux.org/)                                |
+| distro            | [nixos](https://nixos.org/)                                   |
 | wm                | [swaywm](https://github.com/swaywm/sway)                      |
 | launcher          | [bemenu](https://github.com/Cloudef/bemenu)                   |
 | browser           | [librewolf](https://librewolf.net/)                           |
@@ -22,7 +22,7 @@
 ### installation
 
 ```sh
-# install a minimal linux distro (arch, alpine, void)
+# install a minimal linux distro (nixos, arch, alpine, void)
 git clone https://github.com/skovati/dotfiles
 cd dotfiles
 stow -v 2 -t $HOME */

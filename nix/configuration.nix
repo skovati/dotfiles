@@ -18,6 +18,10 @@
     allowedUDPPorts = [];
   };
 
+  networking.extraHosts = ''
+  100.99.222.8 torrent.lab
+  '';
+
   time.timeZone = "America/Chicago";
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -26,50 +30,19 @@
     xkbVariant = "";
   };
 
+  nixpkgs.config.allowUnfree = true;
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
+
   users.users.skovati = {
     isNormalUser = true;
     description = "skovati";
     extraGroups = [ "networkmanager" "wheel" ];
-    shell = pkgs.zsh;
-    packages = with pkgs; [
-      ripgrep
-      fzf
-      fd
-      git
-      sway
-      neovim
-      zsh
-      stow
-      gnupg
-      alacritty
-      wayland
-      glib
-      swaylock
-      swayidle
-      grim
-      slurp
-      wl-clipboard
-      bemenu
-      wdisplays
-      i3status-rust
-      autotiling-rs
-      doas
-      pavucontrol
-      easyeffects
-      zsh-autocomplete
-      zsh-syntax-highlighting
-      gnome3.adwaita-icon-theme
-      gcc
-      clipman
-      pulseaudio
-      brightnessctl
-      mpv
-      pinentry
-      pinentry-gnome
-    ];
   };
-
-  nixpkgs.config.allowUnfree = true;
 
   fonts.fonts = with pkgs; [
     jetbrains-mono
@@ -81,7 +54,7 @@
     tailscale
     nfs-utils
     pinentry
-    pinentry-gnome
+    udisks
   ];
   services.tailscale.enable = true;
 
@@ -108,7 +81,7 @@
 
   programs.gnupg.agent = {
     enable = true;
-    pinentryFlavor = "gnome3";
+    pinentryFlavor = "tty";
   };
 
   security.doas = {

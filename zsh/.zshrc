@@ -47,8 +47,10 @@ source $HOME/.env
 alias cp="cp -v"
 alias mv="mv -iv"
 alias rm="rm -vI"
-alias sw="doas nixos-rebuild switch"
-alias su="doas nixos-rebuild switch --upgrade"
+alias nsw="doas nixos-rebuild switch"
+alias nswu="doas nixos-rebuild switch --upgrade"
+alias sw="home-manager switch"
+alias swu="home-manager switch --upgrade"
 alias vim="nvim"
 alias sudo="doas"
 alias one="ping -c 5 1.1.1.1"
@@ -63,6 +65,7 @@ alias k="kubectl"
 alias in="task add +in"
 alias todo="task -in"
 alias nrc="doas nvim /etc/nixos/configuration.nix"
+alias hrc="nvim ~/.config/home-manager/home.nix"
 
 ########################################
 # CONFIG

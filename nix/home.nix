@@ -8,17 +8,15 @@
     # dotfiles
     ########################################
 
-    home.file = {
-        # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-        # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-        # # symlink to the Nix store copy.
-        # ".screenrc".source = dotfiles/screenrc;
+    home.file."./.config/nvim" = {
+        source = config.lib.file.mkOutOfStoreSymlink "/home/skovati/dev/git/dotfiles/nvim";
+        recursive = true;
+    };
 
-        # # You can also set the file content immediately.
-        # ".gradle/gradle.properties".text = ''
-        #   org.gradle.console=verbose
-        #   org.gradle.daemon.idletimeout=3600000
-        # '';
+    xdg.enable = true;
+    xdg.configFile = {
+        "alacritty".source = "/home/skovati/dev/git/dotfiles/alacritty";
+        #"nvim".source = "/home/skovati/dev/git/dotfiles/nvim";
     };
 
     ########################################
@@ -60,6 +58,16 @@
         calibre
         zoxide
         exa
+        sumneko-lua-language-server
+        temurin-bin
+        jdt-language-server
+        clang-tools
+        gnumake
+        rust-analyzer
+        rustc
+        gopls
+        nodejs
+        nodePackages.bash-language-server
     ];
 
     programs.zsh = {

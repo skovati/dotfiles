@@ -47,10 +47,7 @@ source $HOME/.env
 alias cp="cp -v"
 alias mv="mv -iv"
 alias rm="rm -vI"
-alias nsw="doas nixos-rebuild switch"
-alias nswu="doas nixos-rebuild switch --upgrade"
-alias sw="home-manager switch"
-alias swu="home-manager switch --upgrade"
+alias ip="ip --color=auto"
 alias vim="nvim"
 alias sudo="doas"
 alias one="ping -c 5 1.1.1.1"
@@ -60,27 +57,30 @@ alias rcp="rsync -avzhP --stats"
 alias z="zathura --fork"
 alias xc="xclip -sel clipboard -i"
 alias xp="xclip -sel clipboard -o"
-alias em="emacsclient -c"
 alias k="kubectl"
 alias in="task add +in"
 alias todo="task -in"
+alias nsw="doas nixos-rebuild switch"
+alias nswu="doas nixos-rebuild switch --upgrade"
+alias sw="home-manager switch"
+alias swu="nix-channel --update && home-manager switch"
 alias nrc="doas nvim /etc/nixos/configuration.nix"
 alias hrc="nvim ~/.config/home-manager/home.nix"
 
 ########################################
 # CONFIG
 ########################################
-HISTFILE="$XDG_DATA_HOME/zsh/.zsh_history"
+HISTFILE="$XDG_DATA_HOME/zsh/history"
+mkdir -p "$(dirname "$HISTFILE")"
 HISTSIZE=1000000
 SAVEHIST=$HISTSIZE
 setopt hist_ignore_space
 setopt hist_ignore_all_dups
 setopt interactivecomments
-unsetopt beep   # why
-bindkey -v  # set vim mode
+unsetopt beep
+bindkey -v # vim mode
 
-autoload -Uz compinit promptinit edit-command-line vcs_info
-compinit
+autoload -Uz promptinit edit-command-line vcs_info
 promptinit
 
 # git branch in prompt
@@ -88,7 +88,7 @@ precmd() { vcs_info }
 zstyle ':vcs_info:git:*' formats '(%b)'
 
 zle -N edit-command-line
-bindkey '\ev' edit-command-line     # open command in vim with alt-v
+bindkey '\ev' edit-command-line # open command in vim with alt-v
 
 zstyle ":completion:*" menu select
 zmodload zsh/complist
@@ -141,15 +141,3 @@ else
     alias ls="ls --color -F"
     export LS_COLORS='rs=0:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=30;41:sg=30;43:tw=30;42:ow=30;42:st=30;44:ex=01;32:'
 fi
-
-########################################
-# PLUGINS
-########################################
-[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ] \
-    && source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] \
-    && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-[ -f /usr/share/fzf/key-bindings.zsh ] \
-    && source /usr/share/fzf/key-bindings.zsh
-[ -f /usr/share/fzf/completion.zsh ] \
-    && source /usr/share/fzf/completion.zsh

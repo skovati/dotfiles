@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [ /etc/nixos/hardware-configuration.nix ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true; boot.loader.efi.efiSysMountPoint = "/boot/efi";
@@ -42,6 +42,7 @@
     isNormalUser = true;
     description = "skovati";
     extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.zsh;
   };
 
   fonts.fonts = with pkgs; [

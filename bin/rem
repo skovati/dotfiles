@@ -1,3 +1,0 @@
-#!/bin/sh
-pacman -Qeq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro doas pacman -Rns
-# xbps-query -m | fzf --multi --preview 'xbps-query -R {2}' | xargs -ro doas xbps-remove -Rov

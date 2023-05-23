@@ -30,17 +30,17 @@
 
     # symlink nvim config cause nix store read-only causes issues
     home.file.".config/nvim" = {
-        source = config.lib.file.mkOutOfStoreSymlink "../nvim";
+        source = config.lib.file.mkOutOfStoreSymlink ./nvim;
         recursive = true;
     };
 
     home.file.".local/bin" = {
-        source = "../bin";
+        source = ./bin;
         recursive = true;
     };
 
-    home.file.".gnupg/gpg.conf".source = "../gpg/gpg.conf";
-    home.file.".tmux.conf".source = "../tmux/tmux.conf";
+    home.file.".gnupg/gpg.conf".source = ./gpg/gpg.conf;
+    home.file.".tmux.conf".source = ./tmux/tmux.conf;
 
     xdg.enable = true;
 
@@ -56,11 +56,11 @@
     };
 
     xdg.configFile = {
-        "alacritty".source = "../alacritty";
-        "mpv".source = "../mpv";
-        "sway".source = "/..sway";
-        "zathura".source = "/..zathura";
-        "task".source = "../task";
+        "alacritty".source = ./alacritty;
+        "mpv".source = ./mpv;
+        "sway".source = /.sway;
+        "zathura".source = /.zathura;
+        "task".source = ./task;
     };
 
     xdg.mimeApps = {

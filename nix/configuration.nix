@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ inputs, lib, config, pkgs, ... }:
 
 {
-    imports = [ /etc/nixos/hardware-configuration.nix ];
+    imports = [ ./hardware-configuration.nix ];
 
     boot.loader.systemd-boot.enable = true;
     boot.loader.systemd-boot.configurationLimit = 10;
@@ -32,6 +32,7 @@
 
     nixpkgs.config.allowUnfree = true;
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    nix.package = pkgs.nixFlakes;
 
     users.users.skovati = {
         isNormalUser = true;

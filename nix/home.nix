@@ -1,7 +1,9 @@
-{ config, pkgs, ... }:
-let
-    dotfiles = "/home/skovati/dev/git/dotfiles";
-in {
+{ inputs, lib, config, pkgs, ... }: {
+
+    imports = [];
+
+    nixpkgs.config.allowUnfree = true;
+
     home.username = "skovati";
     home.homeDirectory = "/home/skovati";
 
@@ -28,25 +30,37 @@ in {
 
     # symlink nvim config cause nix store read-only causes issues
     home.file.".config/nvim" = {
-        source = config.lib.file.mkOutOfStoreSymlink dotfiles + "/nvim";
+        source = config.lib.file.mkOutOfStoreSymlink "../nvim";
         recursive = true;
     };
 
     home.file.".local/bin" = {
-        source = dotfiles + "/bin";
+        source = "../bin";
         recursive = true;
     };
 
-    home.file.".gnupg/gpg.conf".source = dotfiles + "/gpg/gpg.conf";
-    home.file.".tmux.conf".source = dotfiles + "/tmux/tmux.conf";
+    home.file.".gnupg/gpg.conf".source = "../gpg/gpg.conf";
+    home.file.".tmux.conf".source = "../tmux/tmux.conf";
 
     xdg.enable = true;
+
+    xdg.userDirs = {
+        desktop = "${config.home.homeDirectory}";
+        download = "${config.home.homeDirectory}/downs";
+        documents = "${config.home.homeDirectory}/docs";
+        music = "${config.xdg.userDirs.documents}/music";
+        videos = "${config.xdg.userDirs.documents}/vids";
+        pictures = "${config.xdg.userDirs.documents}/pics";
+        publicShare = "${config.xdg.userDirs.documents}";
+        templates = "${config.xdg.userDirs.documents}";
+    };
+
     xdg.configFile = {
-        "alacritty".source = dotfiles + "/alacritty";
-        "mpv".source = dotfiles + "/mpv";
-        "sway".source = dotfiles + "/sway";
-        "zathura".source = dotfiles + "/zathura";
-        "task".source = dotfiles + "/task";
+        "alacritty".source = "../alacritty";
+        "mpv".source = "../mpv";
+        "sway".source = "/..sway";
+        "zathura".source = "/..zathura";
+        "task".source = "../task";
     };
 
     xdg.mimeApps = {
@@ -91,7 +105,6 @@ in {
 
     home.packages = with pkgs; [
         ripgrep
-        fzf
         fd
         git
         sway
@@ -124,8 +137,6 @@ in {
         kubectl
         htop
         calibre
-        zoxide
-        exa
         sumneko-lua-language-server
         temurin-bin
         jdt-language-server
@@ -148,10 +159,15 @@ in {
         enable = true;
         enableAutosuggestions = true;
         enableSyntaxHighlighting = true;
-        initExtra = builtins.readFile (dotfiles + "/zsh/zshrc");
+        initExtra = builtins.readFile "../zsh/zshrc";
     };
 
     programs.fzf.enable = true;
+    programs.zoxide.enable = true;
+    programs.exa = {
+        enable = true;
+        enableAliases = true;
+    };
 
     programs.git = {
         enable = true;
@@ -166,7 +182,7 @@ in {
             };
         };
         signing = {
-            key = "5026E406B7B3818F";
+            key = "skovati@protonmail.com";
             signByDefault = true;
         };
         aliases = {

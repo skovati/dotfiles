@@ -334,7 +334,6 @@ return {
             })
         end,
         cmd = "ZenMode"
-    }
-
+    },
 
 }

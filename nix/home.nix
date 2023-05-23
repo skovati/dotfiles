@@ -148,7 +148,7 @@ in {
         enable = true;
         enableAutosuggestions = true;
         enableSyntaxHighlighting = true;
-        initExtra = builtins.readFile dotfiles + "/zsh/zshrc";
+        initExtra = builtins.readFile (dotfiles + "/zsh/zshrc");
     };
 
     programs.fzf.enable = true;
@@ -157,11 +157,25 @@ in {
         enable = true;
         userEmail = "skovati@protonmail.com";
         userName = "skovati";
-        signing.key = "5026E406B7B3818F";
-        signing.signByDefault = true;
+        delta = {
+            enable = true;
+            options = {
+                line-numbers = true;
+                side-by-side = true;
+                theme = "ansi";
+            };
+        };
+        signing = {
+            key = "5026E406B7B3818F";
+            signByDefault = true;
+        };
         aliases = {
             s = "status";
             c = "commit";
+        };
+        extraConfig = {
+            pull.rebase = true;
+            core.editor = "nvim";
         };
     };
 

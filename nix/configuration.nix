@@ -31,8 +31,13 @@
     };
 
     nixpkgs.config.allowUnfree = true;
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
-    nix.package = pkgs.nixFlakes;
+    nix = {
+        extraOptions = ''
+            auto-optimise-store = true
+            warn-dirty = false
+        '';
+        settings.experimental-features = [ "nix-command" "flakes" ];
+    };
 
     users.users.skovati = {
         isNormalUser = true;

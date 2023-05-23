@@ -161,8 +161,9 @@
         gh
         hut
         xdg-utils
-        python311Full
-        python311Packages.openai
+        taskwarrior
+        imagemagick
+        (python3.withPackages (p: with p; [ openai ]))
     ];
 
     programs.zsh = {

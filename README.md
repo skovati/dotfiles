@@ -22,8 +22,8 @@
 ### installation
 
 ```sh
-# install a minimal linux distro (nixos, arch, alpine, void)
 git clone https://github.com/skovati/dotfiles
-cd dotfiles
-stow -v 2 -t $HOME */
+mkdir -p .config/home-manager
+ln -s dotfiles/nix/home.nix .config/home-manager/
+sudo ln -s dotfiles/nix/configuration.nix /etc/nixos/
 ```

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+home-manager switch --flake $HOME/dev/git/dotfiles/nix#skovati

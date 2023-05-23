@@ -54,12 +54,6 @@ alias xp="xclip -sel clipboard -o"
 alias k="kubectl"
 alias in="task add +in"
 alias todo="task -in"
-alias nsw="doas nixos-rebuild switch"
-alias nswu="doas nixos-rebuild switch --upgrade"
-alias sw="home-manager switch"
-alias swu="nix-channel --update && home-manager switch"
-alias nrc="doas nvim /etc/nixos/configuration.nix"
-alias hrc="nvim ~/.config/home-manager/home.nix"
 
 if !which exa > /dev/null 2>&1; then
     alias ls="ls --color -F"

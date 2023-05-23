@@ -12,7 +12,7 @@
         nixosConfigurations = {
             think = nixpkgs.lib.nixosSystem {
                 specialArgs = { inherit inputs; };
-                modules = [ ./nix/configuration.nix ];
+                modules = [ ./configuration.nix ];
             };
         };
 
@@ -20,7 +20,7 @@
             skovati = home-manager.lib.homeManagerConfiguration {
                 pkgs = nixpkgs.legacyPackages.x86_64-linux;
                 extraSpecialArgs = { inherit inputs; };
-                modules = [ ./nix/home.nix ];
+                modules = [ ./home.nix ];
             };
         };
     };

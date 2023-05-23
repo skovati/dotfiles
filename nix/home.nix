@@ -22,25 +22,35 @@
 
     home.file.".icons/default".source = "${pkgs.gnome.adwaita-icon-theme}/share/icons/Adwaita"; 
 
-    gtk.cursorTheme = {
-        package = pkgs.gnome.adwaita-icon-theme;
-        name = "Adwaita";
-        size = 22;
+    gtk = {
+        cursorTheme = {
+            package = pkgs.gnome.adwaita-icon-theme;
+            name = "Adwaita";
+            size = 22;
+        };
+        theme = {
+            name = "Adwaita-dark";
+            package = pkgs.gnome.adwaita-icon-theme;
+        };
+        iconTheme = {
+            name = "Adwaita-dark";
+            package = pkgs.gnome.adwaita-icon-theme;
+        };
     };
 
     # symlink nvim config cause nix store read-only causes issues
     home.file.".config/nvim" = {
-        source = config.lib.file.mkOutOfStoreSymlink ./nvim;
+        source = config.lib.file.mkOutOfStoreSymlink ../nvim;
         recursive = true;
     };
 
     home.file.".local/bin" = {
-        source = ./bin;
+        source = ../bin;
         recursive = true;
     };
 
-    home.file.".gnupg/gpg.conf".source = ./gpg/gpg.conf;
-    home.file.".tmux.conf".source = ./tmux/tmux.conf;
+    home.file.".gnupg/gpg.conf".source = ../gpg/gpg.conf;
+    home.file.".tmux.conf".source = ../tmux/tmux.conf;
 
     xdg.enable = true;
 
@@ -56,11 +66,11 @@
     };
 
     xdg.configFile = {
-        "alacritty".source = ./alacritty;
-        "mpv".source = ./mpv;
-        "sway".source = /.sway;
-        "zathura".source = /.zathura;
-        "task".source = ./task;
+        "alacritty".source = ../alacritty;
+        "mpv".source = ../mpv;
+        "sway".source = ../sway;
+        "zathura".source = ../zathura;
+        "task".source = ../task;
     };
 
     xdg.mimeApps = {
@@ -159,7 +169,7 @@
         enable = true;
         enableAutosuggestions = true;
         enableSyntaxHighlighting = true;
-        initExtra = builtins.readFile "../zsh/zshrc";
+        initExtra = builtins.readFile ../zsh/zshrc;
     };
 
     programs.fzf.enable = true;

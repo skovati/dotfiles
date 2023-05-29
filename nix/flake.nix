@@ -9,21 +9,33 @@
         };
     };
 
-    outputs = { nixpkgs, home-manager, ... }@inputs:
+    outputs = { nixpkgs, home-manager, ... } @inputs:
+    let
+        system = "x86_64-linux";
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    in
     {
         nixosConfigurations = {
             think = nixpkgs.lib.nixosSystem {
-                specialArgs = { inherit inputs; };
                 modules = [ ./configuration.nix ];
+                specialArgs = { inherit inputs; };
             };
         };
 
         homeConfigurations = {
             skovati = home-manager.lib.homeManagerConfiguration {
-                pkgs = nixpkgs.legacyPackages.x86_64-linux;
-                extraSpecialArgs = { inherit inputs; };
                 modules = [ ./home.nix ];
+                inherit pkgs;
+                extraSpecialArgs = { inherit inputs; };
             };
+        };
+
+        devShells.${system}.default = pkgs.mkShell {
+            buildInputs = with pkgs; [
+                nix
+                home-manager
+                git
+            ];
         };
     };
 }

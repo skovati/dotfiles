@@ -1,11 +1,23 @@
-{ inputs, lib, config, pkgs, ... }: {
+{ inputs, lib, config, pkgs, ... }: 
+let
+    # hacky flatpak aliases
+    librewolf = pkgs.writeShellScriptBin "librewolf" ''
+    io.gitlab.librewolf-community "$@"
+    '';
+
+    signal = pkgs.writeShellScriptBin "signal" ''
+    org.signal.Signal "$@"
+    '';
+in {
 
     imports = [];
 
     nixpkgs.config.allowUnfree = true;
 
-    home.username = "skovati";
-    home.homeDirectory = "/home/skovati";
+    home = {
+        username = "skovati";
+        homeDirectory = "/home/${config.home.username}";
+    };
 
     ########################################
     # dotfiles
@@ -20,7 +32,9 @@
         x11.defaultCursor = "Adwaita";
     };
 
-    home.file.".icons/default".source = "${pkgs.gnome.adwaita-icon-theme}/share/icons/Adwaita"; 
+    home.file.".icons/default".source = "${pkgs.gnome.adwaita-icon-theme}/share/icons/Adwaita";
+
+    fonts.fontconfig.enable = true;
 
     gtk = {
         cursorTheme = {
@@ -40,7 +54,7 @@
 
     # symlink nvim config cause nix store read-only causes issues
     home.file.".config/nvim" = {
-        source = config.lib.file.mkOutOfStoreSymlink ../nvim;
+        source = config.lib.file.mkOutOfStoreSymlink "/home/skovati/dev/git/dotfiles/nvim/";
         recursive = true;
     };
 
@@ -55,6 +69,8 @@
     xdg.enable = true;
 
     xdg.userDirs = {
+        enable = true;
+        createDirectories = true;
         desktop = "${config.home.homeDirectory}";
         download = "${config.home.homeDirectory}/downs";
         documents = "${config.home.homeDirectory}/docs";
@@ -118,7 +134,6 @@
         fd
         git
         sway
-        neovim
         zsh
         stow
         gnupg
@@ -161,10 +176,22 @@
         gh
         hut
         xdg-utils
+        xdg-user-dirs
         taskwarrior
         imagemagick
+        jq
+        yt-dlp
+        librewolf
+        signal
         (python3.withPackages (p: with p; [ openai ]))
     ];
+
+    programs.neovim = {
+        enable = true;
+        defaultEditor = true;
+        viAlias = true;
+        vimAlias = true;
+    };
 
     programs.zsh = {
         enable = true;

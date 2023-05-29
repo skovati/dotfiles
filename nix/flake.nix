@@ -9,10 +9,13 @@
         };
     };
 
-    outputs = { nixpkgs, home-manager, ... } @inputs:
+    outputs = { self, nixpkgs, home-manager, ... } @inputs:
     let
         system = "x86_64-linux";
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+        };
     in
     {
         nixosConfigurations = {
@@ -24,18 +27,10 @@
 
         homeConfigurations = {
             skovati = home-manager.lib.homeManagerConfiguration {
-                modules = [ ./home.nix ];
                 inherit pkgs;
+                modules = [ ./home.nix ];
                 extraSpecialArgs = { inherit inputs; };
             };
-        };
-
-        devShells.${system}.default = pkgs.mkShell {
-            buildInputs = with pkgs; [
-                nix
-                home-manager
-                git
-            ];
         };
     };
 }

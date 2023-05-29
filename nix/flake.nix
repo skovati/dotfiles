@@ -32,5 +32,14 @@
                 extraSpecialArgs = { inherit inputs; };
             };
         };
+
+        devShells.${system}.default = pkgs.mkShell {
+            buildInputs = [
+                pkgs.nix
+                pkgs.home-manager
+                pkgs.git
+                pkgs.cowsay
+            ];
+        };
     };
 }

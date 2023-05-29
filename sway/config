@@ -183,5 +183,8 @@ bar {
 # exec
 ########################################
 
-exec wauto
+exec wl-paste -t text --watch clipman store --no-persist &
+exec doas sh -c "echo 0 > /sys/devices/platform/thinkpad_acpi/leds/platform::micmute/brightness"
+exec autotiling-rs &
+
 include /etc/sway/config.d/*

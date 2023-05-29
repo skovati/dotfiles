@@ -8,6 +8,10 @@ let
     signal = pkgs.writeShellScriptBin "signal" ''
     org.signal.Signal "$@"
     '';
+
+    jdtls = pkgs.writeShellScriptBin "jdtls" ''
+    jdt-language-server "$@"
+    '';
 in {
 
     imports = [];
@@ -245,6 +249,32 @@ in {
     services.gpg-agent = {
         enable = true;
         defaultCacheTtl = 1800;
+    };
+
+    services.swayidle = {
+        enable = true;
+        events = [
+            { event = "lock"; command = "lock"; }
+            { event = "before-sleep"; command = "lock"; }
+        ];
+        timeouts = [
+            { timeout = 300; command = "lock"; }
+            {
+                timeout = 900;
+                command = ''swaymsg "output * power off"'';
+                resumeCommand = ''swaymsg "output * power on"'';
+            }
+        ];
+    };
+
+    services.gammastep = {
+        enable = true;
+        latitude = 45.0;
+        longitude = -90.0;
+    };
+
+    services.easyeffects = {
+        enable = true;
     };
 
     home.sessionVariables = {};

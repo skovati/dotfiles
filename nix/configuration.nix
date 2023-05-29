@@ -86,6 +86,8 @@
         pinentryFlavor = "tty";
     };
 
+    programs.dconf.enable = true;
+
     ########################################
     # services
     ########################################

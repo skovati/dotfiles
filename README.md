@@ -17,13 +17,25 @@
 | shell             | [zsh](https://www.zsh.org/)                                   |
 | term              | [alacritty](https://github.com/alacritty/alacritty)           |
 | doc viewer        | [zathura](https://pwmt.org/projects/zathura/)                 |
-| colorscheme       | [cybrpnk](https://github.com/skovati/cybrpnk.nvim)            |
 
 ### installation
 
+#### bootstrap
 ```sh
-git clone https://github.com/skovati/dotfiles
-mkdir -p .config/home-manager
-ln -s dotfiles/nix/home.nix .config/home-manager/
-sudo ln -s dotfiles/nix/configuration.nix /etc/nixos/
+mkdir -p ~/.config/nix ~/dev/git
+echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+nix develop "github:skovati/dotfiles?dir=nix"
+home-manager switch --flake "github:skovati/dotfiles?dir=nix#skovati"
+```
+
+#### load new hardware-configuration.nix
+```sh
+git clone https://github.com/skovati/dotfiles ~/dev/git/dotfiles
+cp /etc/nixos/hardware-configuration.nix ~/dev/git/dotfiles/nix
+doas nixos-rebuild switch --flake ~/dev/git/dotfiles/nix#think
+```
+
+### usage
+```sh
+update && sw && nsw
 ```

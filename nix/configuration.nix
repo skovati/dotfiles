@@ -61,7 +61,7 @@
 
     users.users.skovati = {
         isNormalUser = true;
-        extraGroups = [ "networkmanager" "wheel" ];
+        extraGroups = [ "networkmanager" "wheel" "libvirtd"];
         initialPassword = "password";
         shell = pkgs.zsh;
     };
@@ -73,6 +73,7 @@
         git
         nfs-utils
         pinentry
+        virt-manager
     ];
     programs.zsh.enable = true;
 
@@ -87,6 +88,7 @@
     };
 
     programs.dconf.enable = true;
+    virtualisation.libvirtd.enable = true;
 
     ########################################
     # services

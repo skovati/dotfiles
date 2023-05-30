@@ -33,7 +33,7 @@ export BAT_THEME="ansi"
 export GPG_TTY=$(tty)
 
 # source secrets
-source $HOME/.env
+[ -f $HOME/.env ] && source $HOME/.env
 
 ########################################
 # ALIASES

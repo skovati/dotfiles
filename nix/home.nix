@@ -21,6 +21,14 @@ in {
     home = {
         username = "skovati";
         homeDirectory = "/home/${config.home.username}";
+        activation = {
+            dot-clone = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+            if [ ! -d ~/dev/git/dotfiles ]; then
+                mkdir -p ~/dev/git
+                git clone https://github.com/skovati/dotfiles ~/dev/git
+            fi
+            '';
+        };
     };
 
     ########################################

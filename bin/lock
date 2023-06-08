@@ -1,3 +1,0 @@
-#!/bin/sh
-
-swaylock --daemonize --no-unlock-indicator --color "#0d686b"

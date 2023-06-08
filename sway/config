@@ -186,5 +186,9 @@ bar {
 exec wl-paste -t text --watch clipman store --no-persist &
 exec doas sh -c "echo 0 > /sys/devices/platform/thinkpad_acpi/leds/platform::micmute/brightness"
 exec autotiling-rs &
+exec swayidle -w \
+    timeout 300 'lock' \
+    timeout 900 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+    before-sleep 'lock' &
 
 include /etc/sway/config.d/*

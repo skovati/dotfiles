@@ -1,7 +1,6 @@
 { inputs, lib, config, pkgs, ... }:
 
-{
-    imports = [ ./hardware-configuration.nix ];
+{ imports = [ ./hardware-configuration.nix ];
 
     ########################################
     # nix meta config
@@ -9,11 +8,16 @@
 
     nixpkgs.config.allowUnfree = true;
     nix = {
-        extraOptions = ''
-            auto-optimise-store = true
-            warn-dirty = false
-        '';
-        settings.experimental-features = [ "nix-command" "flakes" ];
+        settings = {
+            auto-optimise-store = true;
+            warn-dirty = false;
+            experimental-features = [ "nix-command" "flakes" ];
+        };
+        gc = {
+            automatic = true;
+            dates = "weekly";
+            options = "--delete-older-than 7d";
+        };
     };
 
     ########################################
@@ -21,6 +25,7 @@
     ########################################
 
     boot = {
+        kernelPackages = pkgs.linuxPackages_latest;
         loader = {
             systemd-boot.enable = true;
             systemd-boot.configurationLimit = 10;
@@ -88,7 +93,7 @@
     };
 
     programs.dconf.enable = true;
-    virtualisation.libvirtd.enable = true;
+    # virtualisation.libvirtd.enable = true;
 
     ########################################
     # services
@@ -100,7 +105,6 @@
             pkgs.xdg-desktop-portal-gtk
             pkgs.xdg-desktop-portal-wlr
         ];
-        xdgOpenUsePortal = true;
     };
 
     services.tailscale.enable = true;

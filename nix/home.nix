@@ -12,6 +12,8 @@ let
     jdtls = pkgs.writeShellScriptBin "jdtls" ''
     jdt-language-server "$@"
     '';
+
+    browser = "io.gitlab.librewolf-community.desktop";
 in {
 
     imports = [];
@@ -101,12 +103,14 @@ in {
         "task".source = ../task;
     };
 
+    xdg.mime.enable = true;
+
     xdg.mimeApps = {
         enable = true;
         defaultApplications = {
-            "x-scheme-handler/http" = "io.gitlab.librewolf-community.desktop";
-            "x-scheme-handler/https" = "io.gitlab.librewolf-community.desktop";
-            "x-scheme-handler/chrome" = "io.gitlab.librewolf-community.desktop";
+            "x-scheme-handler/http" = browser;
+            "x-scheme-handler/https" = browser;
+            "x-scheme-handler/chrome" = browser;
             "video/mp4" = "mpv.desktop";
             "video/mkv" = "mpv.desktop";
             "image/jpeg" = "nsxiv.desktop";
@@ -114,26 +118,26 @@ in {
             "image/png" = "nsxiv.desktop";
             "application/epub" = "org.pwmt.zathura.desktop";
             "application/pdf" = "org.pwmt.zathura.desktop";
-            "application/x-extension-htm" = "io.gitlab.librewolf-community.desktop";
-            "application/x-extension-html" = "io.gitlab.librewolf-community.desktop";
-            "application/x-extension-shtml" = "io.gitlab.librewolf-community.desktop";
-            "application/xhtml+xml" = "io.gitlab.librewolf-community.desktop";
-            "application/x-extension-xhtml" = "io.gitlab.librewolf-community.desktop";
-            "application/x-extension-xht" = "io.gitlab.librewolf-community.desktop";
-            "x-scheme-handler/about" = "io.gitlab.librewolf-community.desktop";
-            "x-scheme-handler/unknown" = "io.gitlab.librewolf-community.desktop";
+            "application/x-extension-htm" = browser;
+            "application/x-extension-html" = browser;
+            "application/x-extension-shtml" = browser;
+            "application/xhtml+xml" = browser;
+            "application/x-extension-xhtml" = browser;
+            "application/x-extension-xht" = browser;
+            "x-scheme-handler/about" = browser;
+            "x-scheme-handler/unknown" = browser;
         };
         associations.added = {
-            "x-scheme-handler/http" = "io.gitlab.librewolf-community.desktop";
-            "x-scheme-handler/https" = "io.gitlab.librewolf-community.desktop";
-            "x-scheme-handler/chrome" = "io.gitlab.librewolf-community.desktop";
-            "text/html" = "io.gitlab.librewolf-community.desktop;";
-            "application/x-extension-htm" = "io.gitlab.librewolf-community.desktop;";
-            "application/x-extension-html" = "io.gitlab.librewolf-community.desktop;";
-            "application/x-extension-shtml" = "io.gitlab.librewolf-community.desktop;";
-            "application/xhtml+xml" = "io.gitlab.librewolf-community.desktop;";
-            "application/x-extension-xhtml" = "io.gitlab.librewolf-community.desktop;";
-            "application/x-extension-xht" = "io.gitlab.librewolf-community.desktop;";
+            "x-scheme-handler/http" = browser;
+            "x-scheme-handler/https" = browser;
+            "x-scheme-handler/chrome" = browser;
+            "text/html" = browser;
+            "application/x-extension-htm" = browser;
+            "application/x-extension-html" = browser;
+            "application/x-extension-shtml" = browser;
+            "application/xhtml+xml" = browser;
+            "application/x-extension-xhtml" = browser;
+            "application/x-extension-xht" = browser;
         };
     };
 
@@ -165,6 +169,7 @@ in {
         pavucontrol
         easyeffects
         gcc
+        zathura
         clipman
         file
         pulseaudio
@@ -173,7 +178,6 @@ in {
         nsxiv
         kubectl
         htop
-        calibre
         sumneko-lua-language-server
         temurin-bin
         jdt-language-server

@@ -248,7 +248,7 @@ in {
 
         gpg-agent = {
             enable = true;
-            defaultCacheTtl = 1800;
+            pinentryFlavor = "tty";
         };
 
         swayidle = {

@@ -66,7 +66,7 @@
 
     users.users.skovati = {
         isNormalUser = true;
-        extraGroups = [ "networkmanager" "wheel" "libvirtd"];
+        extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker"];
         initialPassword = "password";
         shell = pkgs.zsh;
     };
@@ -94,6 +94,7 @@
 
     programs.dconf.enable = true;
     # virtualisation.libvirtd.enable = true;
+    virtualisation.docker.enable = true;
 
     ########################################
     # services

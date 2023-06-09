@@ -1,4 +1,3 @@
-vim.loader.enable()
 -- set leader as space (for some reason this has to be done first)
 vim.keymap.set({ "n", "v" }, "<space>", "<nop>", { silent = true })
 vim.g.mapleader = " "

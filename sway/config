@@ -38,6 +38,7 @@ input type:touchpad {
     accel_profile flat
     scroll_factor 0.7
     tap_button_map lrm
+    dwt false
 }
 
 input type:touch {
@@ -59,7 +60,7 @@ bindsym $mod+q kill
 
 bindsym $mod+d exec $menu
 
-bindsym $mod+Shift+Control+l exec lock
+bindsym $mod+Shift+Control+l exec swaylock
 
 bindsym $mod+p exec shot
 
@@ -186,5 +187,7 @@ bar {
 exec wl-paste -t text --watch clipman store --no-persist &
 exec doas sh -c "echo 0 > /sys/devices/platform/thinkpad_acpi/leds/platform::micmute/brightness"
 exec autotiling-rs &
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway &
+exec systemctl --user start sway-session.target &
 
 include /etc/sway/config.d/*

@@ -164,6 +164,8 @@ in {
         gopls
         nodejs
         nodePackages.bash-language-server
+        nodePackages.typescript-language-server
+        nodePackages.pnpm
         seatd
         gh
         hut
@@ -175,6 +177,10 @@ in {
         yt-dlp
         librewolf
         signal
+        nmap
+        dwarfs
+        fuse-overlayfs
+        steam-run
         (python3.withPackages (p: with p; [ openai ]))
     ];
 
@@ -242,6 +248,10 @@ in {
 
         home-manager.enable = true;
 
+    };
+
+    wayland.windowManager.sway = {
+        enable = true;
     };
 
     services = {

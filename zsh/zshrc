@@ -54,6 +54,7 @@ alias xp="xclip -sel clipboard -o"
 alias k="kubectl"
 alias in="task add +in"
 alias todo="task -in"
+alias npm="pnpm"
 
 if !which exa > /dev/null 2>&1; then
     alias ls="ls --color -F"

@@ -40,13 +40,17 @@
 
     networking = {
         hostName = "think";
-        networkmanager.enable = true;
+        networkmanager = {
+            enable = true;
+            wifi.powersave = false;
+            logLevel = "DEBUG";
+        };
         firewall = {
             enable = true;
             allowedTCPPorts = [];
             allowedUDPPorts = [];
         };
-        extraHosts = ''100.99.222.8 torrent.lab'';
+        extraHosts = ''100.116.66.42 torrent.lab'';
     };
 
     time.timeZone = "America/Chicago";
@@ -66,7 +70,7 @@
 
     users.users.skovati = {
         isNormalUser = true;
-        extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker"];
+        extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" "adbusers"];
         initialPassword = "password";
         shell = pkgs.zsh;
     };
@@ -91,6 +95,8 @@
         enable = true;
         pinentryFlavor = "tty";
     };
+
+    programs.steam.enable = true;
 
     programs.dconf.enable = true;
     # virtualisation.libvirtd.enable = true;
@@ -138,6 +144,10 @@
             PLATFORM_PROFILE_ON_BAT = "balanced";
         };
     };
+
+    services.udev.packages = [
+      pkgs.android-udev-rules
+    ];
 
     services.rpcbind.enable = true;
     systemd.mounts = [{

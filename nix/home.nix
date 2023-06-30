@@ -13,6 +13,10 @@ let
     jdt-language-server "$@"
     '';
 
+    ec = pkgs.writeShellScriptBin "ec" ''
+    emacsclient -c "$@"
+    '';
+
     browser = "io.gitlab.librewolf-community.desktop";
 in {
 
@@ -135,6 +139,10 @@ in {
         wayland
         glib
         grim
+        emacs-all-the-icons-fonts
+        ec
+        emacs
+        ispell
         slurp
         wl-clipboard
         bemenu
@@ -196,7 +204,7 @@ in {
         zsh = {
             enable = true;
             enableAutosuggestions = true;
-            enableSyntaxHighlighting = true;
+            syntaxHighlighting.enable = true;
             initExtra = builtins.readFile ../zsh/zshrc;
         };
 
@@ -255,6 +263,10 @@ in {
     };
 
     services = {
+
+        emacs = {
+            enable = true;
+        };
 
         gpg-agent = {
             enable = true;

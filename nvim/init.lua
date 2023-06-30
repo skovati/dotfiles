@@ -49,7 +49,7 @@ require("lazy").setup(require("plugins"), {
 ----------------------------------------
 vim.o.relativenumber = true             -- number line shows relative
 vim.o.number = true                     -- and current line shows actual line nr
-vim.o.smartindent = true                -- indent according to lang
+-- vim.o.smartindent = true                -- indent according to lang
 vim.o.tabstop = 4                       -- 4 space tabs
 vim.o.shiftwidth = 0                    -- >> shifts by tabstop amount
 vim.o.softtabstop = -1                  -- backspace removes $tabstop spaces

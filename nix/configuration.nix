@@ -15,8 +15,8 @@
         };
         gc = {
             automatic = true;
-            dates = "weekly";
-            options = "--delete-older-than 7d";
+            dates = "daily";
+            options = "--delete-older-than 3d";
         };
     };
 
@@ -40,10 +40,12 @@
 
     networking = {
         hostName = "think";
-        networkmanager = {
+        wireless = {
             enable = true;
-            wifi.powersave = false;
-            logLevel = "DEBUG";
+            userControlled.enable = true;
+            interfaces = [ "wlp3s0" ];
+            environmentFile = "/home/skovati/.env.wireless";
+            networks."big net".psk = "@PSK_BIG@";
         };
         firewall = {
             enable = true;
@@ -83,6 +85,9 @@
         nfs-utils
         pinentry
         virt-manager
+        mullvad
+        mullvad-vpn
+        stdenv.cc.cc.lib
     ];
     programs.zsh.enable = true;
 
@@ -114,6 +119,7 @@
         ];
     };
 
+    services.mullvad-vpn.enable = true;
     services.tailscale.enable = true;
 
     services.pipewire = {

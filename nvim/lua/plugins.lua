@@ -190,6 +190,9 @@ return {
                 ensure_installed = "all",
                 ignore_install = { "phpdoc" },
                 sync_install = false,
+                indent = {
+                    enable = true;
+                },
                 highlight = {
                     enable = true,
                     additional_vim_regex_highlighting = false,
@@ -335,5 +338,30 @@ return {
         end,
         cmd = "ZenMode"
     },
+
+    {
+        "nvim-neorg/neorg",
+        build = ":Neorg sync-parsers",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        cmd = "Neorg",
+        ft = "norg",
+        config = function()
+            require("neorg").setup {
+                load = {
+                    ["core.defaults"] = {},
+                    ["core.concealer"] = {},
+                    ["core.dirman"] = {
+                        config = {
+                            workspaces = {
+                                vault = "~/dev/git/vault",
+                            },
+                            default_workspace = "vault",
+                        },
+                    },
+                },
+            }
+        end,
+    },
+
 
 }

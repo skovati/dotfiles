@@ -6,6 +6,7 @@
 # actually important
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.nix-profile/bin"
+export PATH="$PATH:$HOME/.config/emacs/bin"
 export EDITOR="nvim"
 export VISUAL="alacritty -e 'nvim'"
 export READER="zathura"

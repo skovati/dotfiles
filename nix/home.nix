@@ -1,10 +1,6 @@
 { inputs, lib, config, pkgs, ... }:
 let
     # hacky aliases
-    librewolf = pkgs.writeShellScriptBin "librewolf" ''
-    io.gitlab.librewolf-community "$@"
-    '';
-
     signal = pkgs.writeShellScriptBin "signal" ''
     org.signal.Signal "$@"
     '';
@@ -17,7 +13,7 @@ let
     emacsclient -c "$@"
     '';
 
-    browser = "io.gitlab.librewolf-community.desktop";
+    browser = "librewolf.desktop";
 in {
 
     imports = [];
@@ -106,6 +102,7 @@ in {
             "sway".source = ../sway;
             "zathura".source = ../zathura;
             "task".source = ../task;
+            "doom".source = ../doom;
         };
 
         mime.enable = true;
@@ -141,12 +138,12 @@ in {
         grim
         emacs-all-the-icons-fonts
         ec
-        emacs
         ispell
         slurp
         wl-clipboard
         bemenu
         wdisplays
+        sqlite
         i3status-rust
         autotiling-rs
         doas
@@ -199,6 +196,17 @@ in {
             defaultEditor = true;
             viAlias = true;
             vimAlias = true;
+            plugins = [
+                pkgs.vimPlugins.nvim-treesitter.withAllGrammars
+            ];
+        };
+
+        emacs = {
+            enable = true;
+            extraPackages = epkgs: [
+                epkgs.vterm
+                epkgs.emacsql
+            ];
         };
 
         zsh = {

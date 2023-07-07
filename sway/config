@@ -38,7 +38,7 @@ input type:touchpad {
     accel_profile flat
     scroll_factor 0.7
     tap_button_map lrm
-    dwt false
+    # dwt false
 }
 
 input type:touch {

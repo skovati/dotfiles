@@ -52,7 +52,11 @@
             allowedTCPPorts = [];
             allowedUDPPorts = [];
         };
-        extraHosts = ''100.116.66.42 torrent.lab'';
+        extraHosts = ''
+        100.116.66.42 torrent.lab
+        100.116.66.42 sab.lab
+        100.116.66.42 sonarr.lab
+        '';
     };
 
     time.timeZone = "America/Chicago";
@@ -60,6 +64,9 @@
     fonts = {
         fontDir.enable = true;
         fonts = with pkgs; [
+            noto-fonts
+            noto-fonts-cjk
+            noto-fonts-emoji
             (nerdfonts.override {
                 fonts = [ "JetBrainsMono" ];
             })

@@ -53,6 +53,12 @@ in {
             recursive = true;
         };
 
+        # symlink nvim config cause nix store read-only causes issues
+        ".config/doom" = {
+            source = config.lib.file.mkOutOfStoreSymlink "/home/skovati/dev/git/dotfiles/doom/";
+            recursive = true;
+        };
+
         ".local/bin" = {
             source = ../bin;
             recursive = true;
@@ -102,7 +108,6 @@ in {
             "sway".source = ../sway;
             "zathura".source = ../zathura;
             "task".source = ../task;
-            "doom".source = ../doom;
         };
 
         mime.enable = true;
@@ -279,6 +284,12 @@ in {
         gpg-agent = {
             enable = true;
             pinentryFlavor = "tty";
+            grabKeyboardAndMouse = false;
+            extraConfig = ''
+                allow-emacs-pinentry
+                allow-loopback-pinentry
+                allow-loopback-entry
+            '';
         };
 
         swayidle = {

@@ -285,11 +285,6 @@ in {
             enable = true;
             pinentryFlavor = "tty";
             grabKeyboardAndMouse = false;
-            extraConfig = ''
-                allow-emacs-pinentry
-                allow-loopback-pinentry
-                allow-loopback-entry
-            '';
         };
 
         swayidle = {

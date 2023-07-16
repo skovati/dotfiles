@@ -59,7 +59,7 @@
         '';
     };
 
-    time.timeZone = "America/Chicago";
+    time.timeZone = "America/Los_Angeles";
 
     fonts = {
         fontDir.enable = true;

@@ -318,8 +318,6 @@ in {
 
     };
 
-    home.sessionVariables = {};
-
     # don't touch
     home.stateVersion = "22.11";
 }

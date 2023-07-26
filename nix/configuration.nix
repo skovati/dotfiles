@@ -15,8 +15,8 @@
         };
         gc = {
             automatic = true;
-            dates = "daily";
-            options = "--delete-older-than 3d";
+            dates = "weekly";
+            options = "--delete-older-than 10d";
         };
     };
 
@@ -46,6 +46,7 @@
             interfaces = [ "wlp3s0" ];
             environmentFile = "/home/skovati/.env.wireless";
             networks."big net".psk = "@PSK_BIG@";
+            networks."ATT4IWQdbA".psk = "@PSK_APT@";
         };
         firewall = {
             enable = true;

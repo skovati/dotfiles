@@ -14,11 +14,14 @@
             experimental-features = [ "nix-command" "flakes" ];
         };
         gc = {
-            automatic = true;
+            automatic = false;
             dates = "weekly";
             options = "--delete-older-than 10d";
         };
     };
+
+    hardware.rtl-sdr.enable = true;
+    hardware.bluetooth.enable = false;
 
     ########################################
     # system config
@@ -38,6 +41,12 @@
         };
     };
 
+    # fileSystems."/media" = {
+    #     device = "node:/tank/media";
+    #     fsType = "nfs";
+    #     options = [ "noatime "];
+    # };
+
     networking = {
         hostName = "think";
         wireless = {
@@ -45,18 +54,15 @@
             userControlled.enable = true;
             interfaces = [ "wlp3s0" ];
             environmentFile = "/home/skovati/.env.wireless";
-            networks."big net".psk = "@PSK_BIG@";
-            networks."ATT4IWQdbA".psk = "@PSK_APT@";
+            networks."tebby net".psk = "@PSK_APT@";
         };
         firewall = {
             enable = true;
-            allowedTCPPorts = [];
+            allowedTCPPorts = [8080 8000];
             allowedUDPPorts = [];
         };
         extraHosts = ''
-        100.116.66.42 torrent.lab
-        100.116.66.42 sab.lab
-        100.116.66.42 sonarr.lab
+        10.0.0.2 proxmox
         '';
     };
 
@@ -64,7 +70,7 @@
 
     fonts = {
         fontDir.enable = true;
-        fonts = with pkgs; [
+        packages = with pkgs; [
             noto-fonts
             noto-fonts-cjk
             noto-fonts-emoji
@@ -80,7 +86,7 @@
 
     users.users.skovati = {
         isNormalUser = true;
-        extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" "adbusers"];
+        extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" "adbusers" "plugdev"];
         initialPassword = "password";
         shell = pkgs.zsh;
     };
@@ -109,10 +115,8 @@
         pinentryFlavor = "tty";
     };
 
-    programs.steam.enable = true;
-
     programs.dconf.enable = true;
-    # virtualisation.libvirtd.enable = true;
+    virtualisation.libvirtd.enable = true;
     virtualisation.docker.enable = true;
 
     ########################################
@@ -162,24 +166,6 @@
     services.udev.packages = [
       pkgs.android-udev-rules
     ];
-
-    services.rpcbind.enable = true;
-    systemd.mounts = [{
-        type = "nfs";
-        mountConfig = {
-            Options = "noatime";
-        };
-        what = "node:/tank/media";
-        where = "/media";
-    }];
-
-    systemd.automounts = [{
-        wantedBy = [ "multi-user.target" ];
-        automountConfig = {
-            TimeoutIdleSec = "500";
-        };
-        where = "/media";
-    }];
 
     # don't touch
     system.stateVersion = "22.11";

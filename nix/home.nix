@@ -132,12 +132,33 @@ in {
     home.packages = with pkgs; [
         ripgrep
         fd
+        firefox
+        chromium
+        texlive.combined.scheme-full
+        deluge-gtk
+        gqrx
         git
         sway
         zsh
+        nil
+        tidal-dl
         stow
         gnupg
+        luajit
+        darktable
+        btrfs-progs
+        mods
+        glow
         alacritty
+        calibre
+        pcmanfm
+        newsboat
+        elixir
+        cargo
+        rustc
+        clippy
+        sccache
+        tmux
         wayland
         glib
         grim
@@ -147,6 +168,8 @@ in {
         slurp
         wl-clipboard
         bemenu
+        tree
+        unzip
         wdisplays
         sqlite
         i3status-rust
@@ -163,6 +186,10 @@ in {
         mpv
         nsxiv
         kubectl
+        kubernetes-helm
+        android-tools
+        cilium-cli
+        k3d
         htop
         sumneko-lua-language-server
         temurin-bin
@@ -175,11 +202,16 @@ in {
         nodejs
         nodePackages.bash-language-server
         nodePackages.typescript-language-server
+        nodePackages.svelte-language-server
+        nodePackages."@tailwindcss/language-server"
+        nodePackages."@astrojs/language-server"
+        nodePackages.vscode-langservers-extracted
         nodePackages.pnpm
         seatd
         gh
         hut
         xdg-utils
+        p7zip
         xdg-user-dirs
         taskwarrior
         imagemagick
@@ -206,6 +238,34 @@ in {
             ];
         };
 
+        newsboat = {
+            enable = true;
+            extraConfig = ''
+                auto-reload yes
+                bind-key j down
+                bind-key k up
+                bind-key j next articlelist
+                bind-key k prev articlelist
+                bind-key G end
+                bind-key g home
+                bind-key a toggle-article-read
+                '';
+            urls = [
+                { url = "https://lwn.net/headlines/newrss"; }
+                { url = "https://news.ycombinator.com/rss"; }
+                { url = "https://feeds.arstechnica.com/arstechnica/index/"; }
+                { url = "https://willmandel.com/index.xml"; }
+                { url = "https://skovati.dev/rss.xml"; }
+                { url = "https://bt.ht/atom.xml"; }
+                { url = "https://drewdevault.com/blog/index.xml"; }
+                { url = "https://100r.co/links/rss.xml"; }
+                { url = "https://what-if.xkcd.com/feed.atom"; }
+                { url = "https://fasterthanli.me/index.xml"; }
+                { url = "https://ciechanow.ski/atom.xml"; }
+                { url = "https://waitbutwhy.com/feed"; }
+            ];
+        };
+
         emacs = {
             enable = true;
             extraPackages = epkgs: [
@@ -228,9 +288,13 @@ in {
             options = [ "--cmd cd" ];
         };
 
-        exa = {
+        eza = {
             enable = true;
             enableAliases = true;
+        };
+
+        bat = {
+            enable = true;
         };
 
         git = {
@@ -295,7 +359,7 @@ in {
             }];
             timeouts = [
                 {
-                    timeout = 300;
+                    timeout = 600;
                     command = "${pkgs.swaylock}/bin/swaylock";
                 }
                 {

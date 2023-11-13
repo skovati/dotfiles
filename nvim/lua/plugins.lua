@@ -1,5 +1,4 @@
 return {
-
     {
         "echasnovski/mini.nvim",
         event = "InsertEnter",
@@ -69,8 +68,9 @@ return {
     {
         "neovim/nvim-lspconfig",
         event = "BufReadPre",
-        dependencies = "hrsh7th/cmp-nvim-lsp",
+        dependencies = { "hrsh7th/cmp-nvim-lsp", "folke/neodev.nvim" },
         config = function()
+            require("neodev").setup({})
             local lspconfig = require("lspconfig")
             local on_attach = function(_, bufnr)
                 vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr })
@@ -99,22 +99,21 @@ return {
             local servers = {
                 "pyright", "rust_analyzer", "gopls", "clangd",
                 "tsserver", "jdtls", "bashls", "lua_ls",
-                "texlab", "elixirls", "hls", "astro"
+                "texlab", "astro", "svelte", "html", "nil_ls"
             }
 
-            local runtime_path = vim.split(package.path, ";")
-            table.insert(runtime_path, "lua/?.lua")
-            table.insert(runtime_path, "lua/?/init.lua")
+            -- configure LSP-specific settings
             local settings = {
-                Lua = {
-                    runtime = { version = "LuaJIT", path = runtime_path, },
-                    diagnostics = { globals = { "vim" }, },
-                    workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+                lua_ls = {
                     telemetry = { enable = false, },
                 },
-                ["rust-analyzer"] = {
-                    checkOnSave = { command = "clippy" },
-                },
+                rust_analyzer = {
+                    ["rust-analyzer"] = {
+                        checkOnSave = {
+                            command = "clippy",
+                        },
+                    },
+                }
             }
 
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -122,7 +121,7 @@ return {
                 local opts =  {
                     capabilities = capabilities,
                     on_attach = on_attach,
-                    settings = settings,
+                    settings = settings[lsp],
                 }
                 lspconfig[lsp].setup(opts)
             end
@@ -280,39 +279,6 @@ return {
     },
 
     {
-        "skovati/telekasten.nvim",
-        dependencies = "nvim-telescope/telescope.nvim",
-        cmd = "Telekasten",
-        branch = "refactor_defaults",
-        keys = {
-            { "<leader>zj", "<cmd>Telekasten goto_today<cr>"    },
-            { "<leader>zf", "<cmd>Telekasten find_notes<cr>"    },
-            { "<leader>zg", "<cmd>Telekasten search_notes<cr>"  },
-            { "<leader>zn", "<cmd>Telekasten new_note<cr>"      },
-            { "<leader>zt", "<cmd>Telekasten show_tags<cr>"     },
-            { "<leader>z",  "<cmd>Telekasten panel<cr>"         },
-        },
-        config = function()
-            local home = vim.fn.expand("$HOME/dev/git/vault")
-            require("telekasten").setup({
-                home = home .. "/zk",
-                dailies = home .. "/journal",
-                weeklies = home .. "/journal/weekly",
-                template_new_note = home .. "/templates/zk.md",
-                template_new_daily = home .. "/templates/journal.md",
-                template_new_weekly = home .. "/templates/weekly.md",
-                new_note_filename = "uuid-title",
-                journal_auto_open = true,
-                uuid_sep = "_",
-                filename_space_subst = "_",
-                tag_notation = "yaml-bare",
-                insert_after_inserting = false,
-                plug_into_calendar = false,
-            })
-        end,
-    },
-
-    {
         "github/copilot.vim",
         cmd = "Copilot"
     },
@@ -333,6 +299,52 @@ return {
             })
         end,
         cmd = "ZenMode"
+    },
+
+    {
+        "epwalsh/obsidian.nvim",
+        dependencies = { "nvim-lua/plenary.nvim", },
+        cmd = { "ObsidianNew", "ObsidianToday", "ObsidianQuickSwitch", "ObsidianSearch" },
+        keys = {
+            { "<leader>zj", "<cmd>ObsidianToday<cr>" },
+            { "<leader>zn", function()
+                local title = vim.fn.input("title: ")
+                if title == "" then
+                    vim.cmd({ cmd = "ObsidianNew" })
+                else
+                    vim.cmd({
+                        cmd = "ObsidianNew",
+                        args = { title }
+                    })
+                end
+            end},
+            { "<leader>zg", "<cmd>ObsidianSearch<cr>" },
+            { "<leader>zf", "<cmd>ObsidianQuickSwitch<cr>" },
+        },
+        opts = {
+            dir = "~/dev/git/vault",
+            notes_subdir = "zk",
+            daily_notes = {
+                folder = "journal",
+                date_format = "%Y-%m-%d",
+                default_tag = nil
+            },
+            note_id_func = function(title)
+                local sep = "_"
+                local suffix = ""
+                if title then
+                    suffix = title
+                        :gsub(" ", sep)
+                        :gsub("[^A-Za-z0-9-]", "")
+                        :lower()
+                else
+                    for _ = 1, 4 do
+                        suffix = suffix .. string.char(math.random(65, 90))
+                    end
+                end
+                return tostring(os.date("%Y%m%d" .. sep .. "%H%M")) .. sep .. suffix
+            end,
+        },
     },
 
 }

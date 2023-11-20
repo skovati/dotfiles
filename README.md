@@ -3,7 +3,7 @@
 ## personal dotfiles for nixos, sway, nvim, zsh, etc.
 
 ### screenshot
-![scrot](https://user-images.githubusercontent.com/49844593/179421461-bac76855-e48e-48cc-bc0f-ca1ec35c770b.png)
+![scrot](https://user-images.githubusercontent.com/49844593/284139927-b20f93fb-d571-4081-807e-c52941522d80.png)
 
 ### software
 | program           | name                                                          |

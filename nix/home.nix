@@ -1,12 +1,12 @@
-{ inputs, lib, config, pkgs, ... }:
+{ inputs, lib, config, pkgs, stable-pkgs, ... }:
 let
     # hacky aliases
     signal = pkgs.writeShellScriptBin "signal" ''
     org.signal.Signal "$@"
     '';
 
-    jdtls = pkgs.writeShellScriptBin "jdtls" ''
-    jdt-language-server "$@"
+    steam = pkgs.writeShellScriptBin "steam" ''
+    org.valvesoftware.Steam "$@"
     '';
 
     ec = pkgs.writeShellScriptBin "ec" ''
@@ -129,7 +129,10 @@ in {
         };
     };
 
-    home.packages = with pkgs; [
+
+    home.packages =
+    # unstable packages
+    (with pkgs; [
         ripgrep
         fd
         firefox
@@ -163,7 +166,6 @@ in {
         glib
         grim
         emacs-all-the-icons-fonts
-        ec
         ispell
         slurp
         wl-clipboard
@@ -196,17 +198,11 @@ in {
         jdt-language-server
         clang-tools
         gnumake
+        ffmpeg
         rust-analyzer
         rustc
         gopls
         nodejs
-        nodePackages.bash-language-server
-        nodePackages.typescript-language-server
-        nodePackages.svelte-language-server
-        nodePackages."@tailwindcss/language-server"
-        nodePackages."@astrojs/language-server"
-        nodePackages.vscode-langservers-extracted
-        nodePackages.pnpm
         seatd
         gh
         hut
@@ -218,12 +214,36 @@ in {
         jq
         yt-dlp
         librewolf
-        signal
         nmap
         dwarfs
         fuse-overlayfs
         steam-run
-        (python3.withPackages (p: with p; [ openai ]))
+    ]) ++
+    # stable packages
+    (with stable-pkgs; [
+        (beets.override {
+            pluginOverrides = {
+                alternatives = {
+                    enable = true;
+                    propagatedBuildInputs = [ beetsPackages.alternatives ];
+                };
+            };
+        })
+    ]) ++
+    (with pkgs; [
+        nodePackages.bash-language-server
+        nodePackages.typescript-language-server
+        nodePackages.svelte-language-server
+        nodePackages."@tailwindcss/language-server"
+        nodePackages."@astrojs/language-server"
+        nodePackages.vscode-langservers-extracted
+        nodePackages.pnpm
+    ]) ++
+    # custom packages
+    [
+        signal
+        steam
+        ec
     ];
 
     programs = {

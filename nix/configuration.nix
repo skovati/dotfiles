@@ -19,9 +19,11 @@
             options = "--delete-older-than 10d";
         };
     };
-
-    hardware.rtl-sdr.enable = true;
     hardware.bluetooth.enable = false;
+
+    # rtl-sdr stuff
+    boot.blacklistedKernelModules = [ "dvb_usb_rtl28xxu" "e4000" "rtl2832" ];
+    users.groups.plugdev = {};
 
     ########################################
     # system config
@@ -165,6 +167,7 @@
 
     services.udev.packages = [
       pkgs.android-udev-rules
+      pkgs.rtl-sdr-osmocom
     ];
 
     # don't touch

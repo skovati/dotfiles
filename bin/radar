@@ -1,3 +1,3 @@
 #!/bin/sh
 
-curl -s https://radar.weather.gov/ridge/standard/KMKX_loop.gif | mpv --loop -
+curl -s https://radar.weather.gov/ridge/standard/KVTX_loop.gif | mpv --loop -

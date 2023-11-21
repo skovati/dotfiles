@@ -329,6 +329,10 @@ return {
                 date_format = "%Y-%m-%d",
                 default_tag = nil
             },
+            completion = {
+                nvim_cmp = true,
+                min_chars = 1,
+            },
             note_id_func = function(title)
                 local sep = "_"
                 local suffix = ""

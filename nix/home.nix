@@ -218,6 +218,7 @@ in {
         dwarfs
         fuse-overlayfs
         steam-run
+        python3
     ]) ++
     # stable packages
     (with stable-pkgs; [

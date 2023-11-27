@@ -14,9 +14,9 @@
             experimental-features = [ "nix-command" "flakes" ];
         };
         gc = {
-            automatic = false;
+            automatic = true;
             dates = "weekly";
-            options = "--delete-older-than 10d";
+            options = "--delete-older-than 7d";
         };
     };
     hardware.bluetooth.enable = false;
@@ -65,6 +65,7 @@
         };
         extraHosts = ''
         10.0.0.2 proxmox
+        100.125.58.133 skovati.dev
         '';
     };
 

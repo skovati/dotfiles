@@ -329,8 +329,9 @@ in {
             defaultOptions = [
                 "--preview-window sharp"
                 "--preview 'bat {}'"
+                "-m"
             ];
-
+            historyWidgetOptions = [];
             defaultCommand = "fd --type f --exclude .git --ignore-file ~/.gitignore";
             fileWidgetCommand = defaultCommand;
             changeDirWidgetCommand = "fd --type d";

@@ -1,0 +1,2 @@
+set_color yellow
+fish_vcs_prompt

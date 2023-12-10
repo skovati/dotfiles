@@ -1,4 +1,4 @@
-{ inputs, lib, config, pkgs, stable-pkgs, ... }:
+{ lib, config, pkgs, stable-pkgs, ... }:
 let
     # hacky aliases
     signal = pkgs.writeShellScriptBin "signal" ''
@@ -142,7 +142,6 @@ in {
         gqrx
         git
         sway
-        zsh
         nil
         tidal-dl
         stow
@@ -240,6 +239,10 @@ in {
         nodePackages.vscode-langservers-extracted
         nodePackages.pnpm
     ]) ++
+    (with pkgs; [
+        fishPlugins.forgit
+        fishPlugins.foreign-env
+    ]) ++
     # custom packages
     [
         signal
@@ -257,6 +260,31 @@ in {
             plugins = [
                 pkgs.vimPlugins.nvim-treesitter.withAllGrammars
             ];
+        };
+
+        fish = {
+            enable = true;
+            interactiveShellInit = builtins.readFile ../fish/interactive.fish;
+            shellInit = builtins.readFile ../fish/init.fish;
+            shellAliases = {
+                cp = "cp -v";
+                mv = "mv -iv";
+                rm = "rm -vI";
+                rcp = "rsync -avzhP --stats";
+                ip = "ip --color=auto";
+                sudo = "doas";
+                one = "ping -c 5 1.1.1.1";
+                vrc = "nvim ~/dev/git/dotfiles/nvim/init.lua ~/dev/git/dotfiles/nvim/lua/plugins.lua";
+                sx = "nsxiv -b -a";
+                z = "zathura --fork";
+                npm = "pnpm";
+                k = "kubectl";
+            };
+            functions = {
+                fish_prompt = builtins.readFile ../fish/fish_prompt.fish;
+                fish_right_prompt = builtins.readFile ../fish/fish_right_prompt.fish;
+                fish_default_mode_prompt = "";
+            };
         };
 
         newsboat = {
@@ -295,14 +323,18 @@ in {
             ];
         };
 
-        zsh = {
-            enable = true;
-            enableAutosuggestions = true;
-            syntaxHighlighting.enable = true;
-            initExtra = builtins.readFile ../zsh/zshrc;
-        };
 
-        fzf.enable = true;
+        fzf = rec {
+            enable = true;
+            defaultOptions = [
+                "--preview-window sharp"
+                "--preview 'bat {}'"
+            ];
+
+            defaultCommand = "fd --type f --exclude .git --ignore-file ~/.gitignore";
+            fileWidgetCommand = defaultCommand;
+            changeDirWidgetCommand = "fd --type d";
+        };
 
         zoxide = {
             enable = true;

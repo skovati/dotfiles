@@ -91,7 +91,7 @@
         isNormalUser = true;
         extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" "adbusers" "plugdev"];
         initialPassword = "password";
-        shell = pkgs.zsh;
+        shell = pkgs.fish;
     };
 
     ########################################
@@ -106,7 +106,7 @@
         mullvad-vpn
         stdenv.cc.cc.lib
     ];
-    programs.zsh.enable = true;
+    programs.fish.enable = true;
 
     programs.sway = {
         enable = true;

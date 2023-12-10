@@ -278,7 +278,11 @@ in {
                 sx = "nsxiv -b -a";
                 z = "zathura --fork";
                 npm = "pnpm";
+            };
+            shellAbbrs = {
                 k = "kubectl";
+                g = "git";
+                d = "docker";
             };
             functions = {
                 fish_prompt = builtins.readFile ../fish/fish_prompt.fish;

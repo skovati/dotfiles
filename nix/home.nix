@@ -13,6 +13,8 @@ let
     emacsclient -c "$@"
     '';
 
+    sudo = pkgs.writeScriptBin "sudo" ''exec doas "$@"'';
+
     browser = "librewolf.desktop";
 in {
 
@@ -175,7 +177,6 @@ in {
         sqlite
         i3status-rust
         autotiling-rs
-        doas
         pavucontrol
         easyeffects
         gcc
@@ -248,6 +249,7 @@ in {
         signal
         steam
         ec
+        sudo
     ];
 
     programs = {
@@ -272,7 +274,6 @@ in {
                 rm = "rm -vI";
                 rcp = "rsync -avzhP --stats";
                 ip = "ip --color=auto";
-                sudo = "doas";
                 one = "ping -c 5 1.1.1.1";
                 vrc = "nvim ~/dev/git/dotfiles/nvim/init.lua ~/dev/git/dotfiles/nvim/lua/plugins.lua";
                 sx = "nsxiv -b -a";
@@ -335,7 +336,7 @@ in {
                 "--preview 'bat {}'"
                 "-m"
             ];
-            historyWidgetOptions = [];
+            historyWidgetOptions = ["--height 40% --preview ''"];
             defaultCommand = "fd --type f --exclude .git --ignore-file ~/.gitignore";
             fileWidgetCommand = defaultCommand;
             changeDirWidgetCommand = "fd --type d";

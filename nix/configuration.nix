@@ -155,6 +155,8 @@
         }];
     };
 
+    security.sudo.enable = false;
+
     services.tlp = {
         enable = true;
         settings = {

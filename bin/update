@@ -1,4 +1,4 @@
 #!/bin/sh
 
-nix flake update --commit-lock-file ~/dev/git/dotfiles/nix
+nix flake update --commit-lock-file ~/dev/git/dotfiles
 flatpak update --noninteractive --assumeyes

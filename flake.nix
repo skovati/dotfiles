@@ -23,8 +23,15 @@
             config.allowUnfree = true;
         };
     in {
-        nixosConfigurations = ( import ./nixos { inherit inputs pkgs; } );
-        homeConfigurations = ( import ./home { inherit inputs pkgs stable-pkgs; } );
+
+        nixosConfigurations = (import ./nixos {
+            inherit inputs pkgs;
+        });
+
+        homeConfigurations = (import ./home-manager {
+            inherit inputs pkgs stable-pkgs;
+        });
+
         devShells.${system}.default = pkgs.mkShell {
             buildInputs = [
                 pkgs.nix
@@ -32,5 +39,6 @@
                 pkgs.git
             ];
         };
+
     };
 }

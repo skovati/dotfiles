@@ -9,18 +9,14 @@ let
     org.valvesoftware.Steam "$@"
     '';
 
-    ec = pkgs.writeShellScriptBin "ec" ''
-    emacsclient -c "$@"
-    '';
-
     sudo = pkgs.writeScriptBin "sudo" ''exec doas "$@"'';
 
     browser = "librewolf.desktop";
 in {
 
-    imports = [];
-
-    nixpkgs.config.allowUnfree = true;
+    imports = [
+        ./alacritty.nix
+    ];
 
     home = {
         username = "skovati";
@@ -105,8 +101,6 @@ in {
         };
 
         configFile = {
-            "alacritty".source = ../alacritty;
-            "mpv".source = ../mpv;
             "sway".source = ../sway;
             "zathura".source = ../zathura;
             "task".source = ../task;
@@ -153,7 +147,6 @@ in {
         btrfs-progs
         mods
         glow
-        alacritty
         calibre
         pcmanfm
         newsboat
@@ -185,7 +178,6 @@ in {
         file
         pulseaudio
         brightnessctl
-        mpv
         nsxiv
         kubectl
         kubernetes-helm
@@ -248,7 +240,6 @@ in {
     [
         signal
         steam
-        ec
         sudo
     ];
 
@@ -397,6 +388,8 @@ in {
     wayland.windowManager.sway = {
         enable = true;
     };
+
+    systemd.user.startServices = "sd-switch";
 
     services = {
 

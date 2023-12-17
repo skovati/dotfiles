@@ -193,6 +193,5 @@ exec wl-paste -t text --watch clipman store --no-persist &
 exec doas sh -c "echo 0 > /sys/devices/platform/thinkpad_acpi/leds/platform::micmute/brightness"
 exec autotiling-rs &
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway &
-exec sleep 5 && systemctl --user start sway-session.target &
 
 include /etc/sway/config.d/*

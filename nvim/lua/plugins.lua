@@ -351,4 +351,12 @@ return {
         },
     },
 
+    {
+        "stevearc/oil.nvim",
+        config = true,
+        keys = {
+            { "<leader>-", "<cmd>Oil<cr>" },
+        },
+    },
+
 }

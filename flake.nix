@@ -4,6 +4,7 @@
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
         nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.05";
+        nixos-hardware.url = "github:NixOS/nixos-hardware/master";
         home-manager = {
             url = "github:nix-community/home-manager/master";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -21,23 +22,9 @@
             inherit system;
             config.allowUnfree = true;
         };
-    in
-    {
-        nixosConfigurations = {
-            think = nixpkgs.lib.nixosSystem {
-                modules = [ ./configuration.nix ];
-                specialArgs = { inherit inputs; };
-            };
-        };
-
-        homeConfigurations = {
-            skovati = home-manager.lib.homeManagerConfiguration {
-                inherit pkgs;
-                modules = [ ./home.nix ];
-                extraSpecialArgs = { inherit inputs stable-pkgs; };
-            };
-        };
-
+    in {
+        nixosConfigurations = ( import ./nixos { inherit inputs pkgs; } );
+        homeConfigurations = ( import ./home { inherit inputs pkgs stable-pkgs; } );
         devShells.${system}.default = pkgs.mkShell {
             buildInputs = [
                 pkgs.nix

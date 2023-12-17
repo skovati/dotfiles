@@ -57,6 +57,7 @@
             interfaces = [ "wlp3s0" ];
             environmentFile = "/home/skovati/.env.wireless";
             networks."tebby net".psk = "@PSK_APT@";
+            networks."J".psk = "@PSK_HOME@";
         };
         firewall = {
             enable = true;
@@ -69,7 +70,7 @@
         '';
     };
 
-    time.timeZone = "America/Los_Angeles";
+    time.timeZone = "America/Chicago";
 
     fonts = {
         fontDir.enable = true;

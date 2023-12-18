@@ -61,8 +61,6 @@ in {
             source = ../bin;
             recursive = true;
         };
-
-        ".config/sway/swaybar.toml".source = ../sway/swaybar.toml;
     };
 
     fonts.fontconfig.enable = true;

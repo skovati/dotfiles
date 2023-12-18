@@ -1,12 +1,15 @@
-{ inputs, lib, config, pkgs, ... }:
-
-{ imports = [ ./hardware-configuration.nix ];
+{ inputs, pkgs, ... }:
+let
+    host = {
+        username = "skovati";
+        hostname = "think";
+    };
+in { imports = [ ./hardware-configuration.nix ];
 
     ########################################
     # nix meta config
     ########################################
 
-    nixpkgs.config.allowUnfree = true;
     nix = {
         settings = {
             auto-optimise-store = true;
@@ -15,8 +18,12 @@
         };
         gc = {
             automatic = true;
-            dates = "weekly";
+            dates = "daily";
             options = "--delete-older-than 7d";
+        };
+        registry.sys = {
+            from = { type = "indirect"; id = "sys"; };
+            flake = inputs.nixpkgs;
         };
     };
     hardware.bluetooth.enable = false;
@@ -50,12 +57,12 @@
     # };
 
     networking = {
-        hostName = "think";
+        hostName = host.hostname;
         wireless = {
             enable = true;
             userControlled.enable = true;
             interfaces = [ "wlp3s0" ];
-            environmentFile = "/home/skovati/.env.wireless";
+            environmentFile = "/home/${host.username}/.env.wireless";
             networks."tebby net".psk = "@PSK_APT@";
             networks."J".psk = "@PSK_HOME@";
         };
@@ -88,9 +95,16 @@
     # users
     ########################################
 
-    users.users.skovati = {
+    users.users."${host.username}" = {
         isNormalUser = true;
-        extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" "adbusers" "plugdev"];
+        extraGroups = [
+            "networkmanager"
+            "wheel"
+            "libvirtd"
+            "docker"
+            "adbusers"
+            "plugdev"
+        ];
         initialPassword = "password";
         shell = pkgs.fish;
     };
@@ -120,8 +134,14 @@
     };
 
     programs.dconf.enable = true;
-    virtualisation.libvirtd.enable = true;
-    virtualisation.docker.enable = true;
+
+    virtualisation = {
+        podman = {
+            enable = true;
+            dockerCompat = true;
+        };
+        libvirtd.enable = false;
+    };
 
     ########################################
     # services

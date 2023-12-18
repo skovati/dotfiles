@@ -141,8 +141,8 @@
                 "${modifier}+Shift+e" = "exec swaymsg 'exit'";
                 Prior = "nop";
                 Next = "nop";
-                "XF86AudioRaiseVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ +1%'";
-                "XF86AudioLowerVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ -1%'";
+                "XF86AudioRaiseVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ +5%'";
+                "XF86AudioLowerVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ -5%'";
                 "XF86AudioMute" = "exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'";
                 "XF86MonBrightnessUp" = "brightnessctl -c backlight s +1%";
                 "XF86MonBrightnessDown" = "brightnessctl -c backlight s 1%-";

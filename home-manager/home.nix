@@ -16,6 +16,7 @@ in {
 
     imports = [
         ./alacritty.nix
+        ./zathura.nix
     ];
 
     home = {
@@ -102,7 +103,7 @@ in {
 
         configFile = {
             "sway".source = ../sway;
-            "zathura".source = ../zathura;
+            "zathura".enable = false;
             "task".source = ../task;
         };
 

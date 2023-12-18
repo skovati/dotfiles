@@ -4,7 +4,7 @@ let
 in {
 
     programs.gpg = {
-        # homedir = /home/skovati/.local/share/gnupg;
+        enable = true;
         settings = {
             default-key = keyid;
             trusted-key = keyid;

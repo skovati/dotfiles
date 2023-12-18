@@ -17,6 +17,7 @@ in {
     imports = [
         ./alacritty.nix
         ./zathura.nix
+        ./gpg.nix
     ];
 
     home = {
@@ -52,18 +53,12 @@ in {
             recursive = true;
         };
 
-        # symlink nvim config cause nix store read-only causes issues
-        ".config/doom" = {
-            source = config.lib.file.mkOutOfStoreSymlink "/home/skovati/dev/git/dotfiles/doom/";
-            recursive = true;
-        };
-
         ".local/bin" = {
             source = ../bin;
             recursive = true;
         };
 
-        ".gnupg/gpg.conf".source = ../gpg/gpg.conf;
+        ".gnupg/gpg.conf".enable = false;
         ".tmux.conf".source = ../tmux/tmux.conf;
     };
 
@@ -101,9 +96,10 @@ in {
             templates = "${config.xdg.userDirs.documents}";
         };
 
+        dataHome = "${config.home.homeDirectory}/.local/share";
+
         configFile = {
             "sway".source = ../sway;
-            "zathura".enable = false;
             "task".source = ../task;
         };
 
@@ -396,12 +392,6 @@ in {
 
         emacs = {
             enable = true;
-        };
-
-        gpg-agent = {
-            enable = true;
-            pinentryFlavor = "tty";
-            grabKeyboardAndMouse = false;
         };
 
         swayidle = {

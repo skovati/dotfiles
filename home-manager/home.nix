@@ -18,6 +18,7 @@ in {
         ./alacritty.nix
         ./zathura.nix
         ./gpg.nix
+        ./mpv.nix
     ];
 
     home = {

@@ -19,6 +19,7 @@ in {
         ./zathura.nix
         ./gpg.nix
         ./mpv.nix
+        ./tmux.nix
     ];
 
     home = {
@@ -60,7 +61,7 @@ in {
         };
 
         ".gnupg/gpg.conf".enable = false;
-        ".tmux.conf".source = ../tmux/tmux.conf;
+        ".tmux.conf".enable = false;
     };
 
     fonts.fontconfig.enable = true;
@@ -153,7 +154,6 @@ in {
         rustc
         clippy
         sccache
-        tmux
         wayland
         glib
         grim

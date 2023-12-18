@@ -21,6 +21,7 @@ in {
         ./mpv.nix
         ./tmux.nix
         ./fish.nix
+        ./sway.nix
     ];
 
     home = {
@@ -61,8 +62,7 @@ in {
             recursive = true;
         };
 
-        ".gnupg/gpg.conf".enable = false;
-        ".tmux.conf".enable = false;
+        ".config/sway/swaybar.toml".source = ../sway/swaybar.toml;
     };
 
     fonts.fontconfig.enable = true;
@@ -101,11 +101,6 @@ in {
 
         dataHome = "${config.home.homeDirectory}/.local/share";
 
-        configFile = {
-            "sway".source = ../sway;
-            "task".source = ../task;
-        };
-
         mime.enable = true;
 
         mimeApps = {
@@ -137,7 +132,6 @@ in {
         deluge-gtk
         gqrx
         git
-        sway
         nil
         tidal-dl
         stow
@@ -340,59 +334,16 @@ in {
             };
         };
 
-        swaylock = {
-            enable = true;
-            settings = {
-                no-unlock-indicator = true;
-                color = "0d686b";
-            };
-        };
-
         home-manager.enable = true;
 
-    };
-
-    wayland.windowManager.sway = {
-        enable = true;
     };
 
     systemd.user.startServices = "sd-switch";
 
     services = {
-
-        emacs = {
-            enable = true;
-        };
-
-        swayidle = {
-            enable = true;
-            events = [{
-                event = "before-sleep";
-                command = "${pkgs.swaylock}/bin/swaylock";
-            }];
-            timeouts = [
-                {
-                    timeout = 600;
-                    command = "${pkgs.swaylock}/bin/swaylock";
-                }
-                {
-                    timeout = 900;
-                    command = ''swaymsg "output * power off"'';
-                    resumeCommand = ''swaymsg "output * power on"'';
-                }
-            ];
-        };
-
-        gammastep = {
-            enable = true;
-            latitude = 45.0;
-            longitude = -90.0;
-        };
-
         easyeffects = {
             enable = true;
         };
-
     };
 
     # don't touch
